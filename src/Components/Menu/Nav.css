@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@600&family=Poppins&display=swap');
+  .Ham-menu {
+    display: inline-block;
+    cursor: pointer;
+    position:fixed;
+    right:2%;
+    top:2%;
+    z-index:10001;
+  }
+  
+  .bar1, .bar2, .bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: rgb(255, 241, 241);
+    margin: 6px 0;
+  }
+
+  .nav-menu
+  {
+      position: fixed;
+      background-color: #00DBDE;
+      background-image: linear-gradient(90deg, #00DBDE 0%, #FC00FF 100%);
+      width:100%;
+      height:100%;
+      margin:auto;
+      background-size:cover;
+      z-index:10000;
+      font-family:'Grenze Gotisch', cursive;
+  }
+  .nav-menu ul
+  {   
+      position: absolute;
+      top:0%;
+      left:40%;
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+      cursor:pointer;
+  }
+  .nav-menu ul li 
+  {
+      margin:10px;
+      list-style: none;
+      background:linear-gradient(to right,rgb(243, 96, 96),rgb(23, 229, 248));
+      background-size:cover;
+      background-repeat: no-repeat;
+      background-clip: text;
+      font-size:50px;
+      text-shadow:2px 2px 2px rgb(76, 82, 82);
+      transition:0.4s ease-in-out;
+      color:white;
+  }
+  .nav-menu ul li:hover
+  {
+    transform:scale(1.5);
+    text-shadow:2px 2px 2px red;
+  }

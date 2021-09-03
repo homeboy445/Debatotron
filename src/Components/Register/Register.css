@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Luckiest+Guy&family=Roboto+Mono:wght@700&family=Sora:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@800&display=swap');
+.wrap-backg-reg
+{
+    background:linear-gradient(to left,#ff00cc,#333399);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow-y: auto;
+    cursor:pointer;
+    margin:auto;
+}
+.wrapper-reg
+{
+    width:40%;
+    height:50%;
+    color:white;
+    padding:60px 30px;
+    /* transform:translate(80%,5%); */
+    margin-left:33%;
+    margin-right:33%;
+    box-shadow:8px 8px 50px #000;
+    box-sizing: border-box;
+    border-radius:3%;
+}
+.wrapper-reg h1
+{
+    margin:0;
+    padding:0;
+    font-size:20px;
+    margin-bottom: 10%;
+    text-align:center;
+    font-size:2rem;
+    font-family: 'Sora', sans-serif;
+    letter-spacing:4px;
+    text-shadow:1px 1px 1px rgb(34, 19, 19);
+    color:rgb(252, 255, 253);
+}
+.wrapper-reg input
+{
+    width:100%;
+    margin-bottom:10%;
+    margin-top:5%;
+    font-family: 'Roboto Mono', monospace
+}
+.wrapper-reg input[type="text"],.wrapper input[type="password"]
+{
+    border:none;
+    color:white;
+    border-bottom:1px solid black;
+    background:transparent;
+    outline:none;
+    height:30px;
+    font-size:28px;
+}
+.psw
+{
+    border:none;
+    color:white;
+    border-bottom:1px solid black;
+    background:transparent;
+    outline:none;
+    height:30px;
+    font-size:28px;
+}
+.wrapper-reg input[type="submit"]
+{
+    border:none;
+    background:rgb(241, 22, 22);
+    outline:none;
+    color:white;
+    height:40px;
+    font-size:30px;
+    font-family: 'Comfortaa', cursive;
+    transition:0.4s ease-in-out;
+    cursor:pointer;
+    margin-top:5%;
+    box-shadow: 4px 4px 4px black;
+}
+.wrapper-reg input[type="submit"]:hover
+{
+    border-radius:10px;
+    box-shadow: 1px 1px 1px black;
+}
+.wrapper-reg{
+    margin-bottom:5%;
+}
+.wrapper-reg select
+{
+    width:100%;
+    font-size:1.5rem;
+    font-family: 'Sora', sans-serif;
+}
+.ans
+{
+    margin-bottom:4%;
+}
+.sngg
+{
+    background:cyan;
+    color:white;
+    text-shadow: 2px 2px 2px black;
+    font-size:2rem;
+    box-shadow:4px 4px 4px black;
+    transition:0.4s ease-in-out;
+    cursor:pointer;
+}
+.sngg:hover
+{
+    border-radius:10px;
+    box-shadow:1px 1px 1px black;
+}
+.g
+{
+    display:flex;
+    flex-direction: column;
+    text-align:center;
+}
+.g p
+{
+    margin-top:-2%;
+}

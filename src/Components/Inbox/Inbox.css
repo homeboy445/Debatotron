@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&display=swap');
+.Inbox
+{
+    display:flex;
+    justify-content:left;
+    align-items:left;
+    font-family: 'IBM Plex Mono', monospace;
+}
+.MessageCatalogue
+{
+    display:flex;
+    border:2px solid black;
+    flex-direction:column;
+    width:40%;
+    justify-content:center;
+    /* overflow-y: scroll; */
+    height:100%;
+    align-items:center;
+}
+.MessageList
+{
+    /* display:flex;
+    flex-direction:column;
+    justify-content: center; */
+    overflow-x: hidden;
+    overflow-y:scroll;
+    width:100%;
+    height:500px;
+    align-items:center;
+    margin:4%;
+}
+
+.MessageList::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+.MessageList::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: #F5F5F5;
+}
+
+.MessageList::-webkit-scrollbar-thumb
+{
+	background-color: #ac9e9e;
+}
+
+.message
+{
+    border:2px solid grey;
+    width:100%;
+    align-items:center;
+    background:whitesmoke;
+    transition:0.5s ease;
+    cursor:pointer;
+}
+.message:hover
+{
+    opacity:0.7;
+}
+.message-sub
+{
+    margin-left:40%;
+}
+.MessageWindow
+{
+    border:2px solid black;
+    width:100%;
+}
+.Message-display
+{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items: center;
+}
+.Message-display > h1
+{
+    margin-bottom:15%;
+    margin-top:2%;
+}
+.Message-display > h3
+{
+    font-size:1.6rem;
+    width:70%;
+}
+.Message-display > h2
+{
+    margin-left:40%;
+}
+.message-frame
+{
+    font-size:1.2rem;
+    width:90%;
+    font-family: 'IBM Plex Mono', monospace;
+}
+.respond
+{
+    display:flex;
+    align-items:left;
+    justify-content:left;
+    margin-top:5%;
+    margin-left:5%;
+}
+.respond > button
+{
+    font-size:2rem;
+}
+.respond > button:nth-child(1)
+{
+    border:none;
+    background:green;
+    color:yellow;
+    transition:0.4s ease;
+    border:2px solid yellow;
+    border-radius:4px;
+    cursor:pointer;
+    box-shadow:3px 3px 3px black;
+}
+.respond > button:nth-child(1):hover
+{
+    box-shadow:1px 1px 1px black;
+}
+.respond > button:nth-child(2)
+{
+    border:none;
+    background:red;
+    transition:0.4s ease;
+    border:2px solid black;
+    border-radius:4px;
+    box-shadow:3px 3px 3px black;
+    cursor:pointer;
+}
+.respond > button:nth-child(2):hover
+{
+    box-shadow:1px 1px 1px black;
+}

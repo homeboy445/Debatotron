@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Rock+Salt&family=Satisfy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&display=swap');
+.center_page
+{
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    text-align:center;
+    font-family: 'Satisfy', cursive;
+    cursor:pointer;
+}
+.Welcome_text
+{
+    font-size:3rem;
+    margin:5%;
+    overflow:hidden;
+    margin-top:6%;
+    color:cyan;
+    text-shadow:2px 2px 2px rgb(87, 19, 245);
+}
+.mn_hd
+{
+    font-size:8rem;
+    font-family: 'Rock Salt', cursive;
+    color:red;
+    margin-left:10px;
+    text-shadow:2px 2px 2px rgb(8, 8, 8);
+}
+.arrow
+{
+    margin-top:-5%;
+    width:3%;
+    height:2%;
+    cursor:pointer;
+    transition:0.5s ease-in-out;
+}
+.arrow:hover
+{
+    transform: translate(0%,20%);
+}
+.Info_Page
+{
+    min-height:100vh;
+    margin-top:20%;
+}
+.info_hdr
+{
+    font-size:3rem;
+    color:rgb(98, 251, 213);
+    text-shadow:2px 2px 2px rgb(16, 17, 17);
+}
+.info_text
+{
+    font-size:2rem;
+    font-family: 'Kalam', cursive;
+    padding:2%;
+    margin:3%;
+    color:rgb(208, 255, 0);
+    text-shadow:2px 2px 2px rgb(6, 6, 7);
+}
+.btns-page
+{
+    display:flex;
+    font-size:2rem;
+}
+.butn1
+{
+    padding:2%;
+    color:white;
+    text-shadow:2px 2px 2px black;
+    border-radius: 10px;
+    border:2px solid black;
+    background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(255,37,174,1) 0%, rgba(241,147,55,1) 53.4%, rgba(250,237,56,1) 99.5% );
+}
+.butn2
+{
+    padding:2%;
+    border-radius: 10px;
+    text-shadow:2px 2px 2px black;
+    color:white;
+    margin-left:4%;
+    border:2px solid black;
+    background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(62,133,238,1) 1.1%, rgba(227,137,240,1) 43.7%, rgba(243,193,124,1) 89.7% );
+}
+#Welcome_text
+{
+    display: flex;
+    justify-content: right;
+    text-align: right;
+    margin-top:1%;
+    margin-left:70%;
+    font-family:'IBM Plex Mono', monospace;
+}
+.butn4
+{
+    color:black;
+    font-size:2rem;
+    border:2px solid white;
+    padding:1px;
+    background:rgb(1, 255, 1);
+    box-shadow: 4px 4px 4px black;
+    border-radius: 5px;
+    transition:0.8s ease-in-out;
+}
+.butn4:hover
+{
+    box-shadow: 1px 1px 1px black;
+}
+.butn5
+{
+    color:rgb(248, 248, 248);
+    font-size:2rem;
+    border:2px solid white;
+    padding:1px;
+    background:rgb(5, 114, 255);
+    box-shadow: 4px 4px 4px black;
+    border-radius: 5px;
+    transition:0.8s ease-in-out;
+}
+.butn5:hover
+{
+    box-shadow: 1px 1px 1px black;
+}
+.butn3
+{
+    font-size:4rem;
+    color:rgb(255, 3, 3);
+    transition: 0.8s ease;
+    text-shadow:1px 1px 1px black;
+    font-family:'IBM Plex Mono', monospace;
+}
+.butn3:hover{
+    text-shadow:3px 3px 3px rgb(0, 238, 255);
+}
