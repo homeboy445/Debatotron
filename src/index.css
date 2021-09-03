@@ -5,13 +5,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #FA8BFF;
-  background-image: linear-gradient(45deg, #FA8BFF 0%, #2BD2FF 52%, #2BFF88 90%);    
-  background-size:cover;
-  background-repeat: no-repeat;
-  background-position:center center;
-  background-attachment: fixed;
-  overflow-x:hidden;
 }
 
 code {

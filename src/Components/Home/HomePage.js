@@ -2,47 +2,58 @@ import React,{useState,useEffect,useRef} from 'react';
 import {Redirect} from 'react-router-dom';
 import {animated,useSpring} from 'react-spring';
 import {Link} from 'react-scroll';
-import arrow from '../../Images/arrow.png';
+import debate from '../../Images/debate.jpg';
+import discuss from '../../Images/discuss.jpg';
+import group from '../../Images/group.jpg';
+import Typist from 'react-typist';
 import './HomePage.css';
 import Register from './../Register/Register';
 const LandingPage = ({auth}) => {
-    const [bit,toggle]=useState(false);
-    const [hdr,toggleit]=useState(false);
-    const props=useSpring({opacity:bit?1:0,transform:`translate(0%,${bit?0:30}%)`});
-    const prop1=useSpring({opacity:hdr?1:0,transform:`scale(${hdr?1.5:1})`});
-    useEffect(()=>{
-        toggle(true);
-        setTimeout(()=>{
-            toggleit(true);
-        },1900);
-    },[]);
     return (
-        <div className="center_page">
-            {!auth?<div id="Welcome_text">
-                <a className="butn4" href="/signin">SignIn</a>
-                <a className="butn5" href="/register">Register</a>
-            </div>:null}
-            <animated.h1 className="Welcome_text" style={props}>Welcome Home,<br/>to the 
-            <animated.span className="mn_hd" style={prop1}>Debatotron</animated.span></animated.h1>
-            <Link to="Info_Page" smooth={true} duration={1000}><img src={arrow} className="arrow" style={{visibility:auth?"hidden":"visible",pointerEvents:auth?"none":"all"}}/></Link>
-            {!auth?<div className="Info_Page" id="Info_Page">
-                <h1 className="info_hdr">Where have you gotten yourself?</h1>
-                <p className="info_text">Well,You must've been to places but this ain't like no where you've ever been to!
-                    Welcome to the Kingdom of Awesomness, okay so listen you'll find a hell lotta 
-                    young padawans like you here,Here-You debate,you make friends and most importantly
-                    you become a better version of yourself. Well 'Nuff said!
-                    Let's Roll!
-                    <br/>(um.. Please Register If you're an untrained Jedi or Signin if you're a Master already)
-                </p>
-                <Link className="butn3" to="Welcome_text" smooth={true} duration={1000}>Lets Go!</Link>
-            </div>:
-            <div className="btns-page">
-                <a className="butn1" href="/new">New</a>
-                <a className="butn2" href="/OngoingDebs">Contribute</a>
+        <div className="home-page">
+            <div className="hp1">
+                <h1>Debatotron</h1>
+                <div className="hp-btn1">
+                    <button>SignIn</button>
+                    <button>Register</button>
+                </div>
             </div>
-            }
+            <div className="hp2">
+                <div className="hp2-1">
+                    <h2>
+                        A place where you can
+                        right the wrongs.
+                    </h2>
+                    <h3>Being a part of debating has never been this easy.</h3>
+                </div>
+                <img src={debate} className="hp-debating"
+                alt="debating..."/>
+            </div>
+            <div className="hp3">
+                <img src={discuss} className="hp-debating"
+                alt="debating..."/>
+                <h2>
+                    Express yourself like you have never before and
+                    make awesome friends in the process.
+                </h2>
+            </div>
+            <div className="hp4">
+                <h2>
+                    Start your own debate or join someone else’s, and become a long term
+                    “All-hail-Debatotron” member.
+                </h2>
+                <img src={group} className="hp-debating-1"
+                alt="debating..."/>
+            </div>
+            <div className="hp5">
+                <h2>Search for people throughout the community.</h2>
+                <Typist className="hp5-type">
+                    <div>William</div>
+                    <Typist.Delay ms="500ms"/>
+                </Typist>
+            </div>
         </div>
-    )
+    );
 }
 
 export default LandingPage;
