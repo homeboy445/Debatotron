@@ -1,70 +1,55 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Luckiest+Guy&family=Roboto+Mono:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap");
 .wrp-forp
 {
-    background:linear-gradient(to right,#ff00cc,#333399);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height:100vh;
-    margin:auto;
+    width:80%;
+    margin-left:15%;
 }
 .wrapper_2
 {
-    width:400px;
-    height:420px;
-    color:white;
-    padding:60px 30px;
-    margin-left:35%;
+    width:50%;
+    background:white;
+    border:2px solid black;
+    color:black;
+    padding:4%;
     transform: translate(0%,15%);
-    box-shadow:8px 8px 50px #000;
-    box-sizing: border-box;
     border-radius:3%;
+    margin-left:14%;
 }
 .wrapper_2 h2
 {
-    margin:0;
-    padding:0;
-    font-size:20px;
+    font-size:1rem;
     margin-bottom: 10%;
     text-align:center;
     font-size:2rem;
     font-family: 'Sora', sans-serif;
     letter-spacing:4px;
-    text-shadow:1px 1px 1px rgb(10, 8, 8);
-    color:rgb(255, 255, 255);
-}
-.wrapper_2 input
-{
-    width:100%;
-    margin-bottom:10%;
-    margin-top:5%;
-    font-family: 'Roboto Mono', monospace;
-    font-size:35px;
-    height:40px;
+    color:black;
 }
 .wrapper_2 .btn4
 {
     border:none;
-    font-family: 'Comfortaa', cursive;
+    font-family: "Roboto", sans-serif;
     color:white;
-    transform:scale(1.4);
+    width:40%;
+    font-size:1.5rem;
     border-radius: 3px;
-    margin-left: 40%;
-    box-shadow: 3px 3px 3px black;
+    margin-left: 30%;
+    margin-top:2%;
     background:rgb(226, 12, 12);
-    border:2px solid cyan;
     cursor:pointer;
     transition:0.5s ease-in-out;
     outline:none;
 }
 .wrapper_2 .btn4:hover
 {
-    box-shadow:1px 1px 1px black;
+    box-shadow: 3px 3px 3px black;
 }
 .AuthS
 {
     text-align:center;
-    margin-top:-1%;
-    text-shadow:1px 1px 1px black;
+    margin-top:3%;
+    font-weight: Light;
+    font-family: "Roboto", sans-serif;
 }

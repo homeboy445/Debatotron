@@ -15,9 +15,9 @@ const App = () => {
   const shouldRenderParticles = () =>{
     const uri = window.location.href;
     var endpoint = uri.substr(uri.lastIndexOf("/") + 1,);
-    if (endpoint === "signin" || endpoint === "register")
+    if (endpoint === "signin" || endpoint === "register" || endpoint === "fp")
     {
-      document.body.style.backgroundColor ="black";
+      document.body.style.backgroundColor = "rgb(17, 16, 16)";
       return true;
     }
     document.body.style.backgroundColor = "white";
