@@ -1,122 +1,84 @@
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Luckiest+Guy&family=Roboto+Mono:wght@700&family=Sora:wght@600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@800&display=swap');
-.wrap-backg-reg
-{
-    background:linear-gradient(to left,#ff00cc,#333399);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    overflow-y: auto;
-    cursor:pointer;
-    margin:auto;
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap");
+.rg-wrapper {
+  width: 95%;
+  margin-left: 2%;
+  margin-top: 2%;
+  box-shadow: 3px 3px 3px black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  background:white;
+  z-index:100000;
+  position:absolute;
+  border-radius: 5px;
 }
-.wrapper-reg
-{
-    width:40%;
-    height:50%;
-    color:white;
-    padding:60px 30px;
-    /* transform:translate(80%,5%); */
-    margin-left:33%;
-    margin-right:33%;
-    box-shadow:8px 8px 50px #000;
-    box-sizing: border-box;
-    border-radius:3%;
+.register {
+  display: flex;
+  font-family: "Roboto", sans-serif;
 }
-.wrapper-reg h1
-{
-    margin:0;
-    padding:0;
-    font-size:20px;
-    margin-bottom: 10%;
-    text-align:center;
-    font-size:2rem;
-    font-family: 'Sora', sans-serif;
-    letter-spacing:4px;
-    text-shadow:1px 1px 1px rgb(34, 19, 19);
-    color:rgb(252, 255, 253);
+.rg-img {
+  width: 60%;
+  height: 60%;
 }
-.wrapper-reg input
-{
-    width:100%;
-    margin-bottom:10%;
-    margin-top:5%;
-    font-family: 'Roboto Mono', monospace
+.rg-mainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
-.wrapper-reg input[type="text"],.wrapper input[type="password"]
-{
-    border:none;
-    color:white;
-    border-bottom:1px solid black;
-    background:transparent;
-    outline:none;
-    height:30px;
-    font-size:28px;
+.rg-mainer > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
 }
-.psw
-{
-    border:none;
-    color:white;
-    border-bottom:1px solid black;
-    background:transparent;
-    outline:none;
-    height:30px;
-    font-size:28px;
+.rg-mainer > div > h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
 }
-.wrapper-reg input[type="submit"]
-{
-    border:none;
-    background:rgb(241, 22, 22);
-    outline:none;
-    color:white;
-    height:40px;
-    font-size:30px;
-    font-family: 'Comfortaa', cursive;
-    transition:0.4s ease-in-out;
-    cursor:pointer;
-    margin-top:5%;
-    box-shadow: 4px 4px 4px black;
+.rg-mainer > div > h3 {
+  font-size: 1.2rem;
+  font-weight: lighter;
+  margin-top: -5%;
 }
-.wrapper-reg input[type="submit"]:hover
-{
-    border-radius:10px;
-    box-shadow: 1px 1px 1px black;
+.rg-mainer > div > h3 > a {
+  color: #0e51ff;
+  cursor: pointer;
+  text-decoration: none;
 }
-.wrapper-reg{
-    margin-bottom:5%;
+.rg-sel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-.wrapper-reg select
-{
-    width:100%;
-    font-size:1.5rem;
-    font-family: 'Sora', sans-serif;
+.rg-sel > select {
+  width: 62%;
+  padding: 1%;
+  font-size: 1.5rem;
+  margin-right: 4%;
+  margin-top: 2%;
+  border-radius: 4px;
+  font-family: "Roboto", sans-serif;
+  background: #f0a6a6;
+  text-shadow: 1px 1px 1px black;
+  color: white;
 }
-.ans
-{
-    margin-bottom:4%;
+.rg-btn {
+  border: none;
+  background: #fa6185;
+  color: white;
+  width: 40%;
+  font-size: 1.5rem;
+  margin-left: 28%;
+  margin-top: 2%;
+  border-radius: 5px;
+  transition: 0.6s ease;
+  cursor: pointer;
+  outline: none;
+  text-shadow: 1px 1px 1px black;
 }
-.sngg
-{
-    background:cyan;
-    color:white;
-    text-shadow: 2px 2px 2px black;
-    font-size:2rem;
-    box-shadow:4px 4px 4px black;
-    transition:0.4s ease-in-out;
-    cursor:pointer;
-}
-.sngg:hover
-{
-    border-radius:10px;
-    box-shadow:1px 1px 1px black;
-}
-.g
-{
-    display:flex;
-    flex-direction: column;
-    text-align:center;
-}
-.g p
-{
-    margin-top:-2%;
+.rg-btn:hover {
+  box-shadow: 2px 2px 2px black;
 }

@@ -1,131 +1,90 @@
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Luckiest+Guy&family=Roboto+Mono:wght@700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@800&display=swap');
-.wrap-backg
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap");
+.sg-wrapper {
+  width: 90%;
+  margin-left:5%;
+  margin-top:1%;
+  box-shadow: 3px 3px 3px black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  border-radius: 5px;
+  position:absolute;
+  background:white;
+}
+.signin {
+  display: flex;
+  font-family: "Roboto", sans-serif;
+}
+.sg-img {
+  width: 50%;
+  height: 50%;
+}
+.sg-mainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.sg-mainer > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+  margin-bottom:10%;
+}
+.sg-mainer > div > h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+.sg-mainer > div > h3 {
+  font-size: 1.2rem;
+  font-weight: lighter;
+  margin-top: -5%;
+}
+.sg-mainer > div > h3 > a {
+  color: #0e51ff;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+}
+.sg-btn {
+  border: none;
+  background: #427EF7;
+  color: white;
+  width: 50%;
+  font-size: 1.5rem;
+  margin-left: 28%;
+  margin-top: 2%;
+  border-radius: 5px;
+  transition: 0.6s ease;
+  cursor: pointer;
+  outline: none;
+  text-shadow: 1px 1px 1px black;
+  padding:0.8%;
+}
+.sg-btn:hover {
+  box-shadow: 2px 2px 2px black;
+}
+.sg-flx
 {
-    background:linear-gradient(to right,#ff00cc,#333399);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height:100vh;
-    margin:auto;
-    overflow-y:auto;
     display:flex;
     flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-right:22%;
 }
-.wrapper
+.sg-flx > a
 {
-    width:35%;
-    height:30%;
-    color:white;
-    padding:60px 30px;
-    margin-left:35%;
-    transform: translate(0%,15%);
-    box-shadow:8px 8px 50px #000;
-    box-sizing: border-box;
-    border-radius:3%;
-}
-.wrapper h1
-{
-    margin:0;
-    padding:0;
-    font-size:20px;
-    margin-bottom: 10%;
-    text-align:center;
-    font-size:2rem;
-    font-family: 'Sora', sans-serif;
-    letter-spacing:4px;
-    text-shadow:1px 1px 1px rgb(10, 8, 8);
-    color:rgb(255, 255, 255);
-}
-.wrapper input
-{
-    width:100%;
-    margin-bottom:10%;
-    margin-top:5%;
-    font-family: 'Roboto Mono', monospace
-}
-.wrapper input[type="text"],.wrapper input[type="password"]
-{
-    border:none;
-    color:white;
-    border-bottom:1px solid black;
-    background:transparent;
-    outline:none;
-    height:30px;
-    font-size:28px;
-}
-.wrapper input[type="submit"]
-{
-    border:none;
-    background:rgb(22, 44, 241);
-    color:white;
-    height:40px;
-    font-size:30px;
-    outline:none;
-    font-family: 'Comfortaa', cursive;
-    transition:0.7s ease-in-out;
-    cursor:pointer;
-    margin-top:5%;
-    margin-bottom:-4%;
-    box-shadow: 4px 4px 4px black;
-}
-.wrapper input[type="submit"]:hover
-{
-    box-shadow: 1px 1px 1px black;
-    border-radius:10px;
-}
-.wrapper{
+    color: #0e51ff;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: "Roboto", sans-serif;
+    transition:1s ease;
+    letter-spacing: 2px;
     margin-bottom:5%;
 }
-.stat
+.sg-flx > a:hover
 {
-    margin-top:-5%;
-    margin-bottom:0%;
-    text-align:center;
-}
-.pst
-{
-    color:white;
-    position:fixed;
-    right:35%;
-    bottom:24%;
-}
-.lnk
-{   
-    text-align: right;
-    color:cyan;
-    text-shadow:1px 1px 1px black;
-}
-.lnk:hover
-{
-    color:rgb(238, 251, 43);
-    text-decoration: underline;
-}
-.jkk
-{
-    display:flex;
-    flex-direction: column;
-    text-align:center;
-}
-.rgs
-{
-    width:130px;
-    left:88%;
-    position:fixed;
-    font-size:2rem;
-    background:linear-gradient(to right#673AB7,#673AB7);
-    border-radius:10px;
-    text-shadow:1px 1px 1px black;
-    box-shadow:3px 3px 3px black;
-    color:white;
-    cursor:pointer;
-    transition:0.6s ease-in-out;
-}
-.rgs:hover
-{
-    box-shadow:1px 1px 1px black;
-}
-.h
-{
-    margin-top:-10%;
+    text-decoration:underline;
 }

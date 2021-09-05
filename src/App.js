@@ -5,11 +5,25 @@ import Cookie from "js-cookie";
 import AuthContext from "./Contexts/AuthContext";
 import { BrowserRouter as Router } from "react-router-dom";
 import Menu from "./Components/Menu/MenuFiles";
+import Particles from "react-particles-js";
 
 const App = () => {
   const [Auth, toAuth] = useState(false);
   const [userInfo, Change_Info] = useState([{ id: "", name: "user" }]);
   const [FriendsList, Update_List] = useState([]);
+
+  const shouldRenderParticles = () =>{
+    const uri = window.location.href;
+    var endpoint = uri.substr(uri.lastIndexOf("/") + 1,);
+    if (endpoint === "signin" || endpoint === "register")
+    {
+      document.body.style.backgroundColor ="black";
+      return true;
+    }
+    document.body.style.backgroundColor = "white";
+    return false;
+  }
+
   useState(() => {
     if (Cookie.get("name")) {
       toAuth(true);
@@ -22,10 +36,13 @@ const App = () => {
           axios
             .get(`http://localhost:3005/friendslist/${response[0].name}`)
             .then((response) => {
-                if(response.data){
-                  Update_List(response.data);
-                }
-            }).catch(err=>{return err;});
+              if (response.data) {
+                Update_List(response.data);
+              }
+            })
+            .catch((err) => {
+              return err;
+            });
         })
         .catch((err) => {
           toAuth(false);
@@ -36,6 +53,22 @@ const App = () => {
   }, []);
   return (
     <AuthContext.Provider value={{ Auth, toAuth, userInfo, FriendsList }}>
+      {shouldRenderParticles()?<Particles
+        params={{
+          particles: {
+            number: {
+              value: 300,
+              density: {
+                enable: true,
+                value_area: 1000,
+              },
+            }
+          },
+        }}
+        style={{
+          position:'absolute'
+        }}
+      />:null}
       <Router>
         <Menu />
       </Router>
