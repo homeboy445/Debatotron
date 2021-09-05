@@ -1,57 +1,98 @@
-@import url('https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@600&family=Poppins&display=swap');
-  .Ham-menu {
-    display: inline-block;
-    cursor: pointer;
-    position:fixed;
-    right:2%;
-    top:2%;
-    z-index:10001;
-  }
-  
-  .bar1, .bar2, .bar3 {
-    width: 35px;
-    height: 5px;
-    background-color: rgb(255, 241, 241);
-    margin: 6px 0;
-  }
+@import url("https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@600&family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+.Ham-menu {
+  display: inline-block;
+  cursor: pointer;
+  position: fixed;
+  right: 2%;
+  top: 2%;
+  z-index: 10001;
+  background: #2C5364;
+  padding:1%;
+  border-radius:4px;
+}
 
-  .nav-menu
-  {
-      position: fixed;
-      background-color: #00DBDE;
-      background-image: linear-gradient(90deg, #00DBDE 0%, #FC00FF 100%);
-      width:100%;
-      height:100%;
-      margin:auto;
-      background-size:cover;
-      z-index:10000;
-      font-family:'Grenze Gotisch', cursive;
-  }
-  .nav-menu ul
-  {   
-      position: absolute;
-      top:0%;
-      left:40%;
-      display:flex;
-      flex-direction: column;
-      align-items: center;
-      cursor:pointer;
-  }
-  .nav-menu ul li 
-  {
-      margin:10px;
-      list-style: none;
-      background:linear-gradient(to right,rgb(243, 96, 96),rgb(23, 229, 248));
-      background-size:cover;
-      background-repeat: no-repeat;
-      background-clip: text;
-      font-size:50px;
-      text-shadow:2px 2px 2px rgb(76, 82, 82);
-      transition:0.4s ease-in-out;
-      color:white;
-  }
-  .nav-menu ul li:hover
-  {
-    transform:scale(1.5);
-    text-shadow:2px 2px 2px red;
-  }
+.bar1,
+.bar2,
+.bar3 {
+  width: 35px;
+  height: 5px;
+  background: #FDFC47;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #24FE41, #FDFC47);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #24FE41, #FDFC47); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+  
+  margin: 6px 0;
+}
+
+.nav-menu {
+  position: fixed;
+  background: #0f2027;
+  background: -webkit-linear-gradient(to right, #2c5364, #203a43, #0f2027);
+  background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+  width: 30%;
+  height: 100%;
+  margin: auto;
+  background-size: cover;
+  z-index: 10000;
+  font-family: "Montserrat", sans-serif;
+}
+.nav-menu ul {
+  position: absolute;
+  top: 10%;
+  left: -8%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 100%;
+}
+.nav-menu ul li {
+  list-style: none;
+  font-size: 2.5rem;
+  width: 100%;
+  margin-bottom: 5%;
+  margin-top: 5%;
+  font-weight: bold;
+  text-shadow: 2px 2px 2px rgb(76, 82, 82);
+  transition: 0.4s ease-in-out;
+  color: white;
+  text-decoration-color: black;
+}
+.nav-menu ul li:hover {
+  text-decoration: underline;
+}
+.circle1
+{
+  position:absolute;
+  top:0%;
+  z-index:10000000;
+  left:0%;
+  border: 10px solid white;
+  border-radius:100%;
+  width: 100px;
+  height:100px;
+}
+.circle2
+{
+  position:absolute;
+  top:4%;
+  z-index:10000000;
+  left:35%;
+  border: 8px solid white;
+  border-radius:100%;
+  width: 30px;
+  height:30px;
+}
+.circle3
+{
+  position:absolute;
+  top:85%;
+  z-index:10000000;
+  left:75%;
+  border: 10px solid white;
+  border-radius:100%;
+  width: 70px;
+  height:70px;
+}
