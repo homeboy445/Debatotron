@@ -1,269 +1,247 @@
-@import url('https://fonts.googleapis.com/css2?family=Rock+Salt&family=Satisfy&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Rock+Salt&family=Satisfy&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Kalam:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&display=swap");
 /* font-family: 'Satisfy', cursive;
 font-family:'IBM Plex Mono', monospace;
 font-family: 'Kalam', cursive;
 font-family: 'Rock Salt', cursive; */
-.home-page
-{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
+.home-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
-.hp2-sub
-{
-    display:flex;
-    width:100%;
+.hp2-sub {
+  display: flex;
+  width: 100%;
 }
-.hp-btn
-{
-    display:flex;
-    width:100%;
-    margin-left:40%;
+.hp-btn {
+  display: flex;
+  width: 100%;
+  margin-left: 40%;
 }
-.hp-btn > button:nth-child(1)
-{
-    transform:scale(2.1);
-    background:#365efe;
-    color:white;
-    transition:0.4s ease;
-    margin-right:15%;
-    border:none;
-    border-radius:2px;
-    cursor:pointer;
+.hp-btn > button:nth-child(1) {
+  transform: scale(2.1);
+  background: #365efe;
+  color: white;
+  transition: 0.4s ease;
+  margin-right: 15%;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
 }
-.hp-btn > button:nth-child(1):hover
-{
-    box-shadow: 1px 1px 1px rgb(3, 3, 83);
+.hp-btn > button:nth-child(1):hover {
+  box-shadow: 1px 1px 1px rgb(3, 3, 83);
 }
-.hp-btn > button:nth-child(2)
-{
-    margin-right:2%;
-    transform:scale(2.1);
-    background:#51aa4e;
-    color:white;
-    transition:0.4s ease;
-    margin-left:5%;
-    border:none;
-    border-radius:2px;
-    cursor:pointer;
+.hp-btn > button:nth-child(2) {
+  margin-right: 2%;
+  transform: scale(2.1);
+  background: #51aa4e;
+  color: white;
+  transition: 0.4s ease;
+  margin-left: 5%;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
 }
-.hp-btn > button:nth-child(2):hover
-{
-    box-shadow: 1px 1px 1px rgb(27, 71, 1);
+.hp-btn > button:nth-child(2):hover {
+  box-shadow: 1px 1px 1px rgb(27, 71, 1);
 }
-.hp2
-{
-    display:flex;
-    justify-content: left;
-    flex-direction: column;
-    align-items:left;
-    width:100%;
-    min-height: 100vh;
-    background:url("/src/Images/table.jpg");
+.hp2 {
+  display: flex;
+  justify-content: left;
+  flex-direction: column;
+  align-items: left;
+  width: 100%;
+  min-height: 100vh;
+  background: url("/src/Images/table.jpg");
 }
-#title
-{
-    font-size:3rem;
-    margin-left:5%;
-    text-shadow: 2px 2px 2px yellow;
-    font-family: 'Rock Salt', cursive;
+#title {
+  background: linear-gradient(
+    to top,
+    #fdeff9,
+    #ec38bc,
+    #7303c0,
+    #03001e
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background-repeat: repeat;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 3rem;
+  margin-left: 5%;
+  font-family: "Rock Salt", cursive;
 }
-.hp2-1
-{
-    margin-top:5%;
-    display:flex;
-    flex-direction: column;
-    justify-content:left;
-    align-items:left;
-    margin-left:10%;
+.hp2-1 {
+  margin-top: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+  margin-left: 10%;
 }
-.hp2 > .hp2-1 > h2
-{
-    font-size:4rem;
-    width:60%;
-    color:white;
-    text-shadow: 3px 3px 3px black;
-    font-weight:bold;
-    font-family: 'Libre Baskerville', serif;
+.hp2 > .hp2-1 > h2 {
+  font-size: 4rem;
+  width: 60%;
+  color: white;
+  text-shadow: 3px 3px 3px black;
+  font-weight: bold;
+  font-family: "Libre Baskerville", serif;
 }
-.hp2 > .hp2-1 > h3
-{
-    font-size:1.3rem;
-    width:60%;
-    color:white;
-    text-shadow: 2px 2px 2px black;
-    font-weight:bold;
-    font-family: 'Libre Baskerville', serif;    
+.hp2 > .hp2-1 > h3 {
+  font-size: 1.3rem;
+  width: 60%;
+  color: white;
+  text-shadow: 2px 2px 2px black;
+  font-weight: bold;
+  font-family: "Libre Baskerville", serif;
 }
-.hp-debating
-{
-    width:50%;
-    height:50%;
+.hp-debating {
+  width: 50%;
+  height: 50%;
 }
-.hp3
-{
-    margin-top:5%;
-    display:flex;
-    justify-content: center;
-    align-items: center;
+.hp3 {
+  margin-top: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.hp3 > h2
-{
-    width:30%;
-    margin-left:4%;
-    font-family: 'Libre Baskerville', serif;
-    font-size:2.5rem;
+.hp3 > h2 {
+  width: 30%;
+  margin-left: 4%;
+  font-family: "Libre Baskerville", serif;
+  font-size: 2.5rem;
 }
-.grad1
-{
-    position:absolute;
-    width: 7%;
-    height: 15%;
-    left:1%;
-    top:110%;
-    transform:rotate(-10deg);
-    border-radius:20px;
-    opacity:0.8;
+.grad1 {
+  position: absolute;
+  width: 7%;
+  height: 15%;
+  left: 1%;
+  top: 110%;
+  transform: rotate(-10deg);
+  border-radius: 20px;
+  opacity: 0.8;
 }
-.grad2
-{
-    position:absolute;
-    width: 7%;
-    height: 15%;
-    right:1%;
-    opacity:0.8;
-    top:170%;
-    transform:rotate(10deg);
-    border-radius:20px;
+.grad2 {
+  position: absolute;
+  width: 7%;
+  height: 15%;
+  right: 1%;
+  opacity: 0.8;
+  top: 170%;
+  transform: rotate(10deg);
+  border-radius: 20px;
 }
-.grad3
-{
-    position:absolute;
-    width: 7%;
-    height: 15%;
-    left:1%;
-    opacity:0.8;
-    top:230%;
-    transform:rotate(10deg);
-    border-radius:20px;
+.grad3 {
+  position: absolute;
+  width: 7%;
+  height: 15%;
+  left: 1%;
+  opacity: 0.8;
+  top: 230%;
+  transform: rotate(10deg);
+  border-radius: 20px;
 }
-.grad4
-{
-    position:absolute;
-    width: 7%;
-    height: 15%;
-    right:1%;
-    top:445%;
-    transform:rotate(10deg);
-    border-radius:20px;
-    opacity:0.8;
+.grad4 {
+  position: absolute;
+  width: 7%;
+  height: 15%;
+  right: 1%;
+  top: 445%;
+  transform: rotate(10deg);
+  border-radius: 20px;
+  opacity: 0.8;
 }
-.hp4
-{
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    margin-top:6%;
+.hp4 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 6%;
 }
-.hp4 > h2
-{
-    width:30%;
-    margin-right:6%;
-    font-family: 'Libre Baskerville', serif;
-    font-size:2.5rem;
+.hp4 > h2 {
+  width: 30%;
+  margin-right: 6%;
+  font-family: "Libre Baskerville", serif;
+  font-size: 2.5rem;
 }
-.hp-debating-1
-{
-    width:35%;
-    height:35%;
+.hp-debating-1 {
+  width: 35%;
+  height: 35%;
 }
-.hp5
-{
-    margin-top:10%;
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content:center;
-    min-height:100vh;
-    width:100%;
-    background:url("/src/Images/people.jpg");
+.hp5 {
+  margin-top: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  background: url("/src/Images/people.jpg");
 }
-.hp5 > h2:nth-child(1)
-{
-    font-family: 'Libre Baskerville', serif;
-    font-size:2.9rem;
-    color:blue;
-    text-shadow: 2px 2px 2px black;
-    background:red;
-    margin-bottom:6%;
+.hp5 > h2:nth-child(1) {
+  font-family: "Libre Baskerville", serif;
+  font-size: 2.9rem;
+  color: blue;
+  text-shadow: 2px 2px 2px black;
+  background: red;
+  margin-bottom: 6%;
 }
-.hp5 > h2:nth-child(3)
-{
-    font-family: 'Libre Baskerville', serif;
-    font-size:2.9rem;
-    color:blue;
-    text-shadow: 2px 2px 2px black;
-    background:red;
-    margin-top:6%;
+.hp5 > h2:nth-child(3) {
+  font-family: "Libre Baskerville", serif;
+  font-size: 2.9rem;
+  color: blue;
+  text-shadow: 2px 2px 2px black;
+  background: red;
+  margin-top: 6%;
 }
-.hp5 > .hp5-type
-{
-    background:gray;
-    width:80%;
-    text-align:center;
-    border:2px solid black;
-    font-size:2rem;
-    color:white;
-    border-radius:4px;
+.hp5 > .hp5-type {
+  background: gray;
+  width: 80%;
+  text-align: center;
+  border: 2px solid black;
+  font-size: 2rem;
+  color: white;
+  border-radius: 4px;
 }
-.hp6
-{
-    margin-top:5%;
-    display:flex;
-    align-items: center;
-    justify-content:center;
+.hp6 {
+  margin-top: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.hp6 > h2
-{
-    width:30%;
-    margin-left:10%;
-    font-family: 'Libre Baskerville', serif;
-    font-size:2.3rem;
+.hp6 > h2 {
+  width: 30%;
+  margin-left: 10%;
+  font-family: "Libre Baskerville", serif;
+  font-size: 2.3rem;
 }
-.hp7
-{
-    margin-top:5%;
-    display:flex;
-    flex-direction: column;
-    justify-content:center;
-    align-self: center;
-    text-align: center;
-    min-height:100vh;
-    width:100%;
-    background:url("/src/Images/table_half.jpg");
-    background-position-x: 28%;
-    background-position-y: 10%;
+.hp7 {
+  margin-top: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  text-align: center;
+  min-height: 100vh;
+  width: 100%;
+  background: url("/src/Images/table_half.jpg");
+  background-position-x: 28%;
+  background-position-y: 10%;
 }
-.hp7 > h1
-{
-    font-family: 'Libre Baskerville', serif;
-    font-size:4rem;
-    color:white;
-    text-shadow: 4px 4px 4px black;
+.hp7 > h1 {
+  font-family: "Libre Baskerville", serif;
+  font-size: 4rem;
+  color: white;
+  text-shadow: 4px 4px 4px black;
 }
-.up_arrow
-{
-    width:4%;
-    transition:0.5s;
-    height:10%;
-    top:80%;
-    cursor:pointer;
-    right:2%;
-    transform:rotate(-90deg);
-    position:fixed;
+.up_arrow {
+  width: 4%;
+  transition: 0.5s;
+  height: 10%;
+  top: 80%;
+  cursor: pointer;
+  right: 2%;
+  transform: rotate(-90deg);
+  position: fixed;
 }

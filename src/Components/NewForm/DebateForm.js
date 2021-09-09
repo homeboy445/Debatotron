@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
+import { Redirect } from  "react-router-dom";
 import axios from "axios";
 import "./DebForm.css";
 
@@ -7,6 +8,7 @@ const DebateForm = ({ userInfo, ToggleDisplay }) => {
   const [Description, AlterDesc] = useState("");
   const [catg, change_catg] = useState("");
   const [access, ChangeAccess] = useState(false);
+  const [finishStatus, setfinishStatus] = useState(false);
   const deb_id = Date.now();
 
   const HandleTitle = (evt) => {
@@ -48,6 +50,28 @@ const DebateForm = ({ userInfo, ToggleDisplay }) => {
         });
       });
   };
+
+  // const onBackButtonEvent = (e) => {
+  //     if (!finishStatus) {
+  //         if (window.confirm("Do you want to go back ?")) {
+  //             setfinishStatus(true)
+  //             // your logic
+  //             console.log(window.history);
+  //         } else {
+  //             e.preventDefault();
+  //             window.history.pushState(null, null, window.location.pathname);
+  //             setfinishStatus(false)
+  //         }
+  //     }
+  // }
+
+  // useEffect(() => {
+  //   window.history.pushState(null, null, window.location.pathname);
+  //   window.addEventListener('popstate', onBackButtonEvent);
+  //   return () => {
+  //     window.removeEventListener('popstate', onBackButtonEvent);  
+  //   };
+  // },[]);
 
   return (
     <div className="form1">
