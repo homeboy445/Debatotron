@@ -1,38 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
-import Cookie from "js-cookie";
 import AuthContext from "./Contexts/AuthContext";
 import { BrowserRouter as Router } from "react-router-dom";
 import Menu from "./Components/Menu/MenuFiles";
-import Particles from "react-particles-js";
+import PolkaDotsBg from "./Assets/polka.jpg";
+
+const isSessionValid = () => {
+  return (sessionStorage.getItem("name") !== null);
+};
 
 const App = () => {
-  const [Auth, toAuth] = useState(false);
+  const [Auth, toAuth] = useState(isSessionValid());
   const [userInfo, Change_Info] = useState([{ id: "", name: "user" }]);
   const [FriendsList, Update_List] = useState([]);
 
-  const shouldRenderParticles = () =>{
-    const uri = window.location.href;
-    var endpoint = uri.substr(uri.lastIndexOf("/") + 1,);
-    if (endpoint === "signin" || endpoint === "register" || endpoint === "fp")
-    {
-      document.body.style.backgroundColor = "rgb(17, 16, 16)";
-      return true;
-    }
-    document.body.style.backgroundColor = "white";
-    return false;
-  }
-
-  useState(() => {
-    if (Cookie.get("name")) {
+  useEffect(() => {
+    if (sessionStorage.getItem("name")) {
       toAuth(true);
       axios
-        .get(`http://localhost:3005/profile/${Cookie.get("name")}`)
+        .get(`http://localhost:3005/profile/${sessionStorage.getItem("name")}`)
         .then((response) => {
           response = response.data;
           Change_Info(response);
-          Cookie.set("username", response[0].name);
+          sessionStorage.setItem("username", response[0].name);
           axios
             .get(`http://localhost:3005/friendslist/${response[0].name}`)
             .then((response) => {
@@ -53,25 +44,11 @@ const App = () => {
   }, []);
   return (
     <AuthContext.Provider value={{ Auth, toAuth, userInfo, FriendsList }}>
-      {shouldRenderParticles()?<Particles
-        params={{
-          particles: {
-            number: {
-              value: 300,
-              density: {
-                enable: true,
-                value_area: 1000,
-              },
-            }
-          },
-        }}
-        style={{
-          position:'absolute'
-        }}
-      />:null}
-      <Router>
-        <Menu />
-      </Router>
+      <div style={{ background: !Auth ? PolkaDotsBg : "white" }}>
+        <Router>
+          <Menu />
+        </Router>
+      </div>
     </AuthContext.Provider>
   );
 };

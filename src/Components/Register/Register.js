@@ -39,6 +39,7 @@ const Register = ({ HandleAuth, Change_Display }) => {
       ChangeAns("");
     }
   };
+
   const HandleSubmit = (event) => {
     event.preventDefault();
     fetch("http://localhost:3005/register", {
@@ -57,10 +58,11 @@ const Register = ({ HandleAuth, Change_Display }) => {
         if (response[0].name) {
           window.location.href = "/signin";
         } else {
-          throw "Error!";
+          throw response;
         }
       })
       .catch((err) => {
+        console.log(err);
         set("Something's Wrong,Try again!");
         setTimeout(() => {
           set("Enter your Credentials!");
@@ -104,27 +106,29 @@ const Register = ({ HandleAuth, Change_Display }) => {
               value={password_1}
             />
             <div className="rg-sel">
-            <select ref={recovery_1}>
-              <option>choose your recovery question</option>
-              <option value="What is you pet's name?">
-                What is you pet's name?
-              </option>
-              <option value="What is favourite game?">
-                What is favourite game?
-              </option>
-              <option value="What is your favourite dish?">
-                What is your favourite dish?
-              </option>
-              <option value="What is your hobby?">What is your hobby?</option>
-            </select>
-            <InputBox
-              type="text"
-              value={answer_1}
-              placeholder="Your Answer"
-              onChangeCallback={HandleChange_4}
-            />
+              <select ref={recovery_1}>
+                <option>choose your recovery question</option>
+                <option value="What is you pet's name?">
+                  What is you pet's name?
+                </option>
+                <option value="What is favourite game?">
+                  What is favourite game?
+                </option>
+                <option value="What is your favourite dish?">
+                  What is your favourite dish?
+                </option>
+                <option value="What is your hobby?">What is your hobby?</option>
+              </select>
+              <InputBox
+                type="text"
+                value={answer_1}
+                placeholder="Your Answer"
+                onChangeCallback={HandleChange_4}
+              />
             </div>
-            <button type="submit" className="rg-btn">Create Account</button>
+            <button type="submit" className="rg-btn">
+              Create Account
+            </button>
           </form>
         </div>
       </div>

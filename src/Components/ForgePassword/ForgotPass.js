@@ -77,6 +77,7 @@ const ForgotPass = () => {
   };
   const HandleSubmit_2 = (e) => {
     e.preventDefault();
+    console.log("Called!");
     fetch("http://localhost:3005/CheckRecovery", {
       method: "post",
       headers: { "Content-Type": "application/json" },
@@ -87,6 +88,7 @@ const ForgotPass = () => {
     })
       .then((response) => response.json())
       .then((response) => {
+        console.log(response);
         if (response === "Found!") {
           setstate("Change");
           setAuth_state("Make sure the two Fields Matches!");

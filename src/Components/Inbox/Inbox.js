@@ -138,9 +138,9 @@ const Inbox = ({ userInfo }) => {
     return OpenedMailsList.find((item) => item === index);
   };
 
-  const updateList = (k) =>{
-    ChangeActiveIndex(Math.max(0, (ActiveIndex + k)%messages.length));
-  }
+  const updateList = (k) => {
+    ChangeActiveIndex(Math.max(0, (ActiveIndex + k) % messages.length));
+  };
 
   useEffect(() => {
     const user = Auth.userInfo[0].name;
@@ -259,7 +259,7 @@ const Inbox = ({ userInfo }) => {
             }}
           ></div>
         </div>
-        {isRenderButton(messages[ActiveIndex].additional.rtype)? (
+        {isRenderButton(messages[ActiveIndex].additional.rtype) ? (
           <div className="respond">
             <button
               onClick={() => {
@@ -288,8 +288,8 @@ const Inbox = ({ userInfo }) => {
           </div>
         ) : null}
         <div className="display-btns">
-          <img src={Arrow} onClick ={()=>updateList(-1)} alt="" />
-          <img src={Arrow} onClick ={()=>updateList(1)} alt="" />
+          <img src={Arrow} onClick={() => updateList(-1)} alt="" />
+          <img src={Arrow} onClick={() => updateList(1)} alt="" />
         </div>
       </div>
     </div>

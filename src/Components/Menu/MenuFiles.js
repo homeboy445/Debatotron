@@ -1,8 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import Home from "../Home/HomePage";
 import "./Nav.css";
-import Cookie from "js-cookie";
 import AuthContext from "../../Contexts/AuthContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import LoginRoute from "../ProtectedRoute/LoginRoute";
@@ -10,12 +9,12 @@ import SignIn from "../SignIn/SignIn";
 import Register from "../Register/Register";
 import FriendsPage from "../FriendsPage/FriendsPage";
 import ForgotPassword from "../ForgePassword/ForgotPass";
-import Debpage from "../DebPage/DebPage";
+import DebatePage from "../DebPage/DebatePage";
 import OngoingDebs from "../OngoingDebs/OngoingDebs";
 import DebateForm from "../NewForm/DebateForm";
 import Navigation from "./Navigation";
 import Inbox from "../Inbox/Inbox";
-import Profile from "../profile/Profile";
+import Profile from "../Profile/Profile";
 import DraftForm from "../NewForm/DraftForm";
 
 const MenuFiles = () => {
@@ -23,7 +22,7 @@ const MenuFiles = () => {
   const Auth = useContext(AuthContext);
   const HandleAuth = (data_object) => {
     if (data_object.data != null) {
-      Cookie.set("name", data_object.data);
+      sessionStorage.setItem("name", data_object.data);
       Auth.toAuth(true);
       return (window.location.href = "/");
     }
@@ -38,7 +37,7 @@ const MenuFiles = () => {
     })
       .then((response) => response.json())
       .then((response) => {
-        Cookie.remove("name");
+        sessionStorage.clear();
         window.location.href = "/";
       });
   };
@@ -101,7 +100,7 @@ const MenuFiles = () => {
             auth={Auth.Auth}
             userInfo={Auth.userInfo}
             ToggleDisplay={ToggleDisplay}
-            component={Debpage}
+            component={DebatePage}
           />
           <ProtectedRoute
             path="/OngoingDebs"
@@ -146,6 +145,7 @@ const MenuFiles = () => {
             component={Register}
           />
           <LoginRoute path="/fp" auth={Auth.Auth} component={ForgotPassword} />
+          <Redirect to="/" from='*' />
         </Switch>
       </main>
     </div>

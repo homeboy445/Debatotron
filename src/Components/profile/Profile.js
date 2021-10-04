@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import EditProfile from "../profile/EditProfile";
+import EditProfile from "./EditProfile";
 import image from "../../Images/Profile.jpg";
 import axios from "axios";
 import "./Profile.css";

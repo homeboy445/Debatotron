@@ -1,160 +1,170 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Cinzel+Decorative:wght@900&family=IBM+Plex+Mono:wght@500&family=Leckerli+One&family=Monoton&family=Poiret+One&family=Rock+Salt&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap');
-body
-{
-    font-family: 'Poppins', sans-serif;
+.DebPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: space-between;
+  overflow-x: hidden;
+  width: 100%;
 }
-.container
-{
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    margin:20px;
-    text-align:center;
+.Dp_comments {
+  margin-top: 1%;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+  width: 85%;
+  overflow-x: hidden;
 }
-.hdr
-{
-    color:white;
-    text-shadow: 2px 2px 2px black;
-    font-size:40px;
+.card {
+    width: 70%;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 6px;
+  padding: 2%;
+  margin-top: 3%;
+  margin-bottom: 3%;
 }
-#prg
-{
-    color:white;
-    text-shadow:2px 2px 2px rgb(39, 34, 34);
-    font-size:20px;   
-    background:rgb(245, 117, 117);
-    border-radius:5px;
-    margin-bottom:5px;
-    width:60%;
+.card_usrInfo {
+  margin: 2%;
+  display: flex;
+  justify-content: space-between;
+  align-items: space-between;
 }
-.comments
-{
-    color:yellow;
-    text-shadow:2px 2px 2px rgb(39, 34, 34);
-    display:flex;
-    flex-direction:column;
-    width: 800px;
-    height: 400px;
-    border-radius:5px;
-    overflow-x: hidden;
-    font-size:25px;
-    overflow-y: auto;
-    text-align: center;
-    padding: 20px;
+.card_pf {
+  display: flex;
 }
-.comments p
-{
-    background: rgb(36, 34, 34);
-    border-radius:4px;
+.card_pf > img {
+  width: 12%;
+  margin-right: 2%;
 }
-.frm1
-{
-    display:flex;
-    flex-direction:column;
-    width:50%;
+.card_main {
+  margin: 2%;
 }
-.inpp
-{
-    width:100%;
-    margin:10px;
-    height:30px;
-    font-size:25px;
-    background:linear-gradient(to right,rgb(30, 221, 255),rgb(248, 20, 191));
-    border:none;
-    border-radius:5px;
-    color:white;
-    text-align:center;
-    font-family: 'IBM Plex Mono', monospace;
+.card_lst {
+  display: flex;
+  justify-content: right;
+  align-items: right;
 }
-#butn
-{
-    width:60%;
-    letter-spacing:3px;
-    background:rgb(47, 45, 45);
-    font-size:20px;
-    color:white;
-    border-radius:5px;
-    text-align:left;
-    height:30px;
-    cursor:pointer;
-    transition:0.4s ease-in-out;
+.card_lst > p {
+  cursor: pointer;
 }
-#butn:hover
-{
-    background:rgb(167, 157, 157);
+.card_lst > p:nth-child(1) {
+  margin-right: 2%;
 }
-#butn span
-{
-    margin-left:80%;
+.Dp_textBx {
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s ease;
+  background-color: white;
+  border: 2px solid black;
+  padding: 1%;
+  border-radius: 5px;
 }
-.cmts
-{
-    display:flex;
-    flex-direction:column;
-    text-align:left;
+.Dp_textBx > textarea {
+  width: 97%;
+  height: 300px;
+  border-radius: 2px;
+  font-size: 2rem;
 }
-.usr
-{
-    color:#05a3ff;
-    text-shadow:1px 1px 1px red;
+.repl_btns{
+  display: flex;
+  width: 100%;
+  justify-content: right;
+  align-items: right;
+  margin-right: 4%;
+  margin-top: 2%;
 }
-.cmt
-{
-    margin-left:1%;
+.repl_btns > button:nth-child(1) {
+  appearance: none;
+  background-color: #2ea44f;
+  border: 1px solid rgba(27, 31, 35, .15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  padding: 6px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
 }
-.hrtimg
-{
-    transition:0.4s ease;
-    cursor:pointer;
+.repl_btns > button:nth-child(1):focus:not(:focus-visible):not(.focus-visible) {
+  box-shadow: none;
+  outline: none;
 }
-.hrtimg:hover
-{
-    transform:scale(1.2);
+.repl_btns > button:nth-child(1):hover {
+  background-color: #2c974b;
 }
-.private
-{
-    display:flex;
-    justify-content:center;
-    align-items: center;
-    font-size:2rem;
+.repl_btns > button:nth-child(1):focus {
+  box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
+  outline: none;
 }
-.private > img
-{
-    width:30%;
-    height:30%;
-    margin:2%;
-    margin-top:5%;
-    margin-right:10%;
+.repl_btns > button:nth-child(1):disabled {
+  background-color: #94d3a2;
+  border-color: rgba(27, 31, 35, .1);
+  color: rgba(255, 255, 255, .8);
+  cursor: default;
 }
-.private > div
-{
-    margin:3%;
-    display:flex;
-    flex-direction:column;
-    justify-content:left;
-    align-items: left;
-    font-size:2rem;
+.repl_btns > button:nth-child(1):active {
+  background-color: #298e46;
+  box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
 }
-.private > div > button
-{
-    margin-left:-50%;
-    width:50%;
-    font-size:1.6rem;
-    border-radius:5px;
-    border:none;
-    outline:none;
-    cursor:pointer;
-    font-family: 'IBM Plex Mono', monospace;
-    color:white;
-    text-shadow:1px 1px 1px black;
-    transition:0.5s ease;
-    background-image: linear-gradient(to top, #0fd850 0%, #f9f047 100%);
-    box-shadow:2px 2px 2px black;
+.repl_btns > button:nth-child(2) {
+  appearance: none;
+  background-color: crimson;
+  border: 1px solid rgba(35, 27, 32, 0.15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  padding: 6px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
 }
-.private > div > button:hover
-{
-    box-shadow:1px 1px 1px black;
+.repl_btns > button:nth-child(2):focus:not(:focus-visible):not(.focus-visible) {
+  box-shadow: none;
+  outline: none;
 }
+.repl_btns > button:nth-child(2):hover {
+  background-color: #972c2c;
+}
+.repl_btns > button:nth-child(2):focus {
+  box-shadow: rgba(164, 46, 46, 0.4) 0 0 0 3px;
+  outline: none;
+}
+.repl_btns > button:nth-child(2):disabled {
+  background-color: #94d3a2;
+  border-color: rgba(35, 27, 27, 0.1);
+  color: rgba(255, 255, 255, .8);
+  cursor: default;
+}
+.repl_btns > button:nth-child(2):active {
+  background-color: #8e2929;
+  box-shadow: rgba(70, 20, 20, 0.2) 0 1px 0 inset;
+}
+
+
