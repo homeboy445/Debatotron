@@ -12,7 +12,7 @@ const isSessionValid = () => {
 
 const App = () => {
   const [Auth, toAuth] = useState(isSessionValid());
-  const [userInfo, Change_Info] = useState([{ id: "", name: "user" }]);
+  const [userInfo, Change_Info] = useState([{ id: -1, name: "user" }]);
   const [FriendsList, Update_List] = useState([]);
 
   useEffect(() => {

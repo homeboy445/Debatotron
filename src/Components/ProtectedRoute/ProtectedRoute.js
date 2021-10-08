@@ -12,9 +12,10 @@ const ProtectedRoute = ({
   return (
     <Route
       {...rest}
-      render={() => {
+      render={(props) => {
         return auth ? (
           <Component
+            {...props}
             userInfo={userInfo}
             FriendsList={FriendsList}
             ToggleDisplay={ToggleDisplay}
