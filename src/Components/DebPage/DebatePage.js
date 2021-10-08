@@ -89,7 +89,7 @@ const DebatePage = (props) => {
       return null;
     }
     const image = `https://avatars.dicebear.com/api/micah/${getImageString(
-      item.user
+      item.byuser
     )}.svg`;
     let body = (
       <div className="Dp_comments">
@@ -149,7 +149,7 @@ const DebatePage = (props) => {
                     toggleIsReply({
                       is: true,
                       index: index,
-                      user: item.user,
+                      user: item.byuser,
                       commentId: item.commentId,
                     });
                   }}
@@ -169,6 +169,7 @@ const DebatePage = (props) => {
   };
 
   const getImageString = (str) => {
+    console.log(str);
     try {
       let arr = [];
       for (var i = 0; i < str.length; i++) {
@@ -177,7 +178,7 @@ const DebatePage = (props) => {
       arr.reverse();
       return arr.join("");
     } catch {
-      return "829nf2c";
+      return Math.random().toString();
     }
   };
 
