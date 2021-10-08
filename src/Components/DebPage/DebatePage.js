@@ -10,6 +10,7 @@ import Arrow from "../../Images/pointer.svg";
 import Heart from "../../Images/heart.svg";
 import HeartFill from "../../Images/filled_heart.svg";
 import Conversation from "../../Images/conversation.jpg";
+import JoinDebate from "./JoinDebate";
 
 const DebatePage = (props) => {
   const debateId = props.match.params.id;
@@ -25,6 +26,7 @@ const DebatePage = (props) => {
   const [replyText, set_ReplText] = useState("");
   const [liked, set_likedQs] = useState([]);
   const [fetchStatus, updateStatus] = useState(false);
+  const [isParticipant, updateParticipation] = useState(null);
 
   const getDateAndTime = (date) => {
     let tdy = new Date();
@@ -169,7 +171,6 @@ const DebatePage = (props) => {
   };
 
   const getImageString = (str) => {
-    console.log(str);
     try {
       let arr = [];
       for (var i = 0; i < str.length; i++) {
@@ -287,26 +288,35 @@ const DebatePage = (props) => {
   useEffect(() => {
     if (!fetchStatus && Main.userInfo[0].id !== -1) {
       axios
-        .get(`http://localhost:3005/getComments/${debateId}`)
-        .then(async (response) => {
-          set_comments(response.data);
-          updateStatus(true);
-          await axios
-            .get(
-              `http://localhost:3005/getLikes/${debateId}/${Main.userInfo[0].id}`
-            )
-            .then((response) => {
-              let s = response.data.map((item) => item.commentid);
-              set_likedQs(s);
-            })
-            .catch((err) => {
-              console.log(err);
+        .get(`http://localhost:3005/${debateId}/${Main.userInfo[0].id}`)
+        .then((response) => {
+          axios
+            .get(`http://localhost:3005/getComments/${debateId}`)
+            .then(async (response) => {
+              set_comments(response.data);
+              updateStatus(true);
+              await axios
+                .get(
+                  `http://localhost:3005/getLikes/${debateId}/${Main.userInfo[0].id}`
+                )
+                .then((response) => {
+                  let s = response.data.map((item) => item.commentid);
+                  set_likedQs(s);
+                })
+                .catch((err) => {
+                  return;
+                });
             });
+        })
+        .catch((err) => {
+          updateParticipation(null);
         });
     }
   }, [comments, IsReply, liked, Main]);
 
-  return (
+  return isParticipant === null ? (
+    <JoinDebate debateId={debateId} userInfo={Main.userInfo[0]} />
+  ) : (
     <div className="DebPage">
       <div className="Dp_catlg">
         <div className="Dp_ctg_stm">

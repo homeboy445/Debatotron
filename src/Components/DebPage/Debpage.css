@@ -6,7 +6,7 @@
   overflow-x: hidden;
   width: 100%;
 }
-.Dp_catlg{
+.Dp_catlg {
   display: flex;
   justify-content: right;
   align-items: right;
@@ -14,7 +14,7 @@
   margin-left: -10%;
   margin-top: 1%;
 }
-.Dp_catlg > div{
+.Dp_catlg > div {
   width: 6%;
   display: flex;
   justify-content: center;
@@ -24,19 +24,19 @@
   margin-right: 1%;
   border-radius: 4px;
 }
-.Dp_catlg > div > img{
+.Dp_catlg > div > img {
   cursor: pointer;
 }
-.Dp_ctg_stm > img{
+.Dp_ctg_stm > img {
   width: 50%;
 }
-.Dp_ctg_usr > img{
+.Dp_ctg_usr > img {
   width: 50%;
 }
-.Dp_ctg_alt > img{
+.Dp_ctg_alt > img {
   width: 50%;
 }
-.Dp_ctg_arw > img{
+.Dp_ctg_arw > img {
   width: 50%;
   transform: rotate(180deg);
 }
@@ -50,7 +50,7 @@
   overflow-x: hidden;
 }
 .card {
-    width: 70%;
+  width: 70%;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 6px;
   padding: 2%;
@@ -73,14 +73,14 @@
 .card_main {
   margin: 2%;
 }
-.card_main_1{
+.card_main_1 {
   margin-left: 2%;
   margin-right: 2%;
   display: flex;
   justify-content: space-between;
   align-items: space-between;
 }
-.card_time{
+.card_time {
   font-size: 1rem;
   font-weight: 400;
 }
@@ -113,7 +113,7 @@
   border-radius: 2px;
   font-size: 2rem;
 }
-.repl_btns{
+.repl_btns {
   display: flex;
   width: 100%;
   justify-content: right;
@@ -124,14 +124,15 @@
 .repl_btns > button:nth-child(1) {
   appearance: none;
   background-color: #2ea44f;
-  border: 1px solid rgba(27, 31, 35, .15);
+  border: 1px solid rgba(27, 31, 35, 0.15);
   border-radius: 6px;
-  box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+  box-shadow: rgba(27, 31, 35, 0.1) 0 1px 0;
   box-sizing: border-box;
   color: #fff;
   cursor: pointer;
   display: inline-block;
-  font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   font-size: 14px;
   font-weight: 600;
   line-height: 20px;
@@ -153,30 +154,31 @@
   background-color: #2c974b;
 }
 .repl_btns > button:nth-child(1):focus {
-  box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
+  box-shadow: rgba(46, 164, 79, 0.4) 0 0 0 3px;
   outline: none;
 }
 .repl_btns > button:nth-child(1):disabled {
   background-color: #94d3a2;
-  border-color: rgba(27, 31, 35, .1);
-  color: rgba(255, 255, 255, .8);
+  border-color: rgba(27, 31, 35, 0.1);
+  color: rgba(255, 255, 255, 0.8);
   cursor: default;
 }
 .repl_btns > button:nth-child(1):active {
   background-color: #298e46;
-  box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
+  box-shadow: rgba(20, 70, 32, 0.2) 0 1px 0 inset;
 }
 .repl_btns > button:nth-child(2) {
   appearance: none;
   background-color: crimson;
   border: 1px solid rgba(35, 27, 32, 0.15);
   border-radius: 6px;
-  box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+  box-shadow: rgba(27, 31, 35, 0.1) 0 1px 0;
   box-sizing: border-box;
   color: #fff;
   cursor: pointer;
   display: inline-block;
-  font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   font-size: 14px;
   font-weight: 600;
   line-height: 20px;
@@ -204,14 +206,14 @@
 .repl_btns > button:nth-child(2):disabled {
   background-color: #94d3a2;
   border-color: rgba(35, 27, 27, 0.1);
-  color: rgba(255, 255, 255, .8);
+  color: rgba(255, 255, 255, 0.8);
   cursor: default;
 }
 .repl_btns > button:nth-child(2):active {
   background-color: #8e2929;
   box-shadow: rgba(70, 20, 20, 0.2) 0 1px 0 inset;
 }
-.lks{
+.lks {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -219,34 +221,141 @@
   margin-top: 1%;
   margin-right: -15%;
 }
-.lks > p{
+.lks > p {
   font-size: 0.66rem;
   position: absolute;
   font-weight: 600;
   pointer-events: none;
 }
-.lks > img{
+.lks > img {
   width: 35%;
   cursor: pointer;
   transition: 0.6s ease;
 }
-.emp_conv{
+.emp_conv {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.emp_conv > img{
+.emp_conv > img {
   width: 45%;
 }
-.emp_conv > h2{
+.emp_conv > h2 {
   font-size: 2rem;
   font-weight: 400;
 }
-.emp_conv > h2 > span{
+.emp_conv > h2 > span {
   cursor: pointer;
   transition: 0.6s ease;
 }
-.emp_conv > h2 > span:hover{
+.emp_conv > h2 > span:hover {
   color: rgb(61, 61, 250);
 }
+
+/* Join Debate CSS  */
+
+.JoinDeb,
+.J_deb_1 > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* margin-top: 10%; */
+  margin: 5%;
+}
+.J_deb_1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.J_deb_1 > img {
+  width: 30%;
+}
+.J_deb_1 > div {
+  width: 800px;
+}
+.J_deb_1 > div > h1 {
+  font-size: 3rem;
+  font-weight: 500;
+}
+.J_deb_1 > div > h2 {
+  font-size: 1.6rem;
+  width: 90%;
+  font-weight: 400;
+}
+.J_deb_2{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  margin-top: 4%;
+}
+.J_deb_2 > button:nth-child(1) {
+  appearance: button;
+  backface-visibility: hidden;
+  background-color: #405cf5;
+  border-radius: 6px;
+  border-width: 0;
+  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-family: -apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif;
+  font-size: 100%;
+  height: 44px;
+  line-height: 1.15;
+  outline: none;
+  overflow: hidden;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transform: translateZ(0);
+  transition: all .2s,box-shadow .08s ease-in;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 100%;
+}
+.J_deb_2 > button:nth-child(1):disabled {
+  cursor: default;
+}
+.J_deb_2 > button:nth-child(1):focus {
+  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(50, 151, 211, .3) 0 0 0 4px;
+}
+.J_deb_2 > button:nth-child(2) {
+  appearance: button;
+  backface-visibility: hidden;
+  background-color: #e62e36;
+  border-radius: 6px;
+  border-width: 0;
+  box-shadow: rgba(93, 50, 50, 0.1) 0 0 0 1px inset,rgba(93, 50, 50, 0.1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-family: -apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif;
+  font-size: 100%;
+  height: 44px;
+  line-height: 1.15;
+  outline: none;
+  overflow: hidden;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transform: translateZ(0);
+  transition: all .2s,box-shadow .08s ease-in;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 100%;
+  margin-left: 4%;
+}
+.J_deb_2 > button:nth-child(2):disabled {
+  cursor: default;
+}
+.J_deb_2 > button:nth-child(2):focus {
+  box-shadow: rgba(93, 50, 50, 0.1) 0 0 0 1px inset,rgba(93, 55, 50, 0.2)) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(50, 151, 211, .3) 0 0 0 4px;
+}
+
