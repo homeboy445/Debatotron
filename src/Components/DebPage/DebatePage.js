@@ -11,6 +11,7 @@ import Heart from "../../Images/heart.svg";
 import HeartFill from "../../Images/filled_heart.svg";
 import Conversation from "../../Images/conversation.jpg";
 import JoinDebate from "./JoinDebate";
+import DebDescription from "./DebDescription";
 
 const DebatePage = (props) => {
   const debateId = props.match.params.id;
@@ -23,11 +24,19 @@ const DebatePage = (props) => {
     likes: 0,
     commentId: "sicnsvc",
   });
+  const [debateInfo, updateDebInfo] = useState({
+    topic: "How to be awesome?",
+    overview: "Just follow your instincts and be yourself.",
+    publisher: "xyz",
+    publishedat: new Date().toDateString(),
+  });
   const [replyText, set_ReplText] = useState("");
   const [liked, set_likedQs] = useState([]);
   const [fetchStatus, updateStatus] = useState(false);
   const [isParticipant, updateParticipation] = useState(true);
   const [userStatus, updateUserStatus] = useState({});
+  const [activeWindow, updateActiveWindow] = useState(null);
+  const [participants, updateParticipants] = useState({});
 
   const getDateAndTime = (date) => {
     let tdy = new Date();
@@ -94,7 +103,13 @@ const DebatePage = (props) => {
       item.byuser
     )}.svg`;
     let body = (
-      <div className="Dp_comments">
+      <div
+        className="Dp_comments"
+        style={{
+          opacity: activeWindow === null ? 1 : 0.6,
+          pointerEvents: activeWindow === null ? "all" : "none",
+        }}
+      >
         <div key={index}>
           <div
             className="card"
@@ -110,12 +125,11 @@ const DebatePage = (props) => {
                 style={{
                   width: "20px",
                   height: "20px",
-                  background:
-                    item.byuser === Main.userInfo[0].name
-                      ? "#FFD700"
-                      : userStatus[item.byuser] === true
-                      ? "#405cf5"
-                      : "#e62e36",
+                  background: false
+                    ? "#FFD700"
+                    : userStatus[item.byuser] === true
+                    ? "#405cf5"
+                    : "#e62e36",
                   borderRadius: "100px",
                 }}
               ></p>
@@ -291,36 +305,46 @@ const DebatePage = (props) => {
   };
 
   const hashUserStatus = (data) => {
-    let user = {};
+    let user = {},
+      partp = {};
     data.map((item) => {
+      try {
+        partp[item.withdeb].push(item.username);
+      } catch {
+        partp[item.withdeb] = [item.username];
+      }
       return (user[item.username] = item.withdeb);
     });
+    updateParticipants(partp);
     return updateUserStatus(user);
   };
 
   useEffect(() => {
     if (!fetchStatus && Main.userInfo[0].id !== -1) {
       axios
-        .get(
-          `http://localhost:3005/getParticipation/${debateId}/${Main.userInfo[0].id}`
-        )
+        .get(`http://localhost:3005/getdebdata/${debateId}`)
         .then((response) => {
-          hashUserStatus(response.data);
+          updateDebInfo(response.data[0]);
+          console.log(response.data);
           axios
-            .get(`http://localhost:3005/getComments/${debateId}`)
+            .get(
+              `http://localhost:3005/getParticipation/${debateId}/${Main.userInfo[0].id}`
+            )
             .then((response) => {
-              set_comments(response.data);
-              updateStatus(true);
+              hashUserStatus(response.data);
               axios
-                .get(
-                  `http://localhost:3005/getLikes/${debateId}/${Main.userInfo[0].id}`
-                )
+                .get(`http://localhost:3005/getComments/${debateId}`)
                 .then((response) => {
-                  let s = response.data.map((item) => item.commentid);
-                  set_likedQs(s);
-                })
-                .catch((err) => {
-                  return;
+                  set_comments(response.data);
+                  updateStatus(true);
+                  axios
+                    .get(
+                      `http://localhost:3005/getLikes/${debateId}/${Main.userInfo[0].id}`
+                    )
+                    .then((response) => {
+                      let s = response.data.map((item) => item.commentid);
+                      set_likedQs(s);
+                    });
                 });
             });
         })
@@ -332,15 +356,31 @@ const DebatePage = (props) => {
 
   return isParticipant === null ? (
     <JoinDebate
+      title={debateInfo.topic}
+      description={debateInfo.overview}
+      name={debateInfo.publisher}
+      publishedAt={debateInfo.publishedat}
       debateId={debateId}
       userInfo={Main.userInfo[0]}
       updateParticipation={(v) => updateParticipation(v)}
     />
   ) : (
     <div className="DebPage">
-      <div className="Dp_catlg">
+      <div
+        className="Dp_catlg"
+        style={{
+          opacity: activeWindow === null ? 1 : 0.6,
+          pointerEvents: activeWindow === null ? "all" : "none",
+        }}
+      >
         <div className="Dp_ctg_stm">
-          <img src={Statement} alt="statement" />
+          <img
+            src={Statement}
+            alt="statement"
+            onClick={() => {
+              updateActiveWindow(1);
+            }}
+          />
         </div>
         <div className="Dp_ctg_usr">
           <img src={Users} alt="Participants" />
@@ -352,12 +392,27 @@ const DebatePage = (props) => {
           <img src={Arrow} alt="Homepage" />
         </div>
       </div>
+      {activeWindow !== null ? (
+        activeWindow === 1 ? (
+          <DebDescription
+            title={debateInfo.topic}
+            description={debateInfo.overview}
+            toggleBox={() => updateActiveWindow(null)}
+          />
+        ) : null
+      ) : null}
       {comments.length !== 0 ? (
         comments.map((item, index) => {
           return <Comments item={item} index={index} level={3} />;
         })
       ) : (
-        <div className="emp_conv">
+        <div
+          className="emp_conv"
+          style={{
+            opacity: activeWindow === null ? 1 : 0.6,
+            pointerEvents: activeWindow === null ? "all" : "none",
+          }}
+        >
           <img src={Conversation} alt="" />
           <h2>
             Be the first to start the{" "}
