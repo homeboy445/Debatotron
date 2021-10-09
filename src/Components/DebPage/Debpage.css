@@ -454,3 +454,250 @@
   box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(50, 151, 211, .3) 0 0 0 4px;
 }
 
+/* Participants pop-up */
+
+.partpnts{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  border-radius: 5px;
+  position: fixed;
+  background: whitesmoke;
+  z-index: 101010;
+  width: 40%;
+  top: 1%;
+  left: 25%;
+  height: 600px;
+}
+.partpnts img{
+  width: 22%;
+}
+.partpnts > h1{
+  font-size: 2rem;
+  font-weight: 500;
+}
+.partpnts > h2{
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin-top: -2%;
+}
+.pnt_1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  width: 90%;
+  padding: 2%;
+}
+.pnt_1 > div{
+  height: 350px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.pnt_1 > div:nth-child(1){
+  display: flex;
+  flex-direction: column;
+}
+.nm_lne1{
+  display: flex;
+}
+.nm_lne2{
+  display: flex;
+}
+.ptp_btns{
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  margin-bottom: 1%;
+  height: 80px;
+}
+.ptp_btns > button:nth-child(1) {
+  appearance: button;
+  backface-visibility: hidden;
+  background-color: #e62e36;
+  border-radius: 6px;
+  border-width: 0;
+  box-shadow: rgba(93, 50, 50, 0.1) 0 0 0 1px inset,rgba(93, 50, 50, 0.1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-family: -apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif;
+  font-size: 100%;
+  height: 44px;
+  line-height: 1.15;
+  margin: 12px 0 0;
+  outline: none;
+  overflow: hidden;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transform: translateZ(0);
+  transition: all .2s,box-shadow .08s ease-in;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 100%;
+}
+.ptp_btns > button:nth-child(1):disabled {
+  cursor: default;
+}
+.ptp_btns > button:nth-child(1):focus {
+  box-shadow: rgba(93, 50, 50, 0.1) 0 0 0 1px inset, rgba(93, 50, 50, 0.2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(211, 50, 50, 0.3) 0 0 0 4px;
+}
+.ptp_btns > button:nth-child(2) {
+  appearance: button;
+  backface-visibility: hidden;
+  background-color: #405cf5;
+  border-radius: 6px;
+  border-width: 0;
+  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-family: -apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif;
+  font-size: 100%;
+  height: 44px;
+  line-height: 1.15;
+  margin: 12px 0 0;
+  outline: none;
+  overflow: hidden;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transform: translateZ(0);
+  transition: all .2s,box-shadow .08s ease-in;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 100%;
+}
+.ptp_btns > button:nth-child(2):disabled {
+  cursor: default;
+}
+.ptp_btns > button:nth-child(2):focus {
+  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(50, 151, 211, .3) 0 0 0 4px;
+}
+
+/* Report User pop-up */
+
+.alt_pp{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  height: 500px;
+  border: 2px solid black;
+  border-radius: 5px;
+  background: whitesmoke;
+  z-index: 101001;
+  position: fixed;
+  top: 4%;
+  left: 25%;
+}
+.alt_pp > img{
+  width: 40%;
+}
+.alt_pp > select{
+  width: 60%;
+  font-size: 2rem;
+}
+.alt_pp > h3{
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-top: 2%;
+}
+.alt_pp_btns{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  width: 95%;
+}
+.alt_pp_btns > button:nth-child(1) {
+  appearance: button;
+  backface-visibility: hidden;
+  background-color: #e62e36;
+  border-radius: 6px;
+  border-width: 0;
+  box-shadow: rgba(93, 50, 50, 0.1) 0 0 0 1px inset,rgba(93, 50, 50, 0.1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-family: -apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif;
+  font-size: 100%;
+  height: 44px;
+  line-height: 1.15;
+  margin: 12px 0 0;
+  outline: none;
+  overflow: hidden;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transform: translateZ(0);
+  transition: all .2s,box-shadow .08s ease-in;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 100%;
+}
+.alt_pp_btns > button:nth-child(1):disabled {
+  cursor: default;
+}
+.alt_pp_btns > button:nth-child(1):focus {
+  box-shadow: rgba(93, 50, 50, 0.1) 0 0 0 1px inset, rgba(93, 50, 50, 0.2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(211, 50, 50, 0.3) 0 0 0 4px;
+}
+.alt_pp_btns > button:nth-child(2) {
+  appearance: button;
+  backface-visibility: hidden;
+  background-color: #405cf5;
+  border-radius: 6px;
+  border-width: 0;
+  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-family: -apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif;
+  font-size: 100%;
+  height: 44px;
+  line-height: 1.15;
+  margin: 12px 0 0;
+  outline: none;
+  overflow: hidden;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transform: translateZ(0);
+  transition: all .2s,box-shadow .08s ease-in;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 100%;
+}
+.alt_pp_btns > button:nth-child(2):disabled {
+  cursor: default;
+}
+.alt_pp_btns > button:nth-child(2):focus {
+  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(50, 151, 211, .3) 0 0 0 4px;
+}
+.comment{
+  position: fixed;
+  top: 80%;
+  left: 90%;
+  width: 20%;
+}
+.comment > img{
+  width: 20%;
+  cursor: pointer;
+}
+

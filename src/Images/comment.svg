@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?> <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42">
+  <defs>
+    <style>
+      .a {
+        fill: #d3d4ed;
+      }
+    </style>
+  </defs>
+  <title>14 Comment_5</title>
+  <path class="a" d="M21,0A21,21,0,0,0,3.21,32.12l-3,7.09a2,2,0,0,0,2.62,2.62l7.09-3A21,21,0,1,0,21,0Zm4,27.5H12a2,2,0,0,1,0-4H25a2,2,0,0,1,0,4Zm5-9H12a2,2,0,0,1,0-4H30a2,2,0,0,1,0,4Z"/>
+</svg>

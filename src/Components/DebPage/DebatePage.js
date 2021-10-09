@@ -10,8 +10,11 @@ import Arrow from "../../Images/pointer.svg";
 import Heart from "../../Images/heart.svg";
 import HeartFill from "../../Images/filled_heart.svg";
 import Conversation from "../../Images/conversation.jpg";
+import Comment from "../../Images/comment.svg";
 import JoinDebate from "./JoinDebate";
 import DebDescription from "./DebDescription";
+import Participants from "./Participants";
+import ReportUser from "./ReportUser";
 
 const DebatePage = (props) => {
   const debateId = props.match.params.id;
@@ -36,7 +39,10 @@ const DebatePage = (props) => {
   const [isParticipant, updateParticipation] = useState(true);
   const [userStatus, updateUserStatus] = useState({});
   const [activeWindow, updateActiveWindow] = useState(null);
-  const [participants, updateParticipants] = useState({});
+  const [participants, updateParticipants] = useState({ true: [], false: [] });
+  const [participantsData, updateParticipantData] = useState([
+    { userid: -1, username: "xyz" },
+  ]);
 
   const getDateAndTime = (date) => {
     let tdy = new Date();
@@ -111,11 +117,7 @@ const DebatePage = (props) => {
         }}
       >
         <div key={index}>
-          <div
-            className="card"
-            key={index}
-            style={{ marginLeft: `${level + index + 1}%` }}
-          >
+          <div className="card" key={index} style={{ marginLeft: `${level}%` }}>
             <div className="card_usrInfo">
               <div className="card_pf">
                 <img src={image} alt="" />
@@ -125,11 +127,12 @@ const DebatePage = (props) => {
                 style={{
                   width: "20px",
                   height: "20px",
-                  background: false
-                    ? "#FFD700"
-                    : userStatus[item.byuser] === true
-                    ? "#405cf5"
-                    : "#e62e36",
+                  background:
+                    debateInfo.publisher === item.byuser
+                      ? "#FFD700"
+                      : userStatus[item.byuser] === true
+                      ? "#405cf5"
+                      : "#e62e36",
                   borderRadius: "100px",
                 }}
               ></p>
@@ -257,12 +260,15 @@ const DebatePage = (props) => {
   };
 
   const MakeReply = () => {
+    if (replyText.trim() === "") {
+      return;
+    }
     if (IsReply.index === -1) {
       return makeComment();
     }
     let comment_ = findParentComment(
       comments[IsReply.index],
-      comments[IsReply.index].commentId
+      comments[IsReply.index].commentid
     );
     if (!comment_.is) {
       return;
@@ -307,6 +313,7 @@ const DebatePage = (props) => {
   const hashUserStatus = (data) => {
     let user = {},
       partp = {};
+    updateParticipantData(data);
     data.map((item) => {
       try {
         partp[item.withdeb].push(item.username);
@@ -319,24 +326,42 @@ const DebatePage = (props) => {
     return updateUserStatus(user);
   };
 
+  const refreshComments = () => {
+    setTimeout(() => {
+      axios
+        .get(`http://localhost:3005/getComments/${debateId}`)
+        .then((response) => {
+          set_comments(response.data);
+          refreshComments();
+        });
+    }, 5 * 60 * 1000);
+  };
+
   useEffect(() => {
     if (!fetchStatus && Main.userInfo[0].id !== -1) {
       axios
         .get(`http://localhost:3005/getdebdata/${debateId}`)
         .then((response) => {
           updateDebInfo(response.data[0]);
-          console.log(response.data);
           axios
             .get(
               `http://localhost:3005/getParticipation/${debateId}/${Main.userInfo[0].id}`
             )
             .then((response) => {
+              response.data.map((item) => {
+                if (item.username === Main.userInfo[0].name) {
+                  updateParticipation(true);
+                }
+                return null;
+              });
               hashUserStatus(response.data);
               axios
                 .get(`http://localhost:3005/getComments/${debateId}`)
                 .then((response) => {
                   set_comments(response.data);
+                  refreshComments();
                   updateStatus(true);
+                  console.log(response.data);
                   axios
                     .get(
                       `http://localhost:3005/getLikes/${debateId}/${Main.userInfo[0].id}`
@@ -383,13 +408,28 @@ const DebatePage = (props) => {
           />
         </div>
         <div className="Dp_ctg_usr">
-          <img src={Users} alt="Participants" />
+          <img
+            src={Users}
+            alt="Participants"
+            onClick={() => {
+              updateActiveWindow(2);
+            }}
+          />
         </div>
-        <div className="Dp_ctg_alt">
+        <div
+          className="Dp_ctg_alt"
+          onClick={() => {
+            updateActiveWindow(3);
+          }}
+        >
           <img src={Alert} alt="Report" />
         </div>
         <div className="Dp_ctg_arw">
-          <img src={Arrow} alt="Homepage" />
+          <img
+            src={Arrow}
+            alt="Homepage"
+            onClick={() => (window.location.href = "/OngoingDebs")}
+          />
         </div>
       </div>
       {activeWindow !== null ? (
@@ -397,6 +437,22 @@ const DebatePage = (props) => {
           <DebDescription
             title={debateInfo.topic}
             description={debateInfo.overview}
+            toggleBox={() => updateActiveWindow(null)}
+          />
+        ) : activeWindow === 2 ? (
+          <Participants
+            owner={debateInfo.publisher === Main.userInfo[0].name}
+            status={userStatus[Main.userInfo[0].name]}
+            participants={participants}
+            debateId={debateId}
+            userId={Main.userInfo[0].id}
+            toggleBox={() => updateActiveWindow(null)}
+          />
+        ) : activeWindow === 3 ? (
+          <ReportUser
+            debateId={debateId}
+            userList={participantsData}
+            userId={Main.userInfo[0].id}
             toggleBox={() => updateActiveWindow(null)}
           />
         ) : null
@@ -465,6 +521,24 @@ const DebatePage = (props) => {
             Cancel
           </button>
         </div>
+      </div>
+      <div
+        className="comment"
+        style={{
+          opacity: IsReply.is === true ? 0 : 1,
+          pointerEvents: IsReply.is === true ? "none" : "all",
+        }}
+      >
+        <img
+          src={Comment}
+          alt="Comment"
+          onClick={() => {
+            toggleIsReply({
+              is: true,
+              index: -1,
+            });
+          }}
+        />
       </div>
     </div>
   );
