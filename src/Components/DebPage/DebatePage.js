@@ -26,7 +26,8 @@ const DebatePage = (props) => {
   const [replyText, set_ReplText] = useState("");
   const [liked, set_likedQs] = useState([]);
   const [fetchStatus, updateStatus] = useState(false);
-  const [isParticipant, updateParticipation] = useState(null);
+  const [isParticipant, updateParticipation] = useState(true);
+  const [userStatus, updateUserStatus] = useState({});
 
   const getDateAndTime = (date) => {
     let tdy = new Date();
@@ -59,7 +60,6 @@ const DebatePage = (props) => {
         value: value,
       })
       .then((response) => {
-        console.log(response.data);
         return;
       });
   };
@@ -110,7 +110,12 @@ const DebatePage = (props) => {
                 style={{
                   width: "20px",
                   height: "20px",
-                  background: "red",
+                  background:
+                    item.byuser === Main.userInfo[0].name
+                      ? "#FFD700"
+                      : userStatus[item.byuser] === true
+                      ? "#405cf5"
+                      : "#e62e36",
                   borderRadius: "100px",
                 }}
               ></p>
@@ -285,17 +290,28 @@ const DebatePage = (props) => {
     return storeComment(arr);
   };
 
+  const hashUserStatus = (data) => {
+    let user = {};
+    data.map((item) => {
+      return (user[item.username] = item.withdeb);
+    });
+    return updateUserStatus(user);
+  };
+
   useEffect(() => {
     if (!fetchStatus && Main.userInfo[0].id !== -1) {
       axios
-        .get(`http://localhost:3005/${debateId}/${Main.userInfo[0].id}`)
+        .get(
+          `http://localhost:3005/getParticipation/${debateId}/${Main.userInfo[0].id}`
+        )
         .then((response) => {
+          hashUserStatus(response.data);
           axios
             .get(`http://localhost:3005/getComments/${debateId}`)
-            .then(async (response) => {
+            .then((response) => {
               set_comments(response.data);
               updateStatus(true);
-              await axios
+              axios
                 .get(
                   `http://localhost:3005/getLikes/${debateId}/${Main.userInfo[0].id}`
                 )
@@ -315,7 +331,11 @@ const DebatePage = (props) => {
   }, [comments, IsReply, liked, Main]);
 
   return isParticipant === null ? (
-    <JoinDebate debateId={debateId} userInfo={Main.userInfo[0]} />
+    <JoinDebate
+      debateId={debateId}
+      userInfo={Main.userInfo[0]}
+      updateParticipation={(v) => updateParticipation(v)}
+    />
   ) : (
     <div className="DebPage">
       <div className="Dp_catlg">

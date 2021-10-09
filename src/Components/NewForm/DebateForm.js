@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from "react";
-import { Redirect } from  "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import "./DebForm.css";
 
@@ -9,7 +9,6 @@ const DebateForm = ({ userInfo, ToggleDisplay }) => {
   const [catg, change_catg] = useState("");
   const [access, ChangeAccess] = useState(false);
   const [finishStatus, setfinishStatus] = useState(false);
-  const deb_id = Date.now();
 
   const HandleTitle = (evt) => {
     Altertitle(evt.target.value);
@@ -24,13 +23,13 @@ const DebateForm = ({ userInfo, ToggleDisplay }) => {
   };
 
   const SendData = (event,recieved_flag) => {
-    if (!(deb_id && title && Description && recieved_flag && catg)) {
+    if (!(title && Description && recieved_flag && catg)) {
       return;
     }
     event.preventDefault();
     axios
       .post("http://localhost:3005/save", {
-        uniqid: deb_id,
+        uniqid: uuidv4(),
         title: title,
         overview: Description,
         publishedat: new Date().toLocaleDateString(),
