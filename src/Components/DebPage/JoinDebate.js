@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 
 const JoinDebate = ({
@@ -19,15 +19,19 @@ const JoinDebate = ({
         status: val,
       })
       .then((response) => {
-        console.log(response);
-        updateParticipation(val);
+        console.log(response.data);
+        updateParticipation(true);
       })
       .catch((err) => {
         return;
       });
   };
 
-  useEffect(() => {}, [userInfo]);
+  useEffect(() => {
+    if (name === userInfo.name) {
+      updateParticipation(true);
+    }
+  }, [userInfo]);
 
   const image = `https://avatars.dicebear.com/api/micah/${Math.random()}.svg`;
 

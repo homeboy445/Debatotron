@@ -7,11 +7,12 @@ const Participants = ({
   participants,
   debateId,
   userId,
+  name,
   toggleBox,
 }) => {
   const image = `https://avatars.dicebear.com/api/micah/${Math.random()}.svg`;
 
-  useEffect(() => {}, [participants]);
+  useEffect(() => {}, [name, participants]);
 
   return (
     <div className="partpnts">
@@ -36,7 +37,15 @@ const Participants = ({
                   {(participants[true] || []).length !== 0 ? (
                     <img src={image} alt="" />
                   ) : null}
-                  <h2>{item}</h2>
+                  <h2
+                    style={{
+                      color: name === item ? "gold" : "black",
+                      textShadow:
+                        name === item ? "1px 1px 1px #405cf5" : "none",
+                    }}
+                  >
+                    {item}
+                  </h2>
                 </div>
               );
             }
@@ -50,7 +59,15 @@ const Participants = ({
                   {(participants[false] || []).length !== 0 ? (
                     <img src={image} alt="" />
                   ) : null}
-                  <h2>{item}</h2>
+                  <h2
+                    style={{
+                      color: name === item ? "gold" : "black",
+                      textShadow:
+                        name === item ? "1px 1px 1px #e62e36" : "none",
+                    }}
+                  >
+                    {item}
+                  </h2>
                 </div>
               );
             }
@@ -59,6 +76,7 @@ const Participants = ({
       </div>
       <div className="ptp_btns">
         <button
+          disabled={owner}
           onClick={() => {
             axios
               .post("http://localhost:3005/changeSide", {

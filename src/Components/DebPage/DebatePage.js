@@ -36,7 +36,7 @@ const DebatePage = (props) => {
   const [replyText, set_ReplText] = useState("");
   const [liked, set_likedQs] = useState([]);
   const [fetchStatus, updateStatus] = useState(false);
-  const [isParticipant, updateParticipation] = useState(true);
+  const [isParticipant, updateParticipation] = useState(false);
   const [userStatus, updateUserStatus] = useState({});
   const [activeWindow, updateActiveWindow] = useState(null);
   const [participants, updateParticipants] = useState({ true: [], false: [] });
@@ -101,6 +101,18 @@ const DebatePage = (props) => {
     return set_comments(comm);
   };
 
+  const isReplied = (id) => {
+    let result = comments.find((item) => item.commentid === id);
+    if (result === undefined) {
+      return <p></p>;
+    } else {
+      if (result.byuser === Main.userInfo[0].name) {
+        return <p>(replied to the previous comment.)</p>;
+      }
+      return <p>{`(replied to ${result.byuser})`}</p>;
+    }
+  };
+
   const Comments = ({ item, index, level }) => {
     if (typeof item === undefined) {
       return null;
@@ -139,7 +151,10 @@ const DebatePage = (props) => {
             </div>
             <div className="card_main">{item.comment}</div>
             <div className="card_main_1">
-              <div>{getDateAndTime(new Date(item.madeon))}</div>
+              <div style={{ display: "flex" }}>
+                {getDateAndTime(new Date(item.madeon))}
+                {isReplied(item.parent)}
+              </div>
               <div className="card_lst">
                 <div
                   className="lks"
@@ -174,7 +189,7 @@ const DebatePage = (props) => {
                       is: true,
                       index: index,
                       user: item.byuser,
-                      commentId: item.commentId,
+                      commentId: item.commentid,
                     });
                   }}
                 >
@@ -225,7 +240,7 @@ const DebatePage = (props) => {
   const findParentComment = (comments_, parent) => {
     //Recursively traverse the comments and find out the parent comment
     // And append the results there...
-    if (comments_.commentId === IsReply.commentId) {
+    if (comments_.commentid === IsReply.commentId) {
       comments_.replies.push({
         byuser: Main.userInfo[0].name,
         likes: 0,
@@ -249,7 +264,7 @@ const DebatePage = (props) => {
     for (var i = 0; i < comments_.replies.length; i++) {
       ans = findParentComment(
         comments_.replies[i],
-        comments_.replies[i].commentId
+        comments_.replies[i].commentid
       );
       if (ans.is) {
         comments_.replies[i] = ans.data;
@@ -266,15 +281,22 @@ const DebatePage = (props) => {
     if (IsReply.index === -1) {
       return makeComment();
     }
-    let comment_ = findParentComment(
-      comments[IsReply.index],
-      comments[IsReply.index].commentid
-    );
-    if (!comment_.is) {
+    let found = { is: false };
+    comments.map((item) => {
+      if (found.is) {
+        return null;
+      }
+      let comment_ = findParentComment(item, item.commentid);
+      if (comment_.is) {
+        found = comment_;
+      }
+      return null;
+    });
+    if (!found.is) {
       return;
     }
     let res = comments;
-    res[IsReply.index] = comment_.data;
+    res[IsReply.index] = found.data;
     set_comments(res);
     set_ReplText("");
     return toggleIsReply({
@@ -344,9 +366,7 @@ const DebatePage = (props) => {
         .then((response) => {
           updateDebInfo(response.data[0]);
           axios
-            .get(
-              `http://localhost:3005/getParticipation/${debateId}/${Main.userInfo[0].id}`
-            )
+            .get(`http://localhost:3005/getParticipation/${debateId}`)
             .then((response) => {
               response.data.map((item) => {
                 if (item.username === Main.userInfo[0].name) {
@@ -361,7 +381,6 @@ const DebatePage = (props) => {
                   set_comments(response.data);
                   refreshComments();
                   updateStatus(true);
-                  console.log(response.data);
                   axios
                     .get(
                       `http://localhost:3005/getLikes/${debateId}/${Main.userInfo[0].id}`
@@ -369,7 +388,13 @@ const DebatePage = (props) => {
                     .then((response) => {
                       let s = response.data.map((item) => item.commentid);
                       set_likedQs(s);
+                    })
+                    .catch((err) => {
+                      throw err;
                     });
+                })
+                .catch((err) => {
+                  throw err;
                 });
             });
         })
@@ -379,7 +404,7 @@ const DebatePage = (props) => {
     }
   }, [comments, IsReply, liked, Main]);
 
-  return isParticipant === null ? (
+  return isParticipant === false ? (
     <JoinDebate
       title={debateInfo.topic}
       description={debateInfo.overview}
@@ -445,14 +470,16 @@ const DebatePage = (props) => {
             status={userStatus[Main.userInfo[0].name]}
             participants={participants}
             debateId={debateId}
+            name={Main.userInfo[0].name}
             userId={Main.userInfo[0].id}
             toggleBox={() => updateActiveWindow(null)}
           />
         ) : activeWindow === 3 ? (
           <ReportUser
             debateId={debateId}
+            owner={debateInfo.publisher}
             userList={participantsData}
-            userId={Main.userInfo[0].id}
+            user={Main.userInfo[0]}
             toggleBox={() => updateActiveWindow(null)}
           />
         ) : null
