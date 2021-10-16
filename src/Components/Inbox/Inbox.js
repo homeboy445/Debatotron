@@ -127,6 +127,12 @@ const Inbox = ({ userInfo }) => {
       case 3:
         k &= false;
         break;
+      case 4:
+        k &= false;
+        break;
+      case 5:
+        k &= false;
+        break;
       default:
         k &= true;
         break;

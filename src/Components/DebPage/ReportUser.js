@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Alert from "../../Images/alert.svg";
 
-const ReportUser = ({ debateId, userList, userId, toggleBox }) => {
+const ReportUser = ({ debateId, owner, userList, user, toggleBox }) => {
   const [selectedUser, updateSelection] = useState("#");
 
   return (
@@ -16,6 +16,9 @@ const ReportUser = ({ debateId, userList, userId, toggleBox }) => {
       >
         <option value="#">Choose user</option>
         {(userList || ["Choose user"]).map((item, index) => {
+          if (item.username === user.name) {
+            return null;
+          }
           return (
             <option key={index} value={item.userid}>
               {item.username}
@@ -30,13 +33,12 @@ const ReportUser = ({ debateId, userList, userId, toggleBox }) => {
             if (selectedUser === "#") {
               return;
             }
-            console.log(selectedUser);
             let Id = parseInt(selectedUser);
             axios
               .post("http://localhost:3005/reportUser", {
                 debateId: debateId,
                 userId: Id,
-                reporterId: userId,
+                reporterId: user.id,
               })
               .then((response) => {
                 throw response;
