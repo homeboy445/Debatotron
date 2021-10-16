@@ -8,32 +8,106 @@ import ListIcon from "../../Images/list.svg";
 const OngoingDebs = () => {
   const [list, listUpdate] = useState([]);
   const [Debates, updateDebates] = useState([]);
+  const [categoryList, updateCategoryList] = useState(["all"]);
+  const [search, updateSearch] = useState("");
+  const [category, changeCategory] = useState("all");
+  const [settings, toggleSettingsPopup] = useState(false);
+  const [searchType, changeSearchType] = useState(0);
   const [viewType, toggleType] = useState(0);
+  const [fetchStatus, updateStatus] = useState(false);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3005/GetDebs/public")
-      .then(async (response) => {
-        let arr = response.data;
-        await axios
-          .get("http://localhost:3005/GetDebs/private")
-          .then((response) => {
-            arr.concat(response.data);
+    if (!fetchStatus) {
+      axios
+        .get("http://localhost:3005/GetDebs/public")
+        .then(async (response) => {
+          let arr = response.data;
+          await axios
+            .get("http://localhost:3005/GetDebs/private")
+            .then((response) => {
+              arr.concat(response.data);
+            });
+          listUpdate(response.data);
+          updateDebates(response.data);
+          updateStatus(true);
+          arr = new Set();
+          arr.add("all");
+          response.data.map((item) => {
+            return arr.add(item.category);
           });
-        listUpdate(response.data);
-        updateDebates(response.data);
-      })
-      .catch((err) => {
-        return;
-      });
-  }, []);
+          updateCategoryList([...arr]);
+        })
+        .catch((err) => {
+          return;
+        });
+    }
+    let results = [];
+    Debates.map((item) => {
+      if (
+        (item.topic.includes(search) && searchType === 0) ||
+        (item.publisher.includes(search) && searchType === 1) ||
+        ((item.topic.includes(search) || item.topic.includes(search)) &&
+          searchType === 2)
+      ) {
+        results.push(item);
+      }
+      return null;
+    });
+    listUpdate(results);
+    console.log(searchType);
+  }, [search, searchType, category]);
 
   return (
     <div className="debs_mainer">
       <div className="deb_main_title">
         <h1>Live Debates</h1>
         <div>
-          <img src={SettingsIcon} alt="settings" />
+          <div className="deb_settings">
+            <img src={SettingsIcon} alt="settings" />
+            <div
+              className="settings_1"
+              style={{
+                height: settings ? "0%" : "35%",
+              }}
+            >
+              <h1>Settings</h1>
+              <div className="settings_1_1">
+                <h2>Category:</h2>
+                <select value={category} onChange={(e)=>{
+                  updateCategoryList(e.target.value);
+                }}>
+                  {categoryList.map((item, index) => {
+                    return <option key={index} value={item}>{item}</option>;
+                  })}
+                </select>
+              </div>
+              <div className="settings_1_2">
+                <h2>Search by:</h2>
+                <div>
+                  <div className="checkBX">
+                    <input
+                      type="checkbox"
+                      defaultChecked={searchType === 0 || searchType === 2}
+                      onChange={() => {
+                        changeSearchType(searchType === 2 ? 1 : 0);
+                      }}
+                    />
+                    <h3>Debates</h3>
+                  </div>
+                  <div className="checkBX">
+                    <input
+                      type="checkbox"
+                      defaultChecked={searchType === 1 || searchType === 2}
+                      onChange={() => {
+                        changeSearchType(searchType === 0 ? 2 : 1);
+                      }}
+                    />
+                    <h3>User</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <img
             src={viewType === 0 ? ListIcon : GridIcon}
             alt="list"
@@ -44,7 +118,14 @@ const OngoingDebs = () => {
         </div>
       </div>
       <div className="deb_search">
-        <input type="text" placeholder="Search for debates" />
+        <input
+          type="text"
+          placeholder="Search for debates"
+          value={search}
+          onChange={(e) => {
+            updateSearch(e.target.value);
+          }}
+        />
       </div>
       {viewType === 0 ? (
         <div className="deb_main_grid">
