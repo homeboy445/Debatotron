@@ -41,20 +41,24 @@ const OngoingDebs = () => {
           return;
         });
     }
+    if (searchType === -1) {
+      return;
+    }
     let results = [];
     Debates.map((item) => {
       if (
         (item.topic.includes(search) && searchType === 0) ||
         (item.publisher.includes(search) && searchType === 1) ||
-        ((item.topic.includes(search) || item.topic.includes(search)) &&
+        ((item.topic.includes(search) || item.publisher.includes(search)) &&
           searchType === 2)
       ) {
-        results.push(item);
+        if (category === "all" || item.category === category) {
+          results.push(item);
+        }
       }
       return null;
     });
     listUpdate(results);
-    console.log(searchType);
   }, [search, searchType, category]);
 
   return (
@@ -63,21 +67,33 @@ const OngoingDebs = () => {
         <h1>Live Debates</h1>
         <div>
           <div className="deb_settings">
-            <img src={SettingsIcon} alt="settings" />
+            <img src={SettingsIcon} alt="settings" onClick={()=>{
+              toggleSettingsPopup(!settings);
+            }}/>
             <div
               className="settings_1"
               style={{
-                height: settings ? "0%" : "35%",
+                opacity:  settings ? 1 : 0,
+                pointerEvents: settings ? "all" : "none",
+                transform: settings ? "translate(0%, 0%)" : "translate(20%, -20%)",
+                transition: "0.4s ease"
               }}
             >
               <h1>Settings</h1>
               <div className="settings_1_1">
                 <h2>Category:</h2>
-                <select value={category} onChange={(e)=>{
-                  updateCategoryList(e.target.value);
-                }}>
-                  {categoryList.map((item, index) => {
-                    return <option key={index} value={item}>{item}</option>;
+                <select
+                  value={category}
+                  onChange={(e) => {
+                    changeCategory(e.target.value);
+                  }}
+                >
+                  {(categoryList || ["all"]).map((item, index) => {
+                    return (
+                      <option key={index} value={item}>
+                        {item}
+                      </option>
+                    );
                   })}
                 </select>
               </div>
@@ -87,9 +103,17 @@ const OngoingDebs = () => {
                   <div className="checkBX">
                     <input
                       type="checkbox"
-                      defaultChecked={searchType === 0 || searchType === 2}
+                      defaultChecked={true}
                       onChange={() => {
-                        changeSearchType(searchType === 2 ? 1 : 0);
+                        changeSearchType(
+                          searchType === 0
+                            ? -1
+                            : searchType === 2
+                            ? 1
+                            : searchType === -1
+                            ? 0
+                            : 2
+                        );
                       }}
                     />
                     <h3>Debates</h3>
@@ -99,7 +123,15 @@ const OngoingDebs = () => {
                       type="checkbox"
                       defaultChecked={searchType === 1 || searchType === 2}
                       onChange={() => {
-                        changeSearchType(searchType === 0 ? 2 : 1);
+                        changeSearchType(
+                          searchType === 1
+                            ? -1
+                            : searchType === 2
+                            ? 0
+                            : searchType === -1
+                            ? 1
+                            : 2
+                        );
                       }}
                     />
                     <h3>User</h3>
@@ -120,8 +152,17 @@ const OngoingDebs = () => {
       <div className="deb_search">
         <input
           type="text"
-          placeholder="Search for debates"
+          placeholder={
+            searchType === 0
+              ? "Search for debates"
+              : searchType === 1
+              ? "Search for debates by users"
+              : searchType === 2
+              ? "Search all the combinations"
+              : ""
+          }
           value={search}
+          disabled={searchType === -1}
           onChange={(e) => {
             updateSearch(e.target.value);
           }}
