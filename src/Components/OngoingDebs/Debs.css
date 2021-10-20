@@ -31,10 +31,11 @@
     margin-right: 2%;
     display: flex;
     flex-direction: column;
-    border: 2px solid black;
 }
 .deb_settings img{
     width: 100%;
+    margin-top: 12%;
+    cursor: pointer;
     margin-right: 2%;
     transition: 0.4s ease;
 }
@@ -68,6 +69,8 @@
     padding: 4%;
     transition: 0.2s ease;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    background: #3f75ff;
+    color: white;
 }
 .deb_card:hover{
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -81,7 +84,7 @@
 }
 .deb_card_1 > h1{
     font-size: 2rem;
-    font-weight: 400;
+    font-weight: 500;
 }
 .deb_card_1 > div{
     display: flex;
@@ -117,13 +120,15 @@
     padding: 2%;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     transition: 0.2s ease;
+    background: #3f75ff;
+    color: white;
 }
 .deb_list:hover{
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .deb_list > h1{
     font-size: 2rem;
-    font-weight: 400;
+    font-weight: 500;
 }
 .deb_list > h3{
     font-size: 1.5rem;
