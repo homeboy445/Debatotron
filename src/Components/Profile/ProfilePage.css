@@ -1,0 +1,180 @@
+.pf_page_main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background: whitesmoke;
+  min-height: 100vh;
+}
+.pf_page_1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border-top: 2px solid black;
+}
+.pf_bg {
+  height: 300px;
+  width: 100%;
+  background: url("../../Images/abstractbg1.jpg");
+  background-position: center;
+  background-size: cover;
+}
+.pf_img {
+  width: 35%;
+  border: 2px solid black;
+  border-radius: 200px;
+  overflow: hidden;
+  background: yellow;
+  vertical-align: top;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  margin-top: -30%;
+  margin-left: 20%;
+}
+.pf_page_info {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+  margin-left: 5%;
+  width: 100%;
+}
+.pf_page_info > h1 {
+  font-size: 3.5rem;
+  width: 80%;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+.pf_page_info > h3 {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-top: -2%;
+  margin-left: 1%;
+  height: 200px;
+}
+.pf_page_info > h3::-webkit-scrollbar {
+  width: 5px;
+  background: whitesmoke;
+}
+.pf_page_info > h3::-webkit-scrollbar-thumb {
+  background: rgb(180, 178, 178);
+  border-radius: 10px;
+}
+.pf_page_info > h2 {
+  font-size: 1.5rem;
+  font-weight: 300;
+  font-style: italic;
+  margin-top: -2%;
+  margin-left: 1%;
+}
+.pf_page_2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 500px;
+}
+.pf_select {
+  display: flex;
+  justify-content: space-between;
+  align-items: space-between;
+  width: 30%;
+  margin-top: 2%;
+}
+.pf_select > h2 {
+  padding: 2%;
+  cursor: pointer;
+  transition: 0.3s ease;
+  border-radius: 4px;
+}
+.pf_debs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 2%;
+  min-height: 400px;
+}
+.pf_card,
+.pf_card1 {
+  display: flex;
+  background: white;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 2%;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 1000px;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+.pf_card > h2 {
+  font-size: 1.7rem;
+  font-weight: 500;
+}
+.pf_card > h2 > span {
+  font-weight: 400;
+  color: blue;
+  cursor: pointer;
+}
+.pf_card > h2 > p {
+  text-decoration: underline;
+}
+.pf_card > h4 {
+  text-align: right;
+  font-weight: 300;
+}
+.pf_card1 > h2 {
+  font-size: 1.7rem;
+  font-weight: 500;
+}
+.pf_card1 > h2 > span {
+  font-weight: 400;
+  color: blue;
+  cursor: pointer;
+}
+.pf_card1 > h2 > p {
+  text-decoration: underline;
+}
+.pf_card1 > h4 {
+  text-align: right;
+  font-weight: 300;
+}
+.pf_empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+.pf_empty > img {
+  width: 30%;
+}
+.pf_empty > h2 {
+  font-size: 5rem;
+}
+.pf_activity {
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+}
+.pf_save {
+  background: whitesmoke;
+  border-radius: 5px;
+  padding: 1%;
+  cursor: pointer;
+  width: 4%;
+  position: fixed;
+  top: 4%;
+  left: 5%;
+}

@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import EditProfile from "./EditProfile";
 import image from "../../Images/Profile.jpg";
 import axios from "axios";
-import "./Profile.css";
+// import "./Profile.css";
 class Profile extends React.Component {
   constructor(props) {
     super();

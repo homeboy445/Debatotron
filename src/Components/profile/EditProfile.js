@@ -1,5 +1,5 @@
 import React,{useState,useEffect,useRef} from 'react';
-import './Profile.css';
+// import './Profile.css';
 
 const EditProfile = ({user,ToggleDisplay}) => {
     const [about,changeAbout]=useState('');
