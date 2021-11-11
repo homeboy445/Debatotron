@@ -16,6 +16,8 @@ import Navigation from "./Navigation";
 import Inbox from "../Inbox/Inbox";
 import Profile from "../Profile/Profile";
 import DraftForm from "../NewForm/DraftForm";
+import UserFeed from './../Home/UserFeed';
+import ProfilePage from "../Profile/ProfilePage";
 
 const MenuFiles = () => {
   const [DisplayText, ToggleDisplay] = useState({ text: "", status: false });
@@ -79,7 +81,7 @@ const MenuFiles = () => {
       ) : null}
       <main className="App">
         <Switch>
-          <Route path="/" exact render={() => <Home auth={Auth.Auth} />} />
+          <Route path="/" exact render={() => !Auth.Auth ? <Home auth={Auth.Auth} /> : <UserFeed />} />
           <Route path="/signout" render={() => SignOut()} />
           <ProtectedRoute
             path="/new"
@@ -130,7 +132,7 @@ const MenuFiles = () => {
             userInfo={Auth.userInfo}
             FriendsList = {Auth.FriendsList}
             ToggleDisplay={ToggleDisplay}
-            component={Profile}
+            component={ProfilePage}
           />
           <LoginRoute
             path="/signIn"

@@ -42,7 +42,7 @@ const JoinDebate = ({
           <img src={image} alt="" />
           <h2>{name || "xyz"}</h2>
         </div>
-        <h2>{publishedAt || "today"}</h2>
+        <h2>{new Date(publishedAt).toTimeString().slice(0, 5) + " | " + new Date(publishedAt).toDateString() || "today"}</h2>
       </div>
       <div className="J_deb_1">
         <div>
