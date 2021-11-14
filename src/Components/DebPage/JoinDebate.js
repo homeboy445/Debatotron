@@ -19,7 +19,6 @@ const JoinDebate = ({
         status: val,
       })
       .then((response) => {
-        console.log(response.data);
         updateParticipation(true);
       })
       .catch((err) => {

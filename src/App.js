@@ -7,7 +7,7 @@ import Menu from "./Components/Menu/MenuFiles";
 import PolkaDotsBg from "./Assets/polka.jpg";
 
 const isSessionValid = () => {
-  return (sessionStorage.getItem("name") !== null);
+  return sessionStorage.getItem("name") !== null;
 };
 
 const App = () => {
@@ -27,9 +27,7 @@ const App = () => {
           axios
             .get(`http://localhost:3005/friendslist/${response[0].name}`)
             .then((response) => {
-              if (response.data) {
-                Update_List(response.data);
-              }
+              Update_List(response.data);
             })
             .catch((err) => {
               return err;
@@ -43,7 +41,9 @@ const App = () => {
     }
   }, []);
   return (
-    <AuthContext.Provider value={{ Auth, toAuth, userInfo, FriendsList }}>
+    <AuthContext.Provider
+      value={{ Auth, toAuth, userInfo, friends: FriendsList }}
+    >
       <div style={{ background: !Auth ? PolkaDotsBg : "white" }}>
         <Router>
           <Menu />

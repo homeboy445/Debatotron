@@ -20,7 +20,7 @@ font-family: 'Urbanist', sans-serif; */
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: 4px 4px 4px black;
+  box-shadow: 1px 1px 1px black;
 }
 .inbx-message-catalogue {
   overflow-x: hidden;
@@ -190,6 +190,8 @@ font-family: 'Urbanist', sans-serif; */
   margin-right:5%;
   width:50%;
   height:30%;
+  padding: 1%;
+  border-radius: 5px;
   background: #FAB83D;
   transform:rotate(180deg);
 }
@@ -197,6 +199,8 @@ font-family: 'Urbanist', sans-serif; */
   cursor:pointer;
   width:50%;
   height:30%;
+  padding: 1%;
+  border-radius: 5px;
   background: #3E6EFB;
 }
 display-sub{

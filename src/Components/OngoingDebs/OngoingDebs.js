@@ -67,16 +67,25 @@ const OngoingDebs = () => {
         <h1>Live Debates</h1>
         <div>
           <div className="deb_settings">
-            <img src={SettingsIcon} alt="settings" onClick={()=>{
-              toggleSettingsPopup(!settings);
-            }}/>
+            <img
+              src={SettingsIcon}
+              alt="settings"
+              style={{
+                transform: settings ? "rotate(90deg)" : "rotate(0deg)",
+              }}
+              onClick={() => {
+                toggleSettingsPopup(!settings);
+              }}
+            />
             <div
               className="settings_1"
               style={{
-                opacity:  settings ? 1 : 0,
+                opacity: settings ? 1 : 0,
                 pointerEvents: settings ? "all" : "none",
-                transform: settings ? "translate(0%, 0%)" : "translate(20%, -20%)",
-                transition: "0.4s ease"
+                transform: settings
+                  ? "translate(0%, 0%)"
+                  : "translate(20%, -20%)",
+                transition: "0.4s ease",
               }}
             >
               <h1>Settings</h1>
