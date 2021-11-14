@@ -29,8 +29,8 @@ const Inbox = ({ userInfo }) => {
 
   const Delete_Data = () => {
     HandleToggle();
-    fetch(`http://localhost:3005/WipeInbox/${Auth.userInfo[0].name}`)
-      .then((response) => response.json())
+    axios
+      .get(`http://localhost:3005/WipeInbox/${Auth.userInfo[0].name}`)
       .then((response) => {
         window.location.href = "/Inbox";
       })
@@ -55,6 +55,14 @@ const Inbox = ({ userInfo }) => {
         return "Access Granted!";
       case 3:
         return "You've gotta new friend!";
+      case 4:
+        return "A user has Mentioned you!";
+      case 5:
+        return "A user replied to your comment!";
+      case 6:
+        return "A user liked your comment!";
+      case 7:
+        return "A user has messaged you!";
       default:
         return "Test Message";
     }
@@ -68,7 +76,7 @@ const Inbox = ({ userInfo }) => {
           mId: messageid,
         })
         .then((response) => {
-          window.location.reload();
+          window.location.href = "/Inbox";
         })
         .catch((err) => {
           return;
@@ -131,6 +139,12 @@ const Inbox = ({ userInfo }) => {
         k &= false;
         break;
       case 5:
+        k &= false;
+        break;
+      case 6:
+        k &= false;
+        break;
+      case 7:
         k &= false;
         break;
       default:
@@ -197,7 +211,9 @@ const Inbox = ({ userInfo }) => {
           </div>
           <div className="ibx-hdr2">
             <img src={Filter} alt="" />
-            <img src={Empty} alt="" />
+            <img src={Empty} alt="" onClick={()=>{
+              return;
+            }}/>
           </div>
         </div>
         <div
@@ -256,7 +272,19 @@ const Inbox = ({ userInfo }) => {
         </div>
         <div className="display-sub">
           <div className="display-info">
-            <h1>{messages[ActiveIndex].byuser}</h1>
+            <h1
+              style={{
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                if (messages[ActiveIndex].byuser === "DebManager") {
+                  return;
+                }
+                window.location.href = `/Profile/${messages[ActiveIndex].byuser}`;
+              }}
+            >
+              {messages[ActiveIndex].byuser}
+            </h1>
             <h2>{messages[ActiveIndex].recievedat}</h2>
           </div>
           <div

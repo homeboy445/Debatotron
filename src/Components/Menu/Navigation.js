@@ -54,24 +54,84 @@ const Navigation = () => {
         <div className="circle2"></div>
         <div className="circle3"></div>
         <ul>
-          <Link to="/">
-            <li onClick={ToggleIt}>Home</li>
-          </Link>
-          <Link to="/new">
-            <li onClick={ToggleIt}>New Deb</li>
-          </Link>
-          <Link to="/OngoingDebs">
-            <li onClick={ToggleIt}>OnGoing Debs</li>
-          </Link>
-          <Link to="/Inbox">
-            <li onClick={ToggleIt}>Inbox</li>
-          </Link>
-          <Link to={`/Profile/${Auth.userInfo[0].name}`}>
-            <li onClick={ToggleIt}>Profile</li>
-          </Link>
-          <Link to="/signout">
-            <li onClick={ToggleIt}>Sign-Out</li>
-          </Link>
+          <Link
+            to="/"
+            component={() => (
+              <li
+                onClick={() => {
+                  window.location.href = "/";
+                  ToggleIt();
+                }}
+              >
+                Home
+              </li>
+            )}
+          />
+          <Link
+            to="/new"
+            component={() => (
+              <li
+                onClick={() => {
+                  window.location.href = "/new";
+                  ToggleIt();
+                }}
+              >
+                New Deb
+              </li>
+            )}
+          />
+          <Link
+            to="/OngoingDebs"
+            component={() => (
+              <li
+                onClick={() => {
+                  window.location.href = "/OngoingDebs";
+                  ToggleIt();
+                }}
+              >
+                OnGoing Debs
+              </li>
+            )}
+          />
+          <Link
+            to="/Inbox"
+            component={() => (
+              <li
+                onClick={() => {
+                  window.location.href = "/Inbox";
+                  ToggleIt();
+                }}
+              >
+                Inbox
+              </li>
+            )}
+          />
+          <Link
+            to={`/Profile/${Auth.userInfo[0].name}`}
+            component={() => (
+              <li
+                onClick={() => {
+                  window.location.href = `/Profile/${Auth.userInfo[0].name}`;
+                  ToggleIt();
+                }}
+              >
+                Profile
+              </li>
+            )}
+          />
+          <Link
+            to="/signout"
+            component={() => (
+              <li
+                onClick={() => {
+                  window.location.href = "/signout";
+                  ToggleIt();
+                }}
+              >
+                Sign-Out
+              </li>
+            )}
+          />
         </ul>
       </animated.nav>
     </div>

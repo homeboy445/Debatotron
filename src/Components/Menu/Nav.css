@@ -7,24 +7,28 @@
   right: 2%;
   top: 2%;
   z-index: 10001;
-  background: #2C5364;
-  padding:1%;
-  border-radius:4px;
+  background: #2c5364;
+  padding: 1%;
+  border-radius: 4px;
 }
-
 .bar1,
 .bar2,
 .bar3 {
   width: 35px;
   height: 5px;
-  background: #FDFC47;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #24FE41, #FDFC47);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #24FE41, #FDFC47); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  
-  
+  background: #fdfc47; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #24fe41,
+    #fdfc47
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #24fe41,
+    #fdfc47
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   margin: 6px 0;
 }
-
 .nav-menu {
   position: fixed;
   background: #0f2027;
@@ -37,7 +41,7 @@
   z-index: 10000;
   font-family: "Montserrat", sans-serif;
 }
-.nav-menu ul {
+.nav-menu > ul {
   position: absolute;
   top: 10%;
   left: -8%;
@@ -48,9 +52,10 @@
   cursor: pointer;
   width: 100%;
 }
-.nav-menu ul li {
+.nav-menu > ul > li {
   list-style: none;
   font-size: 2.5rem;
+  text-align: center;
   width: 100%;
   margin-bottom: 5%;
   margin-top: 5%;
@@ -60,39 +65,40 @@
   color: white;
   text-decoration-color: black;
 }
-.nav-menu ul li:hover {
+.nav-menu > ul > li:hover {
   text-decoration: underline;
 }
-.circle1
-{
-  position:absolute;
-  top:0%;
-  z-index:10000000;
-  left:0%;
+.circle1 {
+  position: absolute;
+  top: 0%;
+  z-index: 10000000;
+  left: 0%;
   border: 10px solid white;
-  border-radius:100%;
+  border-radius: 100%;
   width: 100px;
-  height:100px;
+  height: 100px;
 }
-.circle2
-{
-  position:absolute;
-  top:4%;
-  z-index:10000000;
-  left:35%;
+.circle2 {
+  position: absolute;
+  top: 4%;
+  z-index: 10000000;
+  left: 35%;
   border: 8px solid white;
-  border-radius:100%;
+  border-radius: 100%;
   width: 30px;
-  height:30px;
+  height: 30px;
 }
-.circle3
-{
-  position:absolute;
-  top:85%;
-  z-index:10000000;
-  left:75%;
+.circle3 {
+  position: absolute;
+  top: 85%;
+  z-index: 10000000;
+  left: 75%;
   border: 10px solid white;
-  border-radius:100%;
+  border-radius: 100%;
   width: 70px;
-  height:70px;
+  height: 70px;
 }
+
+
+
+
