@@ -76,8 +76,8 @@ const Register = ({ HandleAuth, Change_Display }) => {
   return (
     <div className="rg-wrapper">
       <div className="register">
-        <div className="rg-img">
-          <img src={register_Image} alt="" />
+        <div id="rg_img_div">
+          <img src={register_Image} alt="" className="rg_img"/>
         </div>
         <div className="rg-mainer">
           <div>

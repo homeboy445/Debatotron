@@ -14,9 +14,14 @@
   display: flex;
   font-family: "Roboto", sans-serif;
 }
-.rg-img {
-  width: 60%;
-  height: 60%;
+#rg_img_div {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  width: 65%;
+}
+.rg_img {
+  width: 100%;
 }
 .rg-mainer {
   display: flex;
