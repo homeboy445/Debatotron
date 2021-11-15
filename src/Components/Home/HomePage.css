@@ -17,39 +17,67 @@ font-family: 'Rock Salt', cursive; */
   display: flex;
   width: 100%;
 }
-/* .hp-btn {
+.hp_btn {
   display: flex;
+  justify-content: right;
+  align-items: right;
+  margin-top: 4%;
+  margin-right: 1%;
+  max-height: 100px;
   width: 100%;
+}
+#register_btn {
+  appearance: button;
+  backface-visibility: hidden;
+  background-color: #405cf5;
+  border-radius: 6px;
+  border-width: 0;
+  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+  box-sizing: border-box;
+  color: #fff;
   border: 2px solid black;
   margin-left: 20%;
 }
-.hp-btn > button:nth-child(1) {
-  transform: scale(1.1);
-  background: #365efe;
-  color: white;
-  transition: 0.4s ease;
-  margin-right: 15%;
-  border: none;
-  border-radius: 2px;
+#register_btn:disabled {
+  cursor: default;
+}
+#register_btn:focus {
+  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(50, 151, 211, .3) 0 0 0 4px;
+}
+#signin_btn {
+  appearance: button;
+  backface-visibility: hidden;
+  background-color: #5dc185;
+  border-radius: 6px;
+  border-width: 0;
+  box-shadow: rgba(55, 93, 50, 0.1) 0 0 0 1px inset,rgba(50, 93, 54, 0.1) 0 2px 5px 0,rgba(0, 0, 0, 0.07) 0 1px 1px 0;
+  box-sizing: border-box;
+  color: #fff;
   cursor: pointer;
+  font-family: -apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif;
+  font-size: 1.9rem;
+  height: 40px;
+  line-height: 1.15;
+  margin: 12px 0 0;
+  outline: none;
+  overflow: hidden;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transform: translateZ(0);
+  transition: all .2s,box-shadow .08s ease-in;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 20%;
 }
-.hp-btn > button:nth-child(1):hover {
-  box-shadow: 1px 1px 1px rgb(3, 3, 83);
+#signin_btn:disabled {
+  cursor: default;
 }
-.hp-btn > button:nth-child(2) {
-  margin-right: 2%;
-  transform: scale(2.1);
-  background: #51aa4e;
-  color: white;
-  transition: 0.4s ease;
-  margin-left: 5%;
-  border: none;
-  border-radius: 2px;
-  cursor: pointer;
+#signin_btn:focus {
+  box-shadow: rgba(59, 93, 50, 0.1) 0 0 0 1px inset, rgba(50, 93, 59, 0.2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(82, 211, 50, 0.3) 0 0 0 4px;
 }
-.hp-btn > button:nth-child(2):hover {
-  box-shadow: 1px 1px 1px rgb(27, 71, 1);
-} */
 .hp2 {
   display: flex;
   justify-content: left;

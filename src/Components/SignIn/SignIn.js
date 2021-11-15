@@ -77,8 +77,8 @@ const SignIn = ({ HandleAuth, Change_Display }) => {
             </div>
           </form>
         </div>
-        <div className="sg-img">
-          <img src={signin_Image} alt="" />
+        <div id="sg_img_div">
+          <img src={signin_Image} alt="" className="sg_img"/>
         </div>
       </div>
     </div>
