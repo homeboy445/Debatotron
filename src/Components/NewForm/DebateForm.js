@@ -1,43 +1,40 @@
-import React, { useState, useEffect} from "react";
-import { v4 as uuidv4 } from "uuid";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "./DebForm.css";
+import AuthContext from "../../Contexts/AuthContext";
 
 const DebateForm = ({ userInfo, ToggleDisplay }) => {
+  const Main = useContext(AuthContext);
   const [title, Altertitle] = useState("");
   const [Description, AlterDesc] = useState("");
-  const [catg, change_catg] = useState("");
-  const [access, ChangeAccess] = useState(false);
+  const [category, change_catg] = useState("categories");
   const [finishStatus, setfinishStatus] = useState(false);
 
   const HandleTitle = (evt) => {
     Altertitle(evt.target.value);
   };
 
-  const HandleCategory = (evt) => {
-    change_catg(evt.target.value);
-  };
-
   const HandleDescription = (evt) => {
     AlterDesc(evt.target.value);
   };
 
-  const SendData = (event,recieved_flag) => {
-    if (!(title && Description && recieved_flag && catg)) {
+  const SendData = (event) => {
+    console.log(Main);
+    if (!(title && Description && category) || category === "categories" || Main.uuid === null) {
       return;
     }
     event.preventDefault();
     axios
       .post("http://localhost:3005/save", {
-        uniqid: uuidv4(),
+        uniqid: Main.uuid,
         title: title,
         overview: Description,
         publishedat: new Date().toLocaleDateString(),
         publisher: userInfo[0].name,
-        flag: recieved_flag,
-        link: Image.status ? Image.link : Image.text,
-        category: catg,
-        access: !access ? "public" : "private",
+        flag: true,
+        link: "",
+        category: category,
+        access: "public",
       })
       .then((response) => {
         window.location.href = `DebPage/${response.data}`;
@@ -50,81 +47,65 @@ const DebateForm = ({ userInfo, ToggleDisplay }) => {
       });
   };
 
-  // const onBackButtonEvent = (e) => {
-  //     if (!finishStatus) {
-  //         if (window.confirm("Do you want to go back ?")) {
-  //             setfinishStatus(true)
-  //             // your logic
-  //             console.log(window.history);
-  //         } else {
-  //             e.preventDefault();
-  //             window.history.pushState(null, null, window.location.pathname);
-  //             setfinishStatus(false)
-  //         }
-  //     }
-  // }
-
-  // useEffect(() => {
-  //   window.history.pushState(null, null, window.location.pathname);
-  //   window.addEventListener('popstate', onBackButtonEvent);
-  //   return () => {
-  //     window.removeEventListener('popstate', onBackButtonEvent);  
-  //   };
-  // },[]);
+  useEffect(() => {
+    axios
+      .post("http://localhost:3005/isdebatevalid", {
+        id: Main.uuid,
+      })
+      .then((response) => {
+        if (response.data) {
+          window.location.href = "/";
+        }
+      });
+  }, [Main]);
 
   return (
-    <div className="form1">
-      <h1 className="hh">Start a New Debate!</h1>
-      <form>
-        <h2 className="tp">Specify the topic!</h2>
+    <div className="deb_form">
+      <h1>Start A New Debate</h1>
+      <div className="deb_form_1">
         <input
           type="text"
-          className="inp"
-          onChange={HandleTitle}
+          placeholder="Your Debate Topic?"
           value={title}
+          onChange={HandleTitle}
         />
-        <h2>Add Category</h2>
-        <input
-          type="text"
-          className="inp"
-          onChange={HandleCategory}
-          placeholder="Add category"
-        />
-        <h2 className="dsp">Now,Give Some of your views about it!</h2>
-        <textarea className="txt" onChange={HandleDescription}>
-          {Description}
-        </textarea>
-        {/* <h1 className="img_1">Add an Image(optional):</h1>
-                <input type="text" className="img_2" placeholder="Enter Link to your Image"
-                onChange={HandleImageLink}/> */}
-        <div className="access">
-          <div>
-            <input
-              type="radio"
-              checked={!access}
-              onClick={() => ChangeAccess(false)}
-            />
-            <h2>Public</h2>
-          </div>
-          <div>
-            <input
-              type="radio"
-              checked={access}
-              onClick={() => ChangeAccess(true)}
-            />
-            <h2>Private</h2>
-          </div>
-        </div>
-        <div className="btnn">
-          <button onClick={(e) => SendData(e,"saved")} className="sv">
-            Save
-          </button>
-          <button onClick={(e) => SendData(e,"Draft")} className="dl">
-            Draft
-          </button>
-        </div>
-      </form>
+        <textarea
+          placeholder="Provide description to your topic..."
+          onChange={HandleDescription}
+          value={Description}
+        ></textarea>
+        <select
+          value={category}
+          onChange={(e) => {
+            change_catg(e.target.value);
+          }}
+        >
+          {[
+            "categories",
+            "general",
+            "programming",
+            "lifestyle",
+            "pop-culture",
+            "gaming",
+            "movies",
+            "politics",
+            "science",
+            "psychology",
+            "study",
+          ].map((item, index) => {
+            return (
+              <option value={item} key={index}>
+                {item}
+              </option>
+            );
+          })}
+        </select>
+      </div>
+      <div className="deb_fm_btn">
+        <button onClick={SendData}>Publish</button>
+      </div>
     </div>
   );
 };
+
 export default DebateForm;

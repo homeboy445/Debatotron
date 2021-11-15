@@ -43,6 +43,7 @@ const DebatePage = (props) => {
   const [participantsData, updateParticipantData] = useState([
     { userid: -1, username: "xyz" },
   ]);
+  const [userImageObj, updateUserImageObject] = useState({});
 
   const getDateAndTime = (date) => {
     let tdy = new Date();
@@ -117,9 +118,9 @@ const DebatePage = (props) => {
     if (typeof item === undefined) {
       return null;
     }
-    const image = `https://avatars.dicebear.com/api/micah/${getImageString(
-      item.byuser
-    )}.svg`;
+    const image = `https://avatars.dicebear.com/api/micah/${
+      userImageObj[item.userid] || Math.random()
+    }.svg`;
     let body = (
       <div
         className="Dp_comments"
@@ -205,19 +206,6 @@ const DebatePage = (props) => {
       </div>
     );
     return body;
-  };
-
-  const getImageString = (str) => {
-    try {
-      let arr = [];
-      for (var i = 0; i < str.length; i++) {
-        arr.push(`${str[i]}...${i / 2}`);
-      }
-      arr.reverse();
-      return arr.join("");
-    } catch {
-      return Math.random().toString();
-    }
   };
 
   const storeComment = (obj) => {
@@ -334,17 +322,20 @@ const DebatePage = (props) => {
 
   const hashUserStatus = (data) => {
     let user = {},
-      partp = {};
+      partp = {},
+      imageObj = {};
     updateParticipantData(data);
     data.map((item) => {
+      imageObj[item.userid] = item.image;
       try {
-        partp[item.withdeb].push(item.username);
+        partp[item.withdeb].push({ name: item.username, image: item.image });
       } catch {
-        partp[item.withdeb] = [item.username];
+        partp[item.withdeb] = [{ name: item.username, image: item.image }];
       }
       return (user[item.username] = item.withdeb);
     });
     updateParticipants(partp);
+    updateUserImageObject(imageObj);
     return updateUserStatus(user);
   };
 
@@ -402,7 +393,7 @@ const DebatePage = (props) => {
           updateParticipation(null);
         });
     }
-  }, [comments, IsReply, liked, Main]);
+  }, [comments, IsReply, liked, Main, debateInfo]);
 
   return isParticipant === false ? (
     <JoinDebate

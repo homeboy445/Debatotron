@@ -10,7 +10,6 @@ const Participants = ({
   name,
   toggleBox,
 }) => {
-  const image = `https://avatars.dicebear.com/api/micah/${Math.random()}.svg`;
 
   useEffect(() => {}, [name, participants]);
 
@@ -32,8 +31,9 @@ const Participants = ({
         <div>
           {(participants[true] || ["No user's with this debate!"]).map(
             (item) => {
+              const image = `https://avatars.dicebear.com/api/micah/${item.image || Math.random()}.svg`;
               return (
-                <div key={item} className="nm_lne1">
+                <div key={item.name} className="nm_lne1">
                   {(participants[true] || []).length !== 0 ? (
                     <img src={image} alt="" />
                   ) : null}
@@ -44,7 +44,7 @@ const Participants = ({
                         name === item ? "1px 1px 1px #405cf5" : "none",
                     }}
                   >
-                    {item}
+                    {item.name}
                   </h2>
                 </div>
               );
@@ -54,8 +54,9 @@ const Participants = ({
         <div>
           {(participants[false] || ["No user's against this debate!"]).map(
             (item) => {
+              const image = `https://avatars.dicebear.com/api/micah/${item.image || Math.random()}.svg`;
               return (
-                <div key={item} className="nm_lne2">
+                <div key={item.name} className="nm_lne2">
                   {(participants[false] || []).length !== 0 ? (
                     <img src={image} alt="" />
                   ) : null}
@@ -66,7 +67,7 @@ const Participants = ({
                         name === item ? "1px 1px 1px #e62e36" : "none",
                     }}
                   >
-                    {item}
+                    {item.name}
                   </h2>
                 </div>
               );

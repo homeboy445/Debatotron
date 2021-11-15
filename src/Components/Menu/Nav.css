@@ -52,7 +52,7 @@
   cursor: pointer;
   width: 100%;
 }
-.nav-menu > ul > li {
+.nav-menu > ul li {
   list-style: none;
   font-size: 2.5rem;
   text-align: center;
