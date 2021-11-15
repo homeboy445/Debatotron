@@ -33,7 +33,11 @@ const LandingPage = ({ auth }) => {
       <div className="hp2">
         <div className="hp2-sub">
             <h1 id="title">Debatotron</h1>
-            <div className="hp-btn">
+            <div className="hp-btn" style={{
+              display: "flex",
+              width: "10%",
+              border: "2px solid black"
+            }}>
                 <button onClick={()=>window.location.href="/register"}>Register</button>
                 <button onClick={()=>window.location.href="/signin"}>LogIn</button>
             </div>

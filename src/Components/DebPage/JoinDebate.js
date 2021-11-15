@@ -30,7 +30,7 @@ const JoinDebate = ({
     if (name === userInfo.name) {
       updateParticipation(true);
     }
-  }, [userInfo]);
+  }, [name, userInfo]);
 
   const image = `https://avatars.dicebear.com/api/micah/${Math.random()}.svg`;
 

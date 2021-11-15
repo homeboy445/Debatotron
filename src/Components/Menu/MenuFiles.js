@@ -7,16 +7,14 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import LoginRoute from "../ProtectedRoute/LoginRoute";
 import SignIn from "../SignIn/SignIn";
 import Register from "../Register/Register";
-import FriendsPage from "../FriendsPage/FriendsPage";
 import ForgotPassword from "../ForgePassword/ForgotPass";
 import DebatePage from "../DebPage/DebatePage";
 import OngoingDebs from "../OngoingDebs/OngoingDebs";
 import DebateForm from "../NewForm/DebateForm";
 import Navigation from "./Navigation";
 import Inbox from "../Inbox/Inbox";
-import Profile from "../Profile/Profile";
 import DraftForm from "../NewForm/DraftForm";
-import UserFeed from './../Home/UserFeed';
+import UserFeed from "./../Home/UserFeed";
 import ProfilePage from "../Profile/ProfilePage";
 
 const MenuFiles = () => {
@@ -81,7 +79,13 @@ const MenuFiles = () => {
       ) : null}
       <main className="App">
         <Switch>
-          <Route path="/" exact render={() => !Auth.Auth ? <Home auth={Auth.Auth} /> : <UserFeed />} />
+          <Route
+            path="/"
+            exact
+            render={() =>
+              !Auth.Auth ? <Home auth={Auth.Auth} /> : <UserFeed />
+            }
+          />
           <Route path="/signout" render={() => SignOut()} />
           <ProtectedRoute
             path="/new"
@@ -119,18 +123,10 @@ const MenuFiles = () => {
             component={Inbox}
           />
           <ProtectedRoute
-            path="/Friends"
-            auth={Auth.Auth}
-            userInfo={Auth.userInfo}
-            FriendsList = {Auth.FriendsList}
-            ToggleDisplay={ToggleDisplay}
-            component={FriendsPage}
-          />
-          <ProtectedRoute
             path="/Profile/:user"
             auth={Auth.Auth}
             userInfo={Auth.userInfo}
-            FriendsList = {Auth.FriendsList}
+            FriendsList={Auth.FriendsList}
             ToggleDisplay={ToggleDisplay}
             component={ProfilePage}
           />
@@ -147,7 +143,7 @@ const MenuFiles = () => {
             component={Register}
           />
           <LoginRoute path="/fp" auth={Auth.Auth} component={ForgotPassword} />
-          <Redirect to="/" from='*' />
+          <Redirect to="/" from="*" />
         </Switch>
       </main>
     </div>
