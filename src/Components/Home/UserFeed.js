@@ -92,23 +92,25 @@ const UserFeed = () => {
   ]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3005/feed/55")
-      .then((response) => {
-        updateFeed(response.data);
-        axios.get("http://localhost:3005/popularUsers").then((response) => {
-          updatePopularUsers(response.data);
-          axios
-            .get("http://localhost:3005/topContributors")
-            .then((response) => {
-              updateContributors(response.data);
-            });
+    if (Main.userInfo[0].id !== -1) {
+      axios
+        .get(`http://localhost:3005/feed/${Main.userInfo[0].id}`)
+        .then((response) => {
+          updateFeed(response.data);
+          axios.get("http://localhost:3005/popularUsers").then((response) => {
+            updatePopularUsers(response.data);
+            axios
+              .get("http://localhost:3005/topContributors")
+              .then((response) => {
+                updateContributors(response.data);
+              });
+          });
+        })
+        .catch((err) => {
+          return;
         });
-      })
-      .catch((err) => {
-        return;
-      });
-  }, []);
+    }
+  }, [Main]);
 
   return (
     <div className="feed">
@@ -150,7 +152,7 @@ const UserFeed = () => {
         <div>
           <button
             onClick={() => {
-              if (textArea.trim() === ""){
+              if (textArea.trim() === "") {
                 return;
               }
               axios
@@ -189,12 +191,12 @@ const UserFeed = () => {
           <h2>Most Popular users</h2>
           {popularUsers.map((item, index) => {
             const image = `https://avatars.dicebear.com/api/micah/${
-              Math.random() + index
+              item.image || Math.random()
             }.svg`;
             return (
               <div key={index} className="usr_card">
                 <img src={image} alt="" />
-                <h3>{item}</h3>
+                <h3>{item.name}</h3>
               </div>
             );
           })}
@@ -203,7 +205,7 @@ const UserFeed = () => {
           {feed.length > 0 ? (
             (feed || []).map((item, index) => {
               const image = `https://avatars.dicebear.com/api/micah/${
-                Math.random() + index
+                item.image || Math.random()
               }.svg`;
               return (
                 <div key={index} className="feed_card">
@@ -261,13 +263,13 @@ const UserFeed = () => {
           <h2>Top Debators</h2>
           {topContributors.map((item, index) => {
             const image = `https://avatars.dicebear.com/api/micah/${
-              Math.random() + index
+              item.image || Math.random()
             }.svg`;
             return (
               <div key={index} className="usr_card2">
                 <h1>{index + 1}.</h1>
                 <img src={image} alt="" />
-                <h3>{item}</h3>
+                <h3>{item.name}</h3>
               </div>
             );
           })}

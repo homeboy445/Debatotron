@@ -177,59 +177,63 @@ const OngoingDebs = () => {
           }}
         />
       </div>
-      {viewType === 0 ? (
-        <div className="deb_main_grid">
-          {list.length > 0 ? (
-            list.map((item, index) => {
+      <div className="deb_container">
+        {viewType === 0 ? (
+          <div className="deb_main_grid">
+            {list.length > 0 ? (
+              list.map((item, index) => {
+                return (
+                  <div
+                    key={index}
+                    className="deb_card"
+                    onClick={() =>
+                      (window.location.href = `/DebPage/${item.debid}`)
+                    }
+                  >
+                    <div className="deb_card_1">
+                      <h1>{item.topic}</h1>
+                      <div>
+                        <h3>{"by " + item.publisher}</h3>
+                        <h3>
+                          {new Date(item.publishedat).toLocaleDateString()}
+                        </h3>
+                      </div>
+                    </div>
+                    <h2>
+                      {item.overview.slice(
+                        0,
+                        Math.min(50, item.overview.length - 1)
+                      ) + "..."}
+                    </h2>
+                  </div>
+                );
+              })
+            ) : (
+              <p></p>
+            )}
+          </div>
+        ) : (
+          <div className="deb_main_list">
+            {list.map((item, index) => {
               return (
                 <div
                   key={index}
-                  className="deb_card"
+                  className="deb_list"
                   onClick={() =>
                     (window.location.href = `/DebPage/${item.debid}`)
                   }
                 >
-                  <div className="deb_card_1">
-                    <h1>{item.topic}</h1>
-                    <div>
-                      <h3>{"by " + item.publisher}</h3>
-                      <h3>{new Date(item.publishedat).toLocaleDateString()}</h3>
-                    </div>
-                  </div>
-                  <h2>
-                    {item.overview.slice(
-                      0,
-                      Math.min(50, item.overview.length - 1)
-                    ) + "..."}
-                  </h2>
+                  <h1>
+                    {item.topic.slice(0, Math.min(50, item.topic.length - 1)) +
+                      (item.topic.length <= 50 ? "" : "...")}
+                  </h1>
+                  <h3>{"by " + item.publisher}</h3>
                 </div>
               );
-            })
-          ) : (
-            <p></p>
-          )}
-        </div>
-      ) : (
-        <div className="deb_main_list">
-          {list.map((item, index) => {
-            return (
-              <div
-                key={index}
-                className="deb_list"
-                onClick={() =>
-                  (window.location.href = `/DebPage/${item.debid}`)
-                }
-              >
-                <h1>
-                  {item.topic.slice(0, Math.min(50, item.topic.length - 1)) +
-                    (item.topic.length <= 50 ? "" : "...")}
-                </h1>
-                <h3>{"by " + item.publisher}</h3>
-              </div>
-            );
-          })}
-        </div>
-      )}
+            })}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
