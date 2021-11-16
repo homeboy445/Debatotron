@@ -30,7 +30,10 @@ const Inbox = ({ userInfo }) => {
   const Delete_Data = () => {
     HandleToggle();
     axios
-      .get(`http://localhost:3005/WipeInbox/${Auth.userInfo[0].name}`)
+      .get(
+        `${Auth.uri}/WipeInbox/${Auth.userInfo[0].name}`,
+        Auth.getAuthHeader()
+      )
       .then((response) => {
         window.location.href = "/Inbox";
       })
@@ -72,14 +75,16 @@ const Inbox = ({ userInfo }) => {
     const del = (messageid) => {
       //For deleting any message via its uuid.
       axios
-        .post("http://localhost:3005/removeMessage", {
+        .post(Auth.uri + "/removeMessage", {
           mId: messageid,
-        })
+        }, Auth.getAuthHeader())
         .then((response) => {
           window.location.href = "/Inbox";
         })
         .catch((err) => {
-          return;
+          if (err.response.status === 401) {
+            Auth.refresh();
+          }
         });
     };
     if (!status) {
@@ -88,33 +93,37 @@ const Inbox = ({ userInfo }) => {
     switch (data.rtype) {
       case 0: {
         axios
-          .post("http://localhost:3005/AddParticipant", {
+          .post(Auth.uri + "/AddParticipant", {
             debid: data.debid,
             participant: data.user,
-          })
+          }, Auth.getAuthHeader())
           .then((response) => {
             if (response.data) {
               del(messageid);
             }
           })
           .catch((err) => {
-            return;
+            if (err.response.status === 401) {
+              Auth.refresh();
+            }
           });
         break;
       }
       case 1: {
         axios
-          .post("http://localhost:3005/AddFriend", {
+          .post(Auth.uri + "/AddFriend", {
             user1: Auth.userInfo[0].name,
             user2: data.user,
-          })
+          }, Auth.getAuthHeader())
           .then((response) => {
             if (response.data) {
               del(messageid);
             }
           })
           .catch((err) => {
-            return;
+            if (err.response.status === 401) {
+              Auth.refresh();
+            }
           });
         break;
       }
@@ -167,9 +176,10 @@ const Inbox = ({ userInfo }) => {
     if (user === "user") {
       return;
     }
-    fetch(`http://localhost:3005/Inbox/${user}`)
-      .then((response) => response.json())
+    axios
+      .get(Auth.uri + `/Inbox/${user}`, Auth.getAuthHeader())
       .then((response) => {
+        response = response.data;
         if (
           typeof response !== undefined ||
           response !== "An Error has occured!"
@@ -191,9 +201,12 @@ const Inbox = ({ userInfo }) => {
         }
       })
       .catch((err) => {
+        if (err.response.status === 401) {
+          Auth.refresh();
+        }
         change_this(true);
       });
-  }, [Auth.userInfo[0]]);
+  }, [Auth]);
 
   return (
     <div className="inbox">
@@ -211,9 +224,13 @@ const Inbox = ({ userInfo }) => {
           </div>
           <div className="ibx-hdr2">
             <img src={Filter} alt="" />
-            <img src={Empty} alt="" onClick={()=>{
-              return;
-            }}/>
+            <img
+              src={Empty}
+              alt=""
+              onClick={() => {
+                return;
+              }}
+            />
           </div>
         </div>
         <div
@@ -331,17 +348,3 @@ const Inbox = ({ userInfo }) => {
 };
 
 export default Inbox;
-/**
- * messages.length > 0 ? (
-    <div className="Inbox">
-      <div className="MessageWindow">
-        <div className="Message-display">
-          <h1></h1>
-          <h2>{messages[ActiveIndex].byuser}</h2>
-        </div>
-      </div>
-    </div>
-  ) : (
-    <h1>You've got nothing in your Mail box!</h1>
-  );
- */

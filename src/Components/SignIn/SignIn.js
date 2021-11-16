@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import InputBox from "../Sub_Components/InputBox/InputBox";
 import signin_Image from "../../Images/signin.jpg";
+import axios from "axios";
 import "./SignIn.css";
+import AuthContext from "../../Contexts/AuthContext";
 
 const SignIn = ({ HandleAuth, Change_Display }) => {
+  const Main = useContext(AuthContext);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [stat, set] = useState("");
@@ -23,21 +26,17 @@ const SignIn = ({ HandleAuth, Change_Display }) => {
   };
   const HandleSubmit = (event) => {
     event.preventDefault();
-    fetch("http://localhost:3005/signin", {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
+    axios
+      .post(`${Main.uri}/signin`, {
         email: name,
         password: password,
-      }),
-    })
-      .then((response) => response.json())
+      })
       .then((response) => {
-        var obj = {
-          data: response.id,
-          state: true,
-        };
-        HandleAuth(obj);
+        sessionStorage.setItem("accessToken", response.data.accessToken);
+        sessionStorage.setItem("refreshToken", response.data.refreshToken);
+        sessionStorage.setItem("id", response.data.id);
+        Main.toAuth(true);
+        window.location.href = "/";
       })
       .catch((err) => {
         set("Something's Wrong!");
@@ -72,13 +71,15 @@ const SignIn = ({ HandleAuth, Change_Display }) => {
               value={password}
             />
             <div className="sg-flx">
-                <a href="/fp">Forgot password?</a>
-                <button type="submit" className="sg-btn">Sign In</button>
+              <a href="/fp">Forgot password?</a>
+              <button type="submit" className="sg-btn">
+                Sign In
+              </button>
             </div>
           </form>
         </div>
         <div id="sg_img_div">
-          <img src={signin_Image} alt="" className="sg_img"/>
+          <img src={signin_Image} alt="" className="sg_img" />
         </div>
       </div>
     </div>

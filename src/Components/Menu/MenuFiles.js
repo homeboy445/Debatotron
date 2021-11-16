@@ -2,18 +2,18 @@ import React, { useState, useContext, useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Home from "../Home/HomePage";
 import "./Nav.css";
+import axios from "axios";
 import AuthContext from "../../Contexts/AuthContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import LoginRoute from "../ProtectedRoute/LoginRoute";
 import SignIn from "../SignIn/SignIn";
+import DebateForm from './../NewForm/DebateForm';
 import Register from "../Register/Register";
 import ForgotPassword from "../ForgePassword/ForgotPass";
 import DebatePage from "../DebPage/DebatePage";
 import OngoingDebs from "../OngoingDebs/OngoingDebs";
-import DebateForm from "../NewForm/DebateForm";
 import Navigation from "./Navigation";
 import Inbox from "../Inbox/Inbox";
-import DraftForm from "../NewForm/DraftForm";
 import UserFeed from "./../Home/UserFeed";
 import ProfilePage from "../Profile/ProfilePage";
 
@@ -29,17 +29,14 @@ const MenuFiles = () => {
     Auth.toAuth(false);
   };
 
-  const SignOut = () => {
-    fetch("http://localhost:3005/signout?_method=DELETE", {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({}),
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        sessionStorage.clear();
-        window.location.href = "/";
-      });
+  const SignOut = async () => {
+    await axios
+      .delete(`${Auth.uri}/signout`, {
+        refreshToken: sessionStorage.getItem("refreshToken"),
+      })
+      .then(response=>{});
+    window.location.href = "/";
+    sessionStorage.clear();
   };
 
   useEffect(() => {
@@ -93,13 +90,6 @@ const MenuFiles = () => {
             userInfo={Auth.userInfo}
             ToggleDisplay={ToggleDisplay}
             component={DebateForm}
-          />
-          <ProtectedRoute
-            path="/Draft/:id"
-            auth={Auth.Auth}
-            userInfo={Auth.userInfo}
-            ToggleDisplay={ToggleDisplay}
-            component={DraftForm}
           />
           <ProtectedRoute
             path="/DebPage/:id"

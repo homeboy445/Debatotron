@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import Alert from "../../Images/alert.svg";
+import AuthContext from "../../Contexts/AuthContext";
 
 const ReportUser = ({ debateId, owner, userList, user, toggleBox }) => {
+  const Main = useContext(AuthContext);
   const [selectedUser, updateSelection] = useState("#");
 
   return (
@@ -35,15 +37,18 @@ const ReportUser = ({ debateId, owner, userList, user, toggleBox }) => {
             }
             let Id = parseInt(selectedUser);
             axios
-              .post("http://localhost:3005/reportUser", {
+              .post(`${Main.uri}/reportUser`,{
                 debateId: debateId,
                 userId: Id,
                 reporterId: user.id,
-              })
+              }, Main.getAuthHeader())
               .then((response) => {
                 throw response;
               })
               .catch((err) => {
+                if (err.response.status === 401) {
+                  Main.refresh();
+                }
                 toggleBox();
               });
           }}

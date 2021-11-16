@@ -8,7 +8,6 @@ const DebateForm = ({ userInfo, ToggleDisplay }) => {
   const [title, Altertitle] = useState("");
   const [Description, AlterDesc] = useState("");
   const [category, change_catg] = useState("categories");
-  const [finishStatus, setfinishStatus] = useState(false);
 
   const HandleTitle = (evt) => {
     Altertitle(evt.target.value);
@@ -20,12 +19,16 @@ const DebateForm = ({ userInfo, ToggleDisplay }) => {
 
   const SendData = (event) => {
     console.log(Main);
-    if (!(title && Description && category) || category === "categories" || Main.uuid === null) {
+    if (
+      !(title && Description && category) ||
+      category === "categories" ||
+      Main.uuid === null
+    ) {
       return;
     }
     event.preventDefault();
     axios
-      .post("http://localhost:3005/save", {
+      .post(Main.uri + "/save", {
         uniqid: Main.uuid,
         title: title,
         overview: Description,
@@ -35,11 +38,14 @@ const DebateForm = ({ userInfo, ToggleDisplay }) => {
         link: "",
         category: category,
         access: "public",
-      })
+      }, Main.getAuthHeader())
       .then((response) => {
         window.location.href = `DebPage/${response.data}`;
       })
       .catch((err) => {
+        if (err.response.status === 401) {
+          Main.refresh();
+        }
         ToggleDisplay({
           text: "Some Error has occured please try again...",
           status: true,
@@ -49,14 +55,18 @@ const DebateForm = ({ userInfo, ToggleDisplay }) => {
 
   useEffect(() => {
     axios
-      .post("http://localhost:3005/isdebatevalid", {
+      .post(Main.uri + "/isdebatevalid" ,{
         id: Main.uuid,
-      })
+      },Main.getAuthHeader())
       .then((response) => {
         if (response.data) {
           window.location.href = "/";
         }
-      });
+      }).catch(err=>{
+        if (err.response.status === 401) {
+          Main.refresh();
+        }
+      })
   }, [Main]);
 
   return (

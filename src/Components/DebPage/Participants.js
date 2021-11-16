@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import axios from "axios";
+import AuthContext from "../../Contexts/AuthContext";
 
 const Participants = ({
   owner,
@@ -10,7 +11,7 @@ const Participants = ({
   name,
   toggleBox,
 }) => {
-
+  const Main = useContext(AuthContext);
   useEffect(() => {}, [name, participants]);
 
   return (
@@ -31,7 +32,9 @@ const Participants = ({
         <div>
           {(participants[true] || ["No user's with this debate!"]).map(
             (item) => {
-              const image = `https://avatars.dicebear.com/api/micah/${item.image || Math.random()}.svg`;
+              const image = `https://avatars.dicebear.com/api/micah/${
+                item.image || Math.random()
+              }.svg`;
               return (
                 <div key={item.name} className="nm_lne1">
                   {(participants[true] || []).length !== 0 ? (
@@ -54,7 +57,9 @@ const Participants = ({
         <div>
           {(participants[false] || ["No user's against this debate!"]).map(
             (item) => {
-              const image = `https://avatars.dicebear.com/api/micah/${item.image || Math.random()}.svg`;
+              const image = `https://avatars.dicebear.com/api/micah/${
+                item.image || Math.random()
+              }.svg`;
               return (
                 <div key={item.name} className="nm_lne2">
                   {(participants[false] || []).length !== 0 ? (
@@ -80,13 +85,18 @@ const Participants = ({
           disabled={owner}
           onClick={() => {
             axios
-              .post("http://localhost:3005/changeSide", {
+              .post(`${Main.uri}/changeSide`, {
                 debid: debateId,
                 id: userId,
                 status: !status,
-              })
+              }, Main.getAuthHeader())
               .then((response) => {
                 window.location.href = `/DebPage/${debateId}`;
+              })
+              .catch((err) => {
+                if (err.response.status === 401) {
+                  Main.refresh();
+                }
               });
           }}
         >

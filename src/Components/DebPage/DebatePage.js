@@ -69,14 +69,19 @@ const DebatePage = (props) => {
 
   const updateLike = (commentId, value) => {
     axios
-      .post("http://localhost:3005/UpdateLike", {
+      .post(`${Main.uri}/UpdateLike`, {
         debId: debateId,
         userId: Main.userInfo[0].id,
         commentId: commentId,
         value: value,
-      })
+      }, Main.getAuthHeader())
       .then((response) => {
         return;
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          Main.refresh();
+        }
       });
   };
 
@@ -118,6 +123,7 @@ const DebatePage = (props) => {
     if (typeof item === undefined) {
       return null;
     }
+    console.log(userImageObj[item.userid]);
     const image = `https://avatars.dicebear.com/api/micah/${
       userImageObj[item.userid] || Math.random()
     }.svg`;
@@ -210,7 +216,7 @@ const DebatePage = (props) => {
 
   const storeComment = (obj) => {
     axios
-      .post("http://localhost:3005/makeComment", {
+      .post(`${Main.uri}/makeComment`, {
         comment: obj.comment,
         commentId: obj.commentId,
         user: obj.byuser,
@@ -218,11 +224,15 @@ const DebatePage = (props) => {
         debateId: debateId,
         date: obj.madeon,
         parentId: obj.parent,
-      })
+      }, Main.getAuthHeader())
       .then((response) => {
         return;
       })
-      .catch((err) => {});
+      .catch((err) => {
+        if (err.response.status === 401) {
+          Main.refresh();
+        }
+      });
   };
 
   const findParentComment = (comments_, parent) => {
@@ -334,6 +344,8 @@ const DebatePage = (props) => {
       }
       return (user[item.username] = item.withdeb);
     });
+    console.log(data, " ", imageObj);
+    imageObj[Main.userInfo[0].id] = Main.userInfo[0].image;
     updateParticipants(partp);
     updateUserImageObject(imageObj);
     return updateUserStatus(user);
@@ -342,39 +354,52 @@ const DebatePage = (props) => {
   const refreshComments = () => {
     setTimeout(() => {
       axios
-        .get(`http://localhost:3005/getComments/${debateId}`)
+        .get(`${Main.uri}/getComments/${debateId}`, Main.getAuthHeader())
         .then((response) => {
           set_comments(response.data);
           refreshComments();
+        })
+        .catch((err) => {
+          if (err.response.status === 401) {
+            Main.refresh();
+          }
         });
     }, 5 * 60 * 1000);
   };
 
   useEffect(() => {
     if (!fetchStatus && Main.userInfo[0].id !== -1) {
+      updateStatus(true);
       axios
-        .get(`http://localhost:3005/getdebdata/${debateId}`)
+        .get(`${Main.uri}/getdebdata/${debateId}`, Main.getAuthHeader())
         .then((response) => {
           updateDebInfo(response.data[0]);
           axios
-            .get(`http://localhost:3005/getParticipation/${debateId}`)
+            .get(
+              `${Main.uri}/getParticipation/${debateId}`,
+              Main.getAuthHeader()
+            )
             .then((response) => {
               response.data.map((item) => {
                 if (item.username === Main.userInfo[0].name) {
                   updateParticipation(true);
                 }
                 return null;
-              });
+              })
               hashUserStatus(response.data);
               axios
-                .get(`http://localhost:3005/getComments/${debateId}`)
+                .get(
+                  `${Main.uri}/getComments/${debateId}`,
+                  Main.getAuthHeader()
+                )
                 .then((response) => {
                   set_comments(response.data);
                   refreshComments();
                   updateStatus(true);
                   axios
                     .get(
-                      `http://localhost:3005/getLikes/${debateId}/${Main.userInfo[0].id}`
+                      `${Main.uri}/getLikes/${debateId}/${Main.userInfo[0].id}`,
+                      Main.getAuthHeader()
                     )
                     .then((response) => {
                       let s = response.data.map((item) => item.commentid);
@@ -390,6 +415,9 @@ const DebatePage = (props) => {
             });
         })
         .catch((err) => {
+          if (err.response.status === 401) {
+            Main.refresh();
+          }
           updateParticipation(null);
         });
     }

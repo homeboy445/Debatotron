@@ -1,9 +1,12 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import "./Register.css";
+import axios from "axios";
 import InputBox from "../Sub_Components/InputBox/InputBox";
 import register_Image from "../../Images/register1.jpg";
+import AuthContext from "../../Contexts/AuthContext";
 
 const Register = ({ HandleAuth, Change_Display }) => {
+  const Main = useContext(AuthContext);
   const [name, ChangeName] = useState("");
   const [email_1, ChangeEmail] = useState("");
   const [password_1, ChangePassword] = useState("");
@@ -42,18 +45,14 @@ const Register = ({ HandleAuth, Change_Display }) => {
 
   const HandleSubmit = (event) => {
     event.preventDefault();
-    fetch("http://localhost:3005/register", {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
+    axios
+      .post(`${Main.uri}/register`, {
         user: name,
         password: password_1,
         email: email_1,
         recovery: recovery_1.current.value,
         answer: answer_1,
-      }),
-    })
-      .then((response) => response.json())
+      })
       .then((response) => {
         if (response[0].name) {
           window.location.href = "/signin";
@@ -62,7 +61,6 @@ const Register = ({ HandleAuth, Change_Display }) => {
         }
       })
       .catch((err) => {
-        console.log(err);
         set("Something's Wrong,Try again!");
         setTimeout(() => {
           set("Enter your Credentials!");
@@ -77,7 +75,7 @@ const Register = ({ HandleAuth, Change_Display }) => {
     <div className="rg-wrapper">
       <div className="register">
         <div id="rg_img_div">
-          <img src={register_Image} alt="" className="rg_img"/>
+          <img src={register_Image} alt="" className="rg_img" />
         </div>
         <div className="rg-mainer">
           <div>

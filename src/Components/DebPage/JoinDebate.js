@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import axios from "axios";
+import AuthContext from "../../Contexts/AuthContext";
 
 const JoinDebate = ({
   title,
@@ -10,19 +11,22 @@ const JoinDebate = ({
   userInfo,
   updateParticipation,
 }) => {
+  const Main = useContext(AuthContext);
   const UpdateParticipation = (val) => {
     axios
-      .post("http://localhost:3005/updateParticipation", {
+      .post(`${Main.uri}/updateParticipation`,{
         debId: debateId,
         user: userInfo.name,
         userId: userInfo.id,
         status: val,
-      })
+      }, Main.getAuthHeader())
       .then((response) => {
         updateParticipation(true);
       })
       .catch((err) => {
-        return;
+        if (err.response.status === 401) {
+          Main.refresh();
+        }
       });
   };
 
@@ -41,7 +45,11 @@ const JoinDebate = ({
           <img src={image} alt="" />
           <h2>{name || "xyz"}</h2>
         </div>
-        <h2>{new Date(publishedAt).toTimeString().slice(0, 5) + " | " + new Date(publishedAt).toDateString() || "today"}</h2>
+        <h2>
+          {new Date(publishedAt).toTimeString().slice(0, 5) +
+            " | " +
+            new Date(publishedAt).toDateString() || "today"}
+        </h2>
       </div>
       <div className="J_deb_1">
         <div>
