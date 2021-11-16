@@ -37,13 +37,18 @@ const ProfilePage = (props) => {
 
   const SaveProfileCredentials = () => {
     axios
-      .post("http://localhost:3005/UpdateProfile", {
+      .post(Main.uri + "/UpdateProfile", {
         user: name,
         about: ref1.current.textContent,
         image: profile.image.toString(),
-      })
+      }, Main.getAuthHeader())
       .then((response) => {
         toggleEditMode(false);
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          Main.refresh();
+        }
       });
   };
 
@@ -53,24 +58,29 @@ const ProfilePage = (props) => {
       friendShipStatus === "Accept Request"
     ) {
       return axios
-        .post("http://localhost:3005/AddFriend", {
+        .post(Main.uri + "/AddFriend", {
           user1: name,
           user2: Main.userInfo[0].name,
-        })
+        }, Main.getAuthHeader())
         .then((response) => {
           Main.friends.push({ friend_name: name, status: true, owner: false });
           updateFriendshipStatus();
+        })
+        .catch((err) => {
+          if (err.response.status === 401) {
+            Main.refresh();
+          }
         });
     }
     if (name === Main.userInfo[0].name || friendShipStatus !== "Add Friend") {
       return;
     }
     axios
-      .post("http://localhost:3005/MakeFriendReq", {
+      .post(Main.uri + "/MakeFriendReq",{
         user: Main.userInfo[0].name,
         fuser: name,
         message: "Add me as a friend",
-      })
+      }, Main.getAuthHeader())
       .then((response) => {
         Main.userInfo[0].friends.push({
           friend_name: name,
@@ -78,7 +88,11 @@ const ProfilePage = (props) => {
           owner: true,
         });
       })
-      .catch((err) => {});
+      .catch((err) => {
+        if (err.response.status === 401) {
+          Main.refresh();
+        }
+      });
   };
 
   const updateFriendshipStatus = () => {
@@ -108,7 +122,7 @@ const ProfilePage = (props) => {
     updateFriendshipStatus();
     if (!fetchStatus && Main.userInfo[0].id !== -1) {
       axios
-        .get(`http://localhost:3005/profile_Data/${name}`)
+        .get(Main.uri + `/profile_Data/${name}`, Main.getAuthHeader())
         .then((response) => {
           update_profile({
             name: response.data[0].name,
@@ -118,35 +132,46 @@ const ProfilePage = (props) => {
           });
           update_Status(true);
           axios
-            .get(`http://localhost:3005/getDebates/${response.data[0].name}`)
+            .get(
+              Main.uri + `/getDebates/${response.data[0].name}`,
+              Main.getAuthHeader()
+            )
             .then((response1) => {
               update_debates(response1.data);
               axios
                 .get(
-                  `http://localhost:3005/getActivity/${response.data[0].name}`
+                  Main.uri + `/getActivity/${response.data[0].name}`,
+                  Main.getAuthHeader()
                 )
                 .then((response2) => {
                   update_activity(response2.data);
                   axios
-                  .get(`http://localhost:3005/friendslist/${name}`)
-                  .then((response) => {
-                    let k = [];
-                    response.data.map((item) => {
-                      if (item.status) {
-                        k.push(item);
+                    .get(
+                      Main.uri + `/friendslist/${name}`,
+                      Main.getAuthHeader()
+                    )
+                    .then((response) => {
+                      let k = [];
+                      response.data.map((item) => {
+                        if (item.status) {
+                          k.push(item);
+                        }
+                        return null;
+                      });
+                      update_friends(k);
+                    })
+                    .catch((err) => {
+                      if (err.response.status === 401) {
+                        Main.refresh();
                       }
-                      return null;
                     });
-                    update_friends(k);
-                  })
-                  .catch((err) => {
-                    return err;
-                  });
                 });
             });
         })
         .catch((err) => {
-          return;
+          if (err.response.status === 401) {
+            Main.refresh();
+          }
         });
       if (Main.friends.length > 0 && Friends === {}) {
         let obj = {};
@@ -182,13 +207,18 @@ const ProfilePage = (props) => {
           <button
             onClick={() => {
               axios
-                .post("http://localhost:3005/sendMessage", {
+                .post(Main.uri + "/sendMessage", {
                   sender: Main.userInfo[0].name,
                   recipient: name,
                   message: isMessageBox.text,
-                })
+                }, Main.getAuthHeader())
                 .then((response) => {
                   updateMessageBoxStatus({ text: "", status: false });
+                })
+                .catch((err) => {
+                  if (err.response.status === 401) {
+                    Main.refresh();
+                  }
                 });
             }}
           >
@@ -360,9 +390,16 @@ const ProfilePage = (props) => {
             ) : (
               <div className="pf_frds">
                 {friends.map((item) => {
-                  const image = `https://avatars.dicebear.com/api/micah/${item.profile_image || Math.random()}.svg`;
+                  const image = `https://avatars.dicebear.com/api/micah/${
+                    item.profile_image || Math.random()
+                  }.svg`;
                   return (
-                    <div className="pf_fr_card" onClick={()=>window.location.href=`/Profile/${item.friend_name}`}>
+                    <div
+                      className="pf_fr_card"
+                      onClick={() =>
+                        (window.location.href = `/Profile/${item.friend_name}`)
+                      }
+                    >
                       <img src={image} alt=".." />
                       <h2>{item.friend_name}</h2>
                     </div>

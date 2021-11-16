@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import axios from "axios";
+import AuthContext from "../../Contexts/AuthContext";
 import InputBox from "../Sub_Components/InputBox/InputBox";
 import "./ForgotPass.css";
 
 const ForgotPass = () => {
+  const Main = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [answer, setAnswer] = useState("");
   const [state, setstate] = useState("Email");
@@ -42,15 +45,12 @@ const ForgotPass = () => {
   };
   const HandleSubmit_1 = (e) => {
     e.preventDefault();
-    fetch("http://localhost:3005/ForgotPassword", {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
+    axios
+      .post(Main.uri + "/ForgotPassword", {
         email: email,
-      }),
-    })
-      .then((response) => response.json())
+      }, Main.getAuthHeader())
       .then((response) => {
+        response = response.data;
         if (response[0].recovery) {
           setstate("recover");
           setAuth_state("Make sure you enter the right answer!");
@@ -65,6 +65,9 @@ const ForgotPass = () => {
         }
       })
       .catch((err) => {
+        if (err.response.status === 401) {
+          Main.refresh();
+        }
         setstate("Email");
         setAuth_state("Email not found!");
         setTimeout(() => {
@@ -78,17 +81,13 @@ const ForgotPass = () => {
   const HandleSubmit_2 = (e) => {
     e.preventDefault();
     console.log("Called!");
-    fetch("http://localhost:3005/CheckRecovery", {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
+    axios
+      .post(Main.uri + "/CheckRecovery", {
         email: email,
         answer: answer,
-      }),
-    })
-      .then((response) => response.json())
+      }, Main.getAuthHeader())
       .then((response) => {
-        console.log(response);
+        response = response.data;
         if (response === "Found!") {
           setstate("Change");
           setAuth_state("Make sure the two Fields Matches!");
@@ -100,6 +99,9 @@ const ForgotPass = () => {
         }
       })
       .catch((err) => {
+        if (err.response.status === 401) {
+          Main.refresh();
+        }
         setAuth_state("An Error has occured!");
         setTimeout(() => {
           setAuth_state("Make sure you enter the right answer!");
@@ -109,16 +111,13 @@ const ForgotPass = () => {
   const HandleSubmit_3 = (e) => {
     e.preventDefault();
     if (password_1 === password_2) {
-      fetch("http://localhost:3005/ChangePassword", {
-        method: "post",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+      axios
+        .post(Main.uri + "/ChangePassword",{
           email: email,
           password: password_1,
-        }),
-      })
-        .then((response) => response.json())
+        }, Main.getAuthHeader())
         .then((response) => {
+          response = response.data;
           if (response === "Successfull!") {
             window.location.href = "/signin";
           } else {
@@ -126,6 +125,9 @@ const ForgotPass = () => {
           }
         })
         .catch((err) => {
+          if (err.response.status === 401) {
+            Main.refresh();
+          }
           setAuth_state("An error has occured!");
           setTimeout(() => {
             setAuth_state("Make sure the two Fields Matches!");

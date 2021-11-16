@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./Debs.css";
 import axios from "axios";
 import SettingsIcon from "../../Assets/settings.svg";
 import GridIcon from "../../Images/grid.svg";
 import ListIcon from "../../Images/list.svg";
+import AuthContext from "../../Contexts/AuthContext";
 
 const OngoingDebs = () => {
+  const Main = useContext(AuthContext);
   const [list, listUpdate] = useState([]);
   const [Debates, updateDebates] = useState([]);
   const [categoryList, updateCategoryList] = useState(["all"]);
@@ -19,11 +21,11 @@ const OngoingDebs = () => {
   useEffect(() => {
     if (!fetchStatus) {
       axios
-        .get("http://localhost:3005/GetDebs/public")
+        .get(Main.uri + "/GetDebs/public", Main.getAuthHeader())
         .then(async (response) => {
           let arr = response.data;
           await axios
-            .get("http://localhost:3005/GetDebs/private")
+            .get(Main.uri + "/GetDebs/private", Main.getAuthHeader())
             .then((response) => {
               arr.concat(response.data);
             });
@@ -38,6 +40,9 @@ const OngoingDebs = () => {
           updateCategoryList([...arr]);
         })
         .catch((err) => {
+          if (err.response.status === 401) {
+            Main.refresh();
+          }
           return;
         });
     }
@@ -59,7 +64,7 @@ const OngoingDebs = () => {
       return null;
     });
     listUpdate(results);
-  }, [search, searchType, category]);
+  }, [search, searchType, category, Main]);
 
   return (
     <div className="debs_mainer">

@@ -94,19 +94,20 @@ const UserFeed = () => {
   useEffect(() => {
     if (Main.userInfo[0].id !== -1) {
       axios
-        .get(`http://localhost:3005/feed/${Main.userInfo[0].id}`)
+        .get(`${Main.uri}/feed/${Main.userInfo[0].id}`, Main.getAuthHeader())
         .then((response) => {
           updateFeed(response.data);
-          axios.get("http://localhost:3005/popularUsers").then((response) => {
+          axios.get(Main.uri + "/popularUsers", Main.getAuthHeader()).then((response) => {
             updatePopularUsers(response.data);
             axios
-              .get("http://localhost:3005/topContributors")
+              .get(Main.uri + "/topContributors", Main.getAuthHeader())
               .then((response) => {
                 updateContributors(response.data);
               });
           });
         })
         .catch((err) => {
+          console.log(err);
           return;
         });
     }
@@ -156,12 +157,12 @@ const UserFeed = () => {
                 return;
               }
               axios
-                .post("http://localhost:3005/makePost", {
+                .post(Main.uri + "/makePost", {
                   user: Main.userInfo[0].name,
                   userId: Main.userInfo[0].id,
                   post: textArea.trim(),
                   date: new Date().toISOString(),
-                })
+                }, Main.getAuthHeader())
                 .then((response) => {
                   window.location.href = "/";
                 });
