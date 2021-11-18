@@ -37,11 +37,15 @@ const ProfilePage = (props) => {
 
   const SaveProfileCredentials = () => {
     axios
-      .post(Main.uri + "/UpdateProfile", {
-        user: name,
-        about: ref1.current.textContent,
-        image: profile.image.toString(),
-      }, Main.getAuthHeader())
+      .post(
+        Main.uri + "/UpdateProfile",
+        {
+          user: name,
+          about: ref1.current.textContent,
+          image: profile.image.toString(),
+        },
+        Main.getAuthHeader()
+      )
       .then((response) => {
         toggleEditMode(false);
       })
@@ -58,10 +62,14 @@ const ProfilePage = (props) => {
       friendShipStatus === "Accept Request"
     ) {
       return axios
-        .post(Main.uri + "/AddFriend", {
-          user1: name,
-          user2: Main.userInfo[0].name,
-        }, Main.getAuthHeader())
+        .post(
+          Main.uri + "/AddFriend",
+          {
+            user1: name,
+            user2: Main.userInfo[0].name,
+          },
+          Main.getAuthHeader()
+        )
         .then((response) => {
           Main.friends.push({ friend_name: name, status: true, owner: false });
           updateFriendshipStatus();
@@ -76,11 +84,15 @@ const ProfilePage = (props) => {
       return;
     }
     axios
-      .post(Main.uri + "/MakeFriendReq",{
-        user: Main.userInfo[0].name,
-        fuser: name,
-        message: "Add me as a friend",
-      }, Main.getAuthHeader())
+      .post(
+        Main.uri + "/MakeFriendReq",
+        {
+          user: Main.userInfo[0].name,
+          fuser: name,
+          message: "Add me as a friend",
+        },
+        Main.getAuthHeader()
+      )
       .then((response) => {
         Main.userInfo[0].friends.push({
           friend_name: name,
@@ -121,6 +133,7 @@ const ProfilePage = (props) => {
   useEffect(() => {
     updateFriendshipStatus();
     if (!fetchStatus && Main.userInfo[0].id !== -1) {
+      Main.toggleLoader(true);
       axios
         .get(Main.uri + `/profile_Data/${name}`, Main.getAuthHeader())
         .then((response) => {
@@ -158,7 +171,31 @@ const ProfilePage = (props) => {
                         }
                         return null;
                       });
+                      axios
+                        .get(
+                          `${Main.uri}/tutorial/${Main.userInfo[0].name}`,
+                          Main.getAuthHeader()
+                        )
+                        .then((response) => {
+                          if (!response.data[0].profilepage) {
+                            return;
+                          }
+                          Main.updateTutorialBox({
+                            title: "Some Editing tips...",
+                            contents: [
+                              "This is your profile page, you can check the user info here.",
+                              "You can also edit your profile too, just double click on the about sentence and change it.",
+                              "You can also edit the image by clicking on it",
+                              "To save the credentials click on the save icon on the top left.",
+                            ],
+                            status: true,
+                            tutorial_status: {
+                              ...response.data[0],
+                            },
+                          });
+                        });
                       update_friends(k);
+                      Main.toggleLoader(false);
                     })
                     .catch((err) => {
                       if (err.response.status === 401) {
@@ -207,11 +244,15 @@ const ProfilePage = (props) => {
           <button
             onClick={() => {
               axios
-                .post(Main.uri + "/sendMessage", {
-                  sender: Main.userInfo[0].name,
-                  recipient: name,
-                  message: isMessageBox.text,
-                }, Main.getAuthHeader())
+                .post(
+                  Main.uri + "/sendMessage",
+                  {
+                    sender: Main.userInfo[0].name,
+                    recipient: name,
+                    message: isMessageBox.text,
+                  },
+                  Main.getAuthHeader()
+                )
                 .then((response) => {
                   updateMessageBoxStatus({ text: "", status: false });
                 })

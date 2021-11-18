@@ -21,6 +21,7 @@ const Inbox = ({ userInfo }) => {
   const [ActiveIndex, ChangeActiveIndex] = useState(0);
   const [NotifStatus, ToggleNotif] = useState(false);
   const [OpenedMailsList, UpdateReadList] = useState([0]);
+  const [fetchStatus, updateStatus] = useState(false);
   const Auth = useContext(AuthContext);
   const ref1 = useRef();
   const HandleToggle = () => {
@@ -75,9 +76,13 @@ const Inbox = ({ userInfo }) => {
     const del = (messageid) => {
       //For deleting any message via its uuid.
       axios
-        .post(Auth.uri + "/removeMessage", {
-          mId: messageid,
-        }, Auth.getAuthHeader())
+        .post(
+          Auth.uri + "/removeMessage",
+          {
+            mId: messageid,
+          },
+          Auth.getAuthHeader()
+        )
         .then((response) => {
           window.location.href = "/Inbox";
         })
@@ -93,10 +98,14 @@ const Inbox = ({ userInfo }) => {
     switch (data.rtype) {
       case 0: {
         axios
-          .post(Auth.uri + "/AddParticipant", {
-            debid: data.debid,
-            participant: data.user,
-          }, Auth.getAuthHeader())
+          .post(
+            Auth.uri + "/AddParticipant",
+            {
+              debid: data.debid,
+              participant: data.user,
+            },
+            Auth.getAuthHeader()
+          )
           .then((response) => {
             if (response.data) {
               del(messageid);
@@ -111,10 +120,14 @@ const Inbox = ({ userInfo }) => {
       }
       case 1: {
         axios
-          .post(Auth.uri + "/AddFriend", {
-            user1: Auth.userInfo[0].name,
-            user2: data.user,
-          }, Auth.getAuthHeader())
+          .post(
+            Auth.uri + "/AddFriend",
+            {
+              user1: Auth.userInfo[0].name,
+              user2: data.user,
+            },
+            Auth.getAuthHeader()
+          )
           .then((response) => {
             if (response.data) {
               del(messageid);
@@ -172,12 +185,11 @@ const Inbox = ({ userInfo }) => {
   };
 
   useEffect(() => {
-    const user = Auth.userInfo[0].name;
-    if (user === "user") {
-      return;
-    }
+    if (Auth.userInfo[0].id !== -1 && !fetchStatus) {
+    updateStatus(true);
+    Auth.toggleLoader(true);
     axios
-      .get(Auth.uri + `/Inbox/${user}`, Auth.getAuthHeader())
+      .get(Auth.uri + `/Inbox/${Auth.userInfo[0].name}`, Auth.getAuthHeader())
       .then((response) => {
         response = response.data;
         if (
@@ -198,14 +210,18 @@ const Inbox = ({ userInfo }) => {
           });
           updMes(response);
           change_this(false);
+          Auth.toggleLoader(false);
         }
       })
       .catch((err) => {
-        if (err.response.status === 401) {
-          Auth.refresh();
-        }
+        try {
+          if (err.response.status === 401) {
+            Auth.refresh();
+          }
+        } catch (e) {}
         change_this(true);
       });
+    }
   }, [Auth]);
 
   return (

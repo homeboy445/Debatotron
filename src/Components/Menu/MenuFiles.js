@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
+import Loader from "react-loader-spinner";
 import Home from "../Home/HomePage";
 import "./Nav.css";
 import axios from "axios";
@@ -7,7 +8,7 @@ import AuthContext from "../../Contexts/AuthContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import LoginRoute from "../ProtectedRoute/LoginRoute";
 import SignIn from "../SignIn/SignIn";
-import DebateForm from './../NewForm/DebateForm';
+import DebateForm from "./../NewForm/DebateForm";
 import Register from "../Register/Register";
 import ForgotPassword from "../ForgePassword/ForgotPass";
 import DebatePage from "../DebPage/DebatePage";
@@ -16,6 +17,7 @@ import Navigation from "./Navigation";
 import Inbox from "../Inbox/Inbox";
 import UserFeed from "./../Home/UserFeed";
 import ProfilePage from "../Profile/ProfilePage";
+import TutorialBox from "../Sub_Components/InputBox/TutorialBox";
 
 const MenuFiles = () => {
   const [DisplayText, ToggleDisplay] = useState({ text: "", status: false });
@@ -34,7 +36,8 @@ const MenuFiles = () => {
       .delete(`${Auth.uri}/signout`, {
         refreshToken: sessionStorage.getItem("refreshToken"),
       })
-      .then(response=>{});
+      .then((response) => {})
+      .catch(err=>{});
     window.location.href = "/";
     sessionStorage.clear();
   };
@@ -50,31 +53,32 @@ const MenuFiles = () => {
 
   return (
     <div>
-      {Auth.Auth ? <Navigation /> : null}
-      {DisplayText.status ? (
-        <div
-          className="Display-Text"
-          style={{
-            position: "absolute",
-            top: "90%",
-            left: "4%",
-            fontSize: "1.7rem",
-            padding: "0.2%",
-            display: "flex",
-            flexdirection: "column",
-            color: "white",
-            border: "2px solid blue",
-            textShadow: "1px 1px 1px black",
-            borderRadius: "4px",
-            backgroundColor: "#4158D0",
-            backgroundImage:
-              "linear-gradient(125deg, #4158D0 0%, #C850C0 17%, #FFCC70 39%, #a4e2db 60%, #30bde0 80%, #4e08f9 100%)",
-          }}
-        >
-          {DisplayText.text}
+      {Auth.loading ? (
+        <div className="loader">
+          <Loader
+            type="TailSpin"
+            color="#00BFFF"
+            height={250}
+            width={250}
+            timeout={60 * 1000 * 2}
+          />
         </div>
       ) : null}
-      <main className="App">
+      {Auth.Auth ? <Navigation /> : null}
+      {Auth.TutorialBox.status ? <TutorialBox /> : null}
+      <main
+        className="App"
+        style={{
+          opacity:
+            Auth.loading || Auth.TutorialBox.status
+              ? Auth.TutorialBox.status
+                ? 0.4
+                : 0
+              : 1,
+          pointerEvents:
+            Auth.loading || Auth.TutorialBox.status ? "none" : "all",
+        }}
+      >
         <Switch>
           <Route
             path="/"
@@ -86,38 +90,38 @@ const MenuFiles = () => {
           <Route path="/signout" render={() => SignOut()} />
           <ProtectedRoute
             path="/new"
+            pageName="debateform"
             auth={Auth.Auth}
             userInfo={Auth.userInfo}
-            ToggleDisplay={ToggleDisplay}
             component={DebateForm}
           />
           <ProtectedRoute
             path="/DebPage/:id"
+            pageName="debatepage"
             auth={Auth.Auth}
             userInfo={Auth.userInfo}
-            ToggleDisplay={ToggleDisplay}
             component={DebatePage}
           />
           <ProtectedRoute
             path="/OngoingDebs"
+            pageName="ongoingdeb"
             auth={Auth.Auth}
             userInfo={Auth.userInfo}
-            ToggleDisplay={ToggleDisplay}
             component={OngoingDebs}
           />
           <ProtectedRoute
             path="/Inbox"
+            pageName="inbox"
             auth={Auth.Auth}
             userInfo={Auth.userInfo}
-            ToggleDisplay={ToggleDisplay}
             component={Inbox}
           />
           <ProtectedRoute
             path="/Profile/:user"
+            pageName="profile"
             auth={Auth.Auth}
             userInfo={Auth.userInfo}
             FriendsList={Auth.FriendsList}
-            ToggleDisplay={ToggleDisplay}
             component={ProfilePage}
           />
           <LoginRoute

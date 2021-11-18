@@ -9,105 +9,32 @@ const UserFeed = () => {
   const Main = useContext(AuthContext);
   const [postBox, togglepostBox] = useState(false);
   const [textArea, updateTextArea] = useState("");
-  const [popularUsers, updatePopularUsers] = useState([
-    "Dylan",
-    "Harvey",
-    "Benny",
-    "June",
-    "Victor",
-  ]);
-  const [feed, updateFeed] = useState([
-    {
-      user: "Dylan",
-      type: 0,
-      debate: {
-        id: "xyzyxya",
-        title: "Social media is becoming toxic everyday.",
-      },
-      publishedAt: new Date().toDateString(),
-    },
-    {
-      user: "Harvey",
-      type: 1,
-      post: {
-        text: "Debatotron is the best platform for debating out there and I think it should grow more so that more people could experience it's greatness",
-      },
-      publishedAt: new Date().toDateString(),
-    },
-    {
-      user: "Dylan",
-      type: 0,
-      debate: {
-        id: "xyzyxya",
-        title: "Open source software is so cool!",
-      },
-      publishedAt: new Date().toDateString(),
-    },
-    {
-      user: "Victor",
-      type: 0,
-      debate: {
-        id: "xyzyxya",
-        title: "Some tech companies interview process is overly hard.",
-      },
-      publishedAt: new Date().toDateString(),
-    },
-    {
-      user: "Bobby",
-      type: 1,
-      post: {
-        text: "Here's some gibberish text, They floated in the puppet place had been a subunit of Freeside’s security system. The girls looked like tall, exotic grazing animals, swaying gracefully and unconsciously with the movement of the train, their high heels like polished hooves against the gray metal of the room where Case waited. She put his pistol down, picked up her fletcher, dialed the barrel over to single shot, and very carefully put a toxin dart through the center of a painted jungle of rainbow foliage, a lurid communal mural that completely covered the hull of the Flatline as a construct, a hardwired ROM cassette replicating a dead man’s skills, obsessions, kneejerk responses. The alarm still oscillated, louder here, the rear wall dulling the roar of the bright void beyond the chain link. Then he’d taken a long and pointless walk along the black induction strip, fine grit sifting from cracks in the tunnel’s ceiling. Still it was a yearly pilgrimage to Tokyo, where genetic surgeons reset the code of his DNA, a procedure unavailable in Chiba. The semiotics of the previous century. He’d waited in the center of his closed left eyelid. Then he’d taken a long and pointless walk along the black induction strip, fine grit sifting from cracks in the human system.",
-      },
-      publishedAt: new Date().toDateString(),
-    },
-    {
-      user: "Benny",
-      type: 0,
-      debate: {
-        id: "xyzyxya",
-        title:
-          "Superhero movies are better than every other genres except for sci-fi.",
-      },
-      publishedAt: new Date().toDateString(),
-    },
-    {
-      user: "June",
-      type: 0,
-      debate: {
-        id: "xyzyxscin",
-        title: "Nature is the best thing ever!",
-      },
-      publishedAt: new Date().toDateString(),
-    },
-  ]);
-  const [topContributors, updateContributors] = useState([
-    "June",
-    "Dylan",
-    "Bobby",
-    "Jane",
-    "Benny",
-    "Victor",
-    "Harvey",
-    "James",
-  ]);
+  const [popularUsers, updatePopularUsers] = useState([]);
+  const [feed, updateFeed] = useState([]);
+  const [topContributors, updateContributors] = useState([]);
+  const [fetchStatus, updateStatus] = useState(false);
 
   useEffect(() => {
-    if (Main.userInfo[0].id !== -1) {
+    if (!fetchStatus && Main.userInfo[0].id !== -1) {
+      updateStatus(true);
+      Main.toggleLoader(true);
       axios
         .get(`${Main.uri}/feed/${Main.userInfo[0].id}`, Main.getAuthHeader())
         .then((response) => {
           updateFeed(response.data);
-          axios.get(Main.uri + "/popularUsers", Main.getAuthHeader()).then((response) => {
-            updatePopularUsers(response.data);
-            axios
-              .get(Main.uri + "/topContributors", Main.getAuthHeader())
-              .then((response) => {
-                updateContributors(response.data);
-              });
-          });
+          axios
+            .get(Main.uri + "/popularUsers", Main.getAuthHeader())
+            .then((response) => {
+              updatePopularUsers(response.data);
+              axios
+                .get(Main.uri + "/topContributors", Main.getAuthHeader())
+                .then((response) => {
+                  updateContributors(response.data);
+                  Main.toggleLoader(false);
+                });
+            });
         })
         .catch((err) => {
-          console.log(err);
           return;
         });
     }
@@ -157,12 +84,16 @@ const UserFeed = () => {
                 return;
               }
               axios
-                .post(Main.uri + "/makePost", {
-                  user: Main.userInfo[0].name,
-                  userId: Main.userInfo[0].id,
-                  post: textArea.trim(),
-                  date: new Date().toISOString(),
-                }, Main.getAuthHeader())
+                .post(
+                  Main.uri + "/makePost",
+                  {
+                    user: Main.userInfo[0].name,
+                    userId: Main.userInfo[0].id,
+                    post: textArea.trim(),
+                    date: new Date().toISOString(),
+                  },
+                  Main.getAuthHeader()
+                )
                 .then((response) => {
                   window.location.href = "/";
                 });
@@ -188,20 +119,22 @@ const UserFeed = () => {
           pointerEvents: postBox ? "none" : "all",
         }}
       >
-        <div className="feed_1">
-          <h2>Most Popular users</h2>
-          {popularUsers.map((item, index) => {
-            const image = `https://avatars.dicebear.com/api/micah/${
-              item.image || Math.random()
-            }.svg`;
-            return (
-              <div key={index} className="usr_card">
-                <img src={image} alt="" />
-                <h3>{item.name}</h3>
-              </div>
-            );
-          })}
-        </div>
+        {popularUsers.length > 0 ? (
+          <div className="feed_1">
+            <h2>Most Popular users</h2>
+            {popularUsers.map((item, index) => {
+              const image = `https://avatars.dicebear.com/api/micah/${
+                item.image || Math.random()
+              }.svg`;
+              return (
+                <div key={index} className="usr_card">
+                  <img src={image} alt="" />
+                  <h3>{item.name}</h3>
+                </div>
+              );
+            })}
+          </div>
+        ) : null}
         <div className="feed_main">
           {feed.length > 0 ? (
             (feed || []).map((item, index) => {
@@ -238,7 +171,7 @@ const UserFeed = () => {
           ) : (
             <div className="feed_empty">
               <img src={Empty} alt="" />
-              <h2>Your Feed's Empty! Try debating more!</h2>
+              <h2>Your Feed's Empty, Try debating more!</h2>
             </div>
           )}
           <div
@@ -260,21 +193,23 @@ const UserFeed = () => {
             <h2>And, Keep debating!</h2>
           </div>
         </div>
-        <div className="feed_2">
-          <h2>Top Debators</h2>
-          {topContributors.map((item, index) => {
-            const image = `https://avatars.dicebear.com/api/micah/${
-              item.image || Math.random()
-            }.svg`;
-            return (
-              <div key={index} className="usr_card2">
-                <h1>{index + 1}.</h1>
-                <img src={image} alt="" />
-                <h3>{item.name}</h3>
-              </div>
-            );
-          })}
-        </div>
+        {topContributors.length > 0 ? (
+          <div className="feed_2">
+            <h2>Top Debators</h2>
+            {topContributors.map((item, index) => {
+              const image = `https://avatars.dicebear.com/api/micah/${
+                item.image || Math.random()
+              }.svg`;
+              return (
+                <div key={index} className="usr_card2">
+                  <h1>{index + 1}.</h1>
+                  <img src={image} alt="" />
+                  <h3>{item.name}</h3>
+                </div>
+              );
+            })}
+          </div>
+        ) : null}
       </div>
     </div>
   );

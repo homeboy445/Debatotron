@@ -199,5 +199,22 @@
     padding-bottom: 15%;
     margin-bottom: 2%;
 }
+.deb_empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.deb_empty > h1 {
+    font-size: 4rem;
+    font-weight: 600;
+}
+.deb_empty > h1 > span {
+    cursor: pointer;
+    color: blue;
+}
+.deb_empty > h1 > span:hover {
+    text-decoration: underline;
+}
+
 
 

@@ -85,7 +85,7 @@
   align-items: space-between;
   width: 30%;
   margin-top: 3%;
-  margin-bottom: 2%;
+  margin-bottom: 1%;
 }
 .pf_select > h2 {
   padding: 2%;
@@ -100,7 +100,7 @@
   align-items: center;
   width: 100%;
   padding: 2%;
-  min-height: 400px;
+  min-height: 200px;
 }
 .pf_card,
 .pf_card1 {
@@ -154,7 +154,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 350px;
+  min-height: 200px;
 }
 .pf_empty > img {
   width: 30%;
@@ -403,7 +403,7 @@
     rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
 .pf_frds::-webkit-scrollbar {
-  width: 1px;
+  width: 3px;
   background: whitesmoke;
 }
 .pf_frds::-webkit-scrollbar-thumb {

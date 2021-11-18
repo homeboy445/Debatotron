@@ -98,7 +98,12 @@
   width: 70px;
   height: 70px;
 }
-
+.loader {
+  position: fixed;
+  top: 40%;
+  left: 40%;
+  z-index: 100000;
+}
 
 
 

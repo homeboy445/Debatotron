@@ -14,6 +14,8 @@ const Register = ({ HandleAuth, Change_Display }) => {
   const [state, set] = useState("Enter your Credentials!");
   const recovery_1 = useRef(null);
 
+  Main.toggleLoader(false);
+
   const HandleChange_1 = (event) => {
     if (event.target.value.trim()) {
       ChangeName(event.target.value);
@@ -45,6 +47,7 @@ const Register = ({ HandleAuth, Change_Display }) => {
 
   const HandleSubmit = (event) => {
     event.preventDefault();
+    Main.toggleLoader(true);
     axios
       .post(`${Main.uri}/register`, {
         user: name,
@@ -54,7 +57,7 @@ const Register = ({ HandleAuth, Change_Display }) => {
         answer: answer_1,
       })
       .then((response) => {
-        if (response[0].name) {
+        if (response.data[0].name) {
           window.location.href = "/signin";
         } else {
           throw response;
@@ -71,6 +74,7 @@ const Register = ({ HandleAuth, Change_Display }) => {
     ChangeName("");
     ChangePassword("");
   };
+
   return (
     <div className="rg-wrapper">
       <div className="register">

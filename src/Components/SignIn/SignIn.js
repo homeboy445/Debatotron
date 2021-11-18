@@ -10,6 +10,9 @@ const SignIn = ({ HandleAuth, Change_Display }) => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [stat, set] = useState("");
+
+  Main.toggleLoader(false);
+
   const HandleName = (e) => {
     if (e.target.value.trim()) {
       setName(e.target.value);
@@ -26,6 +29,7 @@ const SignIn = ({ HandleAuth, Change_Display }) => {
   };
   const HandleSubmit = (event) => {
     event.preventDefault();
+    Main.toggleLoader(true);
     axios
       .post(`${Main.uri}/signin`, {
         email: name,
