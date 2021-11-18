@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, animateScroll as scroll } from "react-scroll";
 import Typist from "react-typist";
 import group_debate from '../../Images/group_debate.jpg';
@@ -9,12 +9,15 @@ import gradient2 from '../../Images/gradient1.jpg';
 import gradient3 from '../../Images/gradient2.jpg';
 import up_arrow from '../../Images/right-arrow.png';
 import "./HomePage.css";
+import AuthContext from "../../Contexts/AuthContext";
 
 const LandingPage = ({ auth }) => {
+  const Main = useContext(AuthContext);
   const [loop, varUpdate] = useState(1);
   const [scrollToTop, toggle] = useState(false);
 
   useEffect(() => {
+    Main.toggleLoader(false);
     window.onload=()=>{
         scroll.scrollToTop();
     }

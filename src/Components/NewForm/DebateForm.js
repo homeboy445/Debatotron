@@ -3,7 +3,7 @@ import axios from "axios";
 import "./DebForm.css";
 import AuthContext from "../../Contexts/AuthContext";
 
-const DebateForm = ({ userInfo, ToggleDisplay }) => {
+const DebateForm = ({ ToggleDisplay }) => {
   const Main = useContext(AuthContext);
   const [title, Altertitle] = useState("");
   const [Description, AlterDesc] = useState("");
@@ -18,7 +18,6 @@ const DebateForm = ({ userInfo, ToggleDisplay }) => {
   };
 
   const SendData = (event) => {
-    console.log(Main);
     if (
       !(title && Description && category) ||
       category === "categories" ||
@@ -33,7 +32,7 @@ const DebateForm = ({ userInfo, ToggleDisplay }) => {
         title: title,
         overview: Description,
         publishedat: new Date().toLocaleDateString(),
-        publisher: userInfo[0].name,
+        publisher: Main.userInfo[0].name,
         flag: true,
         link: "",
         category: category,
@@ -54,6 +53,9 @@ const DebateForm = ({ userInfo, ToggleDisplay }) => {
   };
 
   useEffect(() => {
+    if (Main.loading) {
+      Main.toggleLoader(false);
+    }
     axios
       .post(Main.uri + "/isdebatevalid" ,{
         id: Main.uuid,

@@ -1,5 +1,5 @@
 import React from "react";
-import "./InputBox.css";
+import "./sub.css";
 import user from "../../../Images/user.svg";
 import email from "../../../Images/email.svg";
 import password from "../../../Images/password.svg";

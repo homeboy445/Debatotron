@@ -20,6 +20,7 @@ const OngoingDebs = () => {
 
   useEffect(() => {
     if (!fetchStatus) {
+      Main.toggleLoader(true);
       axios
         .get(Main.uri + "/GetDebs/public", Main.getAuthHeader())
         .then(async (response) => {
@@ -38,12 +39,15 @@ const OngoingDebs = () => {
             return arr.add(item.category);
           });
           updateCategoryList([...arr]);
+          Main.toggleLoader(false);
         })
         .catch((err) => {
-          if (err.response.status === 401) {
-            Main.refresh();
-          }
-          return;
+          try {
+            if (err.response.status === 401) {
+              Main.refresh();
+            }
+          } catch(e) {}
+          return Main.toggleLoader(true);
         });
     }
     if (searchType === -1) {
@@ -79,6 +83,9 @@ const OngoingDebs = () => {
                 transform: settings ? "rotate(90deg)" : "rotate(0deg)",
               }}
               onClick={() => {
+                if (list.length === 0) {
+                  return;
+                }
                 toggleSettingsPopup(!settings);
               }}
             />
@@ -158,87 +165,103 @@ const OngoingDebs = () => {
             src={viewType === 0 ? ListIcon : GridIcon}
             alt="list"
             onClick={() => {
+              if (list.length === 0) {
+                return;
+              }
               toggleType((viewType + 1) % 2);
             }}
           />
         </div>
       </div>
-      <div className="deb_search">
-        <input
-          type="text"
-          placeholder={
-            searchType === 0
-              ? "Search for debates"
-              : searchType === 1
-              ? "Search for debates by users"
-              : searchType === 2
-              ? "Search all the combinations"
-              : ""
-          }
-          value={search}
-          disabled={searchType === -1}
-          onChange={(e) => {
-            updateSearch(e.target.value);
-          }}
-        />
-      </div>
-      <div className="deb_container">
-        {viewType === 0 ? (
-          <div className="deb_main_grid">
-            {list.length > 0 ? (
-              list.map((item, index) => {
+      {list.length !== 0 ? (
+        <div className="deb_search">
+          <input
+            type="text"
+            placeholder={
+              searchType === 0
+                ? "Search for debates"
+                : searchType === 1
+                ? "Search for debates by users"
+                : searchType === 2
+                ? "Search all the combinations"
+                : ""
+            }
+            value={search}
+            disabled={searchType === -1}
+            onChange={(e) => {
+              updateSearch(e.target.value);
+            }}
+          />
+        </div>
+      ) : null}
+      {list.length !== 0 ? (
+        <div className="deb_container">
+          {viewType === 0 ? (
+            <div className="deb_main_grid">
+              {list.length > 0 ? (
+                list.map((item, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className="deb_card"
+                      onClick={() =>
+                        (window.location.href = `/DebPage/${item.debid}`)
+                      }
+                    >
+                      <div className="deb_card_1">
+                        <h1>{item.topic}</h1>
+                        <div>
+                          <h3>{"by " + item.publisher}</h3>
+                          <h3>
+                            {new Date(item.publishedat).toLocaleDateString()}
+                          </h3>
+                        </div>
+                      </div>
+                      <h2>
+                        {item.overview.slice(
+                          0,
+                          Math.min(50, item.overview.length - 1)
+                        ) + "..."}
+                      </h2>
+                    </div>
+                  );
+                })
+              ) : (
+                <p></p>
+              )}
+            </div>
+          ) : (
+            <div className="deb_main_list">
+              {list.map((item, index) => {
                 return (
                   <div
                     key={index}
-                    className="deb_card"
+                    className="deb_list"
                     onClick={() =>
                       (window.location.href = `/DebPage/${item.debid}`)
                     }
                   >
-                    <div className="deb_card_1">
-                      <h1>{item.topic}</h1>
-                      <div>
-                        <h3>{"by " + item.publisher}</h3>
-                        <h3>
-                          {new Date(item.publishedat).toLocaleDateString()}
-                        </h3>
-                      </div>
-                    </div>
-                    <h2>
-                      {item.overview.slice(
+                    <h1>
+                      {item.topic.slice(
                         0,
-                        Math.min(50, item.overview.length - 1)
-                      ) + "..."}
-                    </h2>
+                        Math.min(50, item.topic.length - 1)
+                      ) + (item.topic.length <= 50 ? "" : "...")}
+                    </h1>
+                    <h3>{"by " + item.publisher}</h3>
                   </div>
                 );
-              })
-            ) : (
-              <p></p>
-            )}
-          </div>
-        ) : (
-          <div className="deb_main_list">
-            {list.map((item, index) => {
-              return (
-                <div
-                  key={index}
-                  className="deb_list"
-                  onClick={() =>
-                    (window.location.href = `/DebPage/${item.debid}`)
-                  }
-                >
-                  <h1>
-                    {item.topic.slice(0, Math.min(50, item.topic.length - 1)) +
-                      (item.topic.length <= 50 ? "" : "...")}
-                  </h1>
-                  <h3>{"by " + item.publisher}</h3>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </div>
+              })}
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="deb_empty">
+          <h1>
+            No Ongoing Debates, create your own{" "}
+            <span onClick={() => (window.location.href = "/new")}>here</span>.
+          </h1>
+        </div>
+      )}
     </div>
   );
 };

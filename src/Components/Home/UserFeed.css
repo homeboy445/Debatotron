@@ -130,49 +130,49 @@ font-family: 'Open Sans', sans-serif; */
   font-size: 1.4rem;
   font-weight: 400;
 }
-.feed_end{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 5%;
+.feed_end {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5%;
 }
-.feed_end > div{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.feed_end > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.feed_end > div > img{
-    width: 15%;
+.feed_end > div > img {
+  width: 15%;
 }
-.feed_bar1{
-    width: 800px;
-    height: 6px;
-    background: grey;
-    margin-right: 5%;
+.feed_bar1 {
+  width: 800px;
+  height: 6px;
+  background: grey;
+  margin-right: 5%;
 }
-.feed_bar2{
-    width: 800px;
-    height: 6px;
-    background: grey;
-    margin-left: 5%;
+.feed_bar2 {
+  width: 800px;
+  height: 6px;
+  background: grey;
+  margin-left: 5%;
 }
-.feed_end > h1{
-    font-size: 2.4rem;
-    font-weight: 500;
-    letter-spacing: 4px;
+.feed_end > h1 {
+  font-size: 2.4rem;
+  font-weight: 500;
+  letter-spacing: 4px;
 }
-.feed_end > h2{
-    font-size: 1.5rem;
-    font-weight: 400;
+.feed_end > h2 {
+  font-size: 1.5rem;
+  font-weight: 400;
 }
-.home_title{
-    position: absolute;
-    top: -1%;
-    left: 2%;
-    font-size: 2.6rem;
-    letter-spacing: 3px;
-    font-weight: bold;
+.home_title {
+  position: absolute;
+  top: -1%;
+  left: 2%;
+  font-size: 2.6rem;
+  letter-spacing: 3px;
+  font-weight: bold;
 }
 .feed_post_btn {
   appearance: button;
@@ -180,11 +180,13 @@ font-family: 'Open Sans', sans-serif; */
   background-color: #5dc185;
   border-radius: 6px;
   border-width: 0;
-  box-shadow: rgba(59, 93, 50, 0.1) 0 0 0 1px inset,rgba(55, 93, 50, 0.1) 0 2px 5px 0,rgba(0, 0, 0, 0.07) 0 1px 1px 0;
+  box-shadow: rgba(59, 93, 50, 0.1) 0 0 0 1px inset,
+    rgba(55, 93, 50, 0.1) 0 2px 5px 0, rgba(0, 0, 0, 0.07) 0 1px 1px 0;
   box-sizing: border-box;
   color: #fff;
   cursor: pointer;
-  font-family: -apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif;
+  font-family: -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue",
+    Ubuntu, sans-serif;
   font-size: 100%;
   height: 44px;
   line-height: 1.15;
@@ -196,7 +198,7 @@ font-family: 'Open Sans', sans-serif; */
   text-align: center;
   text-transform: none;
   transform: translateZ(0);
-  transition: all .2s,box-shadow .08s ease-in;
+  transition: all 0.2s, box-shadow 0.08s ease-in;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
@@ -209,21 +211,28 @@ font-family: 'Open Sans', sans-serif; */
   cursor: default;
 }
 .feed_post_btn:focus {
-  box-shadow: rgba(50, 93, 50, 0.1) 0 0 0 1px inset, rgba(52, 93, 50, 0.2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(50, 211, 58, 0.3) 0 0 0 4px;
+  box-shadow: rgba(50, 93, 50, 0.1) 0 0 0 1px inset,
+    rgba(52, 93, 50, 0.2) 0 6px 15px 0, rgba(0, 0, 0, 0.1) 0 2px 2px 0,
+    rgba(50, 211, 58, 0.3) 0 0 0 4px;
 }
-.feed_empty{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 80%;
-    margin-top: -15%;
+.feed_empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 10%;
 }
-.feed_empty > h2{
-    font-size: 2rem;
-    font-weight: 400;
+.feed_empty > img {
+  width: 80%;
 }
-.feed_post{
+.feed_empty > h2 {
+  font-size: 3.6rem;
+  font-weight: 600;
+  width: 1200px;
+  text-align: center;
+}
+.feed_post {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -237,16 +246,16 @@ font-family: 'Open Sans', sans-serif; */
   background: whitesmoke;
   z-index: 1001010;
 }
-.feed_post > h1{
+.feed_post > h1 {
   font-size: 2rem;
   font-weight: 400;
 }
-.feed_post > textarea{
+.feed_post > textarea {
   font-size: 1.5rem;
   width: 95%;
   height: 300px;
 }
-.feed_post > div{
+.feed_post > div {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -259,11 +268,13 @@ font-family: 'Open Sans', sans-serif; */
   background-color: #5dc185;
   border-radius: 6px;
   border-width: 0;
-  box-shadow: rgba(59, 93, 50, 0.1) 0 0 0 1px inset,rgba(55, 93, 50, 0.1) 0 2px 5px 0,rgba(0, 0, 0, 0.07) 0 1px 1px 0;
+  box-shadow: rgba(59, 93, 50, 0.1) 0 0 0 1px inset,
+    rgba(55, 93, 50, 0.1) 0 2px 5px 0, rgba(0, 0, 0, 0.07) 0 1px 1px 0;
   box-sizing: border-box;
   color: #fff;
   cursor: pointer;
-  font-family: -apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif;
+  font-family: -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue",
+    Ubuntu, sans-serif;
   font-size: 100%;
   height: 30px;
   line-height: 1.15;
@@ -274,7 +285,7 @@ font-family: 'Open Sans', sans-serif; */
   text-align: center;
   text-transform: none;
   transform: translateZ(0);
-  transition: all .2s,box-shadow .08s ease-in;
+  transition: all 0.2s, box-shadow 0.08s ease-in;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
@@ -284,7 +295,9 @@ font-family: 'Open Sans', sans-serif; */
   cursor: default;
 }
 .feed_post > div > button:nth-child(1):focus {
-  box-shadow: rgba(50, 93, 50, 0.1) 0 0 0 1px inset, rgba(52, 93, 50, 0.2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(50, 211, 58, 0.3) 0 0 0 4px;
+  box-shadow: rgba(50, 93, 50, 0.1) 0 0 0 1px inset,
+    rgba(52, 93, 50, 0.2) 0 6px 15px 0, rgba(0, 0, 0, 0.1) 0 2px 2px 0,
+    rgba(50, 211, 58, 0.3) 0 0 0 4px;
 }
 .feed_post > div > button:nth-child(2) {
   appearance: button;
@@ -292,11 +305,13 @@ font-family: 'Open Sans', sans-serif; */
   background-color: crimson;
   border-radius: 6px;
   border-width: 0;
-  box-shadow: rgba(93, 50, 50, 0.1) 0 0 0 1px inset,rgba(93, 50, 50, 0.1) 0 2px 5px 0,rgba(0, 0, 0, 0.07) 0 1px 1px 0;
+  box-shadow: rgba(93, 50, 50, 0.1) 0 0 0 1px inset,
+    rgba(93, 50, 50, 0.1) 0 2px 5px 0, rgba(0, 0, 0, 0.07) 0 1px 1px 0;
   box-sizing: border-box;
   color: #fff;
   cursor: pointer;
-  font-family: -apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif;
+  font-family: -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue",
+    Ubuntu, sans-serif;
   font-size: 100%;
   height: 30px;
   line-height: 1.15;
@@ -307,7 +322,7 @@ font-family: 'Open Sans', sans-serif; */
   text-align: center;
   text-transform: none;
   transform: translateZ(0);
-  transition: all .2s,box-shadow .08s ease-in;
+  transition: all 0.2s, box-shadow 0.08s ease-in;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
@@ -318,6 +333,7 @@ font-family: 'Open Sans', sans-serif; */
   cursor: default;
 }
 .feed_post > div > button:nth-child(2):focus {
-  box-shadow: rgba(93, 50, 50, 0.1) 0 0 0 1px inset, rgba(93, 50, 50, 0.2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(211, 50, 50, 0.3) 0 0 0 4px;
+  box-shadow: rgba(93, 50, 50, 0.1) 0 0 0 1px inset,
+    rgba(93, 50, 50, 0.2) 0 6px 15px 0, rgba(0, 0, 0, 0.1) 0 2px 2px 0,
+    rgba(211, 50, 50, 0.3) 0 0 0 4px;
 }
-

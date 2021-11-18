@@ -65,6 +65,7 @@ const Navigation = () => {
           <Link
             to="/new"
             onClick={() => {
+              Auth.update_uuid();
               ToggleIt();
             }}
           >

@@ -16,7 +16,19 @@ const App = () => {
   const [userInfo, Change_Info] = useState([{ id: -1, name: "user" }]);
   const [FriendsList, Update_List] = useState([]);
   const [uuid, change_uuid] = useState(sessionStorage.getItem("uuid"));
-  const uri = "http://localhost:3005";
+  const [loading, toggleLoader] = useState(true);
+  const [refreshed, refreshStatus] = useState(0);
+  const [TutorialBox, updateTBox] = useState({
+    title: "",
+    contents: [],
+    status: false,
+    tutorial_status: {
+      debatepage: true,
+      profilepage: true,
+    },
+  });
+  const [currentPage, updatePage] = useState("Home");
+  const uri = "https://debatotron.herokuapp.com";
 
   const refreshAccessToken = () => {
     axios
@@ -24,9 +36,9 @@ const App = () => {
         refreshToken: sessionStorage.getItem("refreshToken"),
       })
       .then((response) => {
-        console.log("refreshed!");
         sessionStorage.setItem("accessToken", response.data.accessToken);
         sessionStorage.setItem("refreshToken", response.data.refreshToken);
+        refreshStatus(refreshed + 1);
       })
       .catch((err) => {
         sessionStorage.clear();
@@ -58,8 +70,8 @@ const App = () => {
                 )}`,
               },
             })
-            .then((response) => {
-              Update_List(response.data);
+            .then((response1) => {
+              Update_List(response1.data);
             })
             .catch((err) => {
               if (err.response.status === 401) {
@@ -100,6 +112,15 @@ const App = () => {
           sessionStorage.setItem("uuid", uuidv4());
           change_uuid(sessionStorage.getItem("uuid"));
         },
+        loading,
+        toggleLoader: (e = false) => toggleLoader(e),
+        refreshed,
+        TutorialBox,
+        updateTutorialBox: (obj) => {
+          updateTBox(obj);
+        },
+        currentPage,
+        updatePage: (page) => updatePage(page),
       }}
     >
       <div style={{ background: !Auth ? PolkaDotsBg : "white" }}>

@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Azeret+Mono&display=swap');
+/* Input box CSS */
+.inputbx
+{
+    display:flex;
+    justify-content:center;
+    align-content: center;
+    border:2px solid black;
+    margin-left:4%;
+    margin-right:7%;
+    transform:scale(0.7);
+    margin-top:1%;
+    margin-bottom:1%;
+    border-radius:4px;
+}
+.inputbx > input
+{
+    width:100%;
+    border:none;
+    padding:2%;
+    outline:none;
+    font-size:1.5rem;
+    margin-left:1%;
+    margin-bottom:1%;
+    border-bottom:2px solid black;
+    font-family: 'Azeret Mono', monospace;
+}
+.inputbx > input:focus
+{
+    border-bottom: 2px solid blue;
+}
+.inputbx > img
+{
+    width:7%;
+    height:7%;
+    margin-top:2%;
+    margin-right:2%;
+}
+
+/* Tutorial Box CSS */
+.tut_bx {
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    position: fixed;
+    top: 15%;
+    left: 33%;
+    border-radius: 5px;
+    min-width: 300px;
+    min-height: 300px;
+    padding: 2%;
+    z-index: 100001;
+    background: whitesmoke;
+}
+.tut_bx > h1 {
+    font-size: 2rem;
+    font-weight: 500;
+}
+.tut_bx > ul {
+    height: 200px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+}
+.tut_bx > ul > li {
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
+    font-size: 1.3rem;
+}
+.tut_bx_tick {
+    display: flex;
+    justify-content: right;
+    align-items: right;
+    width: 100%;
+}
+.tut_bx_tick > input[type="checkbox"] {
+    cursor: pointer;
+    transform: scale(1.2);
+    margin-top: 6.5%;
+    margin-right: 2%;
+}
+.tut_bx_tick > h3 {
+    font-weight: 300;
+}
+.tut_bx > button {
+  appearance: button;
+  backface-visibility: hidden;
+  background-color: #405cf5;
+  border-radius: 6px;
+  border-width: 0;
+  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-family: -apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif;
+  font-size: 100%;
+  height: 44px;
+  line-height: 1.15;
+  margin: 12px 0 0;
+  outline: none;
+  overflow: hidden;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transform: translateZ(0);
+  transition: all .2s,box-shadow .08s ease-in;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 100%;
+}
+.tut_bx > button:disabled {
+  cursor: default;
+}
+.tut_bx > button:focus {
+  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(50, 151, 211, .3) 0 0 0 4px;
+}
+
+
