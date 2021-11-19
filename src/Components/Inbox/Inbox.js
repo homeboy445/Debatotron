@@ -267,7 +267,7 @@ const Inbox = () => {
                 : "485px",
           }}
         >
-          {typeof messages === Array
+          {messages.length > 0 && messages[0].additional.rtype !== -1e9
             ? messages.map((item, index) => (
                 <div
                   className="message-card"
