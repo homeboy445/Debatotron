@@ -56,20 +56,25 @@ const Participants = ({
         </div>
         <div>
           {(participants[false] || ["No user's against this debate!"]).map(
-            (item) => {
+            (item, index) => {
               const image = `https://avatars.dicebear.com/api/micah/${
                 item.image || Math.random()
               }.svg`;
               return (
-                <div key={item.name} className="nm_lne2">
+                <div key={index} className="nm_lne2">
                   {(participants[false] || []).length !== 0 ? (
-                    <img src={image} alt="" />
+                    <img src={image} alt="" style={{
+                      background: "red"
+                    }}/>
                   ) : null}
                   <h2
                     style={{
                       color: name === item ? "gold" : "black",
                       textShadow:
                         name === item ? "1px 1px 1px #e62e36" : "none",
+                    }}
+                    onClick={()=>{
+                      window.location.href=`/Profile/${item.byuser}`;
                     }}
                   >
                     {item.name}
