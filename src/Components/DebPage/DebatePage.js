@@ -421,6 +421,9 @@ const DebatePage = (props) => {
                       let s = response.data.map((item) => item.commentid);
                       set_likedQs(s);
                       Main.toggleLoader(false);
+                      if (!isParticipant) {
+                        return;
+                      }
                       axios
                         .get(
                           `${Main.uri}/tutorial/${Main.userInfo[0].name}`,
@@ -434,10 +437,10 @@ const DebatePage = (props) => {
                             title: "Get started with debating...",
                             contents: [
                               "Make a comment & start the conversation by clicking on the reply icon on the bottom right.",
-                              "You can like & or report any user easily.",
+                              "You can like any comment and can also report any user easily if they misbehave.",
                               "To mention a user, just do @username and the user will be alerted.",
                               "You can reply to any user by clicking on the reply button in the comment card.",
-                              "You can also click any user's name to check their profile out."
+                              "You can also click any user's name to check their profile out.",
                             ],
                             status: true,
                             tutorial_status: {
@@ -445,7 +448,7 @@ const DebatePage = (props) => {
                             },
                           });
                         })
-                        .catch((err) => {})
+                        .catch((err) => {});
                     })
                     .catch((err) => {
                       throw err;
