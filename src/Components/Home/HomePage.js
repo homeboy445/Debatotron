@@ -17,7 +17,7 @@ const LandingPage = ({ auth }) => {
   const [scrollToTop, toggle] = useState(false);
 
   useEffect(() => {
-    Main.toggleLoader(false);
+    setTimeout(()=>  Main.toggleLoader(false), 1000);
     window.onload=()=>{
         scroll.scrollToTop();
     }
