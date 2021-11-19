@@ -11,7 +11,6 @@ const Register = ({ HandleAuth, Change_Display }) => {
   const [email_1, ChangeEmail] = useState("");
   const [password_1, ChangePassword] = useState("");
   const [answer_1, ChangeAns] = useState("");
-  const [state, set] = useState("Enter your Credentials!");
   const recovery_1 = useRef(null);
 
   setTimeout(() => Main.toggleLoader(false), 2000);
@@ -57,15 +56,13 @@ const Register = ({ HandleAuth, Change_Display }) => {
         answer: answer_1,
       })
       .then((response) => {
-        console.log(response.data);
-        if (response.data[0].name) {
+        if (response.data.name) {
           window.location.href = "/signin";
         } else {
           throw response;
         }
       })
       .catch((err) => {
-        set("Something's Wrong,Try again!");
         setTimeout(() => {
           set("Enter your Credentials!");
         }, 3000);
