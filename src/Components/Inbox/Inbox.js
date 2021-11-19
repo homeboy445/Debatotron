@@ -8,7 +8,7 @@ import Filter from "../../Images/filter.svg";
 import Arrow from "../../Images/left_arrow.svg";
 import "./Inbox.css";
 
-const Inbox = ({ userInfo }) => {
+const Inbox = () => {
   const [messages, updMes] = useState([
     {
       message: "You're Messages will appear here!",
@@ -199,12 +199,15 @@ const Inbox = ({ userInfo }) => {
             response !== "An Error has occured!"
           ) {
             if (response === "none") {
-              return updMes({
-                message: "No messages as of yet!",
-                byuser: "no-one",
-                recievedat: "none",
-                type: JSON.stringify({ type: "normal" }),
-              });
+              return updMes([
+                {
+                  message: "You're Messages will appear here!",
+                  recievedat: "",
+                  additional: { title: "Message Title", rtype: -1 },
+                  byuser: "",
+                  messageid: "",
+                },
+              ]);
             }
             response.map((item) => {
               item.additional = JSON.parse(item.additional);
@@ -224,7 +227,7 @@ const Inbox = ({ userInfo }) => {
           change_this(true);
         });
     }
-  }, [Auth]);
+  }, [Auth, messages]);
 
   return (
     <div className="inbox">
