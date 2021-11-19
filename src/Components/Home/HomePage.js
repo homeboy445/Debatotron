@@ -37,8 +37,8 @@ const LandingPage = ({ auth }) => {
         <div className="hp2-sub">
             <h1 id="title">Debatotron</h1>
             <div className="hp_btn">
-              <a href="/register" id="register_btn">Register</a>
-              <a href="/signin" id="signin_btn">SignIn</a>
+              <a href="/register" id="register_btn">SignIn</a>
+              <a href="/signin" id="signin_btn">Register</a>
             </div>
         </div>
         <div className="hp2-1">
