@@ -258,7 +258,7 @@ const Inbox = ({ userInfo }) => {
                 : "485px",
           }}
         >
-          {messages.map((item, index) => (
+          {typeof messages === Array ? messages.map((item, index) => (
             <div
               className="message-card"
               key={index}
@@ -296,7 +296,7 @@ const Inbox = ({ userInfo }) => {
                 </div>
               </div>
             </div>
-          ))}
+          )): null}
         </div>
       </div>
       <div className="display-window" ref={ref1}>
