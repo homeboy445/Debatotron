@@ -107,7 +107,7 @@ font-family: 'Open Sans', sans-serif; */
   width: 18%;
   border-radius: 5px;
   padding: 1%;
-  right: -1%;
+  right: 1%;
   background: white;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
