@@ -11,7 +11,7 @@ const SignIn = ({ HandleAuth, Change_Display }) => {
   const [password, setPassword] = useState("");
   const [stat, set] = useState("");
 
-  Main.toggleLoader(false);
+  setTimeout(()=>  Main.toggleLoader(false), 2000);
 
   const HandleName = (e) => {
     if (e.target.value.trim()) {

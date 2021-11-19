@@ -14,7 +14,7 @@ const Register = ({ HandleAuth, Change_Display }) => {
   const [state, set] = useState("Enter your Credentials!");
   const recovery_1 = useRef(null);
 
-  Main.toggleLoader(false);
+  setTimeout(()=>  Main.toggleLoader(false), 2000);
 
   const HandleChange_1 = (event) => {
     if (event.target.value.trim()) {
