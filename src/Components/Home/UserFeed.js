@@ -129,7 +129,14 @@ const UserFeed = () => {
               return (
                 <div key={index} className="usr_card">
                   <img src={image} alt="" />
-                  <h3>{item.name}</h3>
+                  <h3
+                    style={{ cursor: "pointer" }}
+                    onClick={() =>
+                      (window.location.href = `/Profile/${item.name}`)
+                    }
+                  >
+                    {item.name}
+                  </h3>
                 </div>
               );
             })}
@@ -146,7 +153,14 @@ const UserFeed = () => {
                   <div className="feed_x1">
                     <div className="usr_card1">
                       <img src={image} alt="" />
-                      <h3>{item.user}</h3>
+                      <h3
+                        style={{ cursor: "pointer" }}
+                        onClick={() =>
+                          (window.location.href = `/Profile/${item.user}`)
+                        }
+                      >
+                        {item.user}
+                      </h3>
                     </div>
                     <h2>
                       {new Date(item.publishedAt).toTimeString().slice(0, 5) +
@@ -204,7 +218,14 @@ const UserFeed = () => {
                 <div key={index} className="usr_card2">
                   <h1>{index + 1}.</h1>
                   <img src={image} alt="" />
-                  <h3>{item.name}</h3>
+                  <h3
+                    style={{ cursor: "pointer" }}
+                    onClick={() =>
+                      (window.location.href = `/Profile/${item.name}`)
+                    }
+                  >
+                    {item.name}
+                  </h3>
                 </div>
               );
             })}

@@ -184,8 +184,8 @@ const ProfilePage = (props) => {
                             title: "Some Editing tips...",
                             contents: [
                               "This is your profile page, you can check the user info here.",
-                              "You can also edit your profile too, just double click on the about sentence and change it.",
-                              "You can also edit the image by clicking on it",
+                              "To edit your about, just double click on the about sentence and change it.",
+                              "You can also edit the your profile by clicking on it.",
                               "To save the credentials click on the save icon on the top left.",
                             ],
                             status: true,

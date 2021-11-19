@@ -193,7 +193,6 @@ const Inbox = () => {
       axios
         .get(Auth.uri + `/Inbox/${Auth.userInfo[0].name}`, Auth.getAuthHeader())
         .then((response) => {
-          console.log(response.data);
           response = response.data;
           if (
             typeof response !== undefined ||
