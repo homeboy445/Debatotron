@@ -143,7 +143,14 @@ const DebatePage = (props) => {
             <div className="card_usrInfo">
               <div className="card_pf">
                 <img src={image} alt="" />
-                <h1>{item.byuser || "User13345"}</h1>
+                <h1
+                  style={{ cursor: "pointer" }}
+                  onClick={() =>
+                    (window.location.href = `/Profile/${item.byuser}`)
+                  }
+                >
+                  {item.byuser || "User13345"}
+                </h1>
               </div>
               <p
                 style={{

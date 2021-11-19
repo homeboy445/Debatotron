@@ -13,7 +13,9 @@ const Inbox = ({ userInfo }) => {
     {
       message: "You're Messages will appear here!",
       recievedat: "",
-      additional: { title: "Message Title" },
+      additional: { title: "Message Title", rtype: -1 },
+      byuser: "",
+      messageid: "",
     },
   ]);
   const [NotRecieved, change_this] = useState(true);
@@ -186,41 +188,41 @@ const Inbox = ({ userInfo }) => {
 
   useEffect(() => {
     if (Auth.userInfo[0].id !== -1 && !fetchStatus) {
-    updateStatus(true);
-    Auth.toggleLoader(true);
-    axios
-      .get(Auth.uri + `/Inbox/${Auth.userInfo[0].name}`, Auth.getAuthHeader())
-      .then((response) => {
-        response = response.data;
-        if (
-          typeof response !== undefined ||
-          response !== "An Error has occured!"
-        ) {
-          if (response === "none") {
-            return updMes({
-              message: "No messages as of yet!",
-              byuser: "no-one",
-              recievedat: "none",
-              type: JSON.stringify({ type: "normal" }),
+      updateStatus(true);
+      Auth.toggleLoader(true);
+      axios
+        .get(Auth.uri + `/Inbox/${Auth.userInfo[0].name}`, Auth.getAuthHeader())
+        .then((response) => {
+          response = response.data;
+          if (
+            typeof response !== undefined ||
+            response !== "An Error has occured!"
+          ) {
+            if (response === "none") {
+              return updMes({
+                message: "No messages as of yet!",
+                byuser: "no-one",
+                recievedat: "none",
+                type: JSON.stringify({ type: "normal" }),
+              });
+            }
+            response.map((item) => {
+              item.additional = JSON.parse(item.additional);
+              return null;
             });
+            updMes(response);
+            change_this(false);
+            Auth.toggleLoader(false);
           }
-          response.map((item) => {
-            item.additional = JSON.parse(item.additional);
-            return null;
-          });
-          updMes(response);
-          change_this(false);
-          Auth.toggleLoader(false);
-        }
-      })
-      .catch((err) => {
-        try {
-          if (err.response.status === 401) {
-            Auth.refresh();
-          }
-        } catch (e) {}
-        change_this(true);
-      });
+        })
+        .catch((err) => {
+          try {
+            if (err.response.status === 401) {
+              Auth.refresh();
+            }
+          } catch (e) {}
+          change_this(true);
+        });
     }
   }, [Auth]);
 
@@ -258,45 +260,47 @@ const Inbox = ({ userInfo }) => {
                 : "485px",
           }}
         >
-          {typeof messages === Array ? messages.map((item, index) => (
-            <div
-              className="message-card"
-              key={index}
-              onClick={() => {
-                ChangeActiveIndex(index);
-                var arr = OpenedMailsList;
-                arr.push(index);
-                UpdateReadList(arr);
-              }}
-              style={{
-                background: isMailOpened(index) ? "#e2e9fa" : "white",
-                transition: "0.5s",
-              }}
-            >
-              <div
-                className="bluebar"
-                style={{
-                  visibility: ActiveIndex === index ? "visible" : "hidden",
-                }}
-              ></div>
-              <div>
-                <div className="mc-1">
-                  <h2>{item.byuser}</h2>
-                  <p>{item.recievedat}</p>
+          {typeof messages === Array
+            ? messages.map((item, index) => (
+                <div
+                  className="message-card"
+                  key={index}
+                  onClick={() => {
+                    ChangeActiveIndex(index);
+                    var arr = OpenedMailsList;
+                    arr.push(index);
+                    UpdateReadList(arr);
+                  }}
+                  style={{
+                    background: isMailOpened(index) ? "#e2e9fa" : "white",
+                    transition: "0.5s",
+                  }}
+                >
+                  <div
+                    className="bluebar"
+                    style={{
+                      visibility: ActiveIndex === index ? "visible" : "hidden",
+                    }}
+                  ></div>
+                  <div>
+                    <div className="mc-1">
+                      <h2>{item.byuser}</h2>
+                      <p>{item.recievedat}</p>
+                    </div>
+                    <h3 className="descp">
+                      {returnMessageTitle(item.additional.rtype)}
+                    </h3>
+                    <div className="mc-2">
+                      <h3>tags:</h3>
+                      <ul>
+                        <li>friend-request</li>
+                        <li>new-comer</li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
-                <h3 className="descp">
-                  {returnMessageTitle(item.additional.rtype)}
-                </h3>
-                <div className="mc-2">
-                  <h3>tags:</h3>
-                  <ul>
-                    <li>friend-request</li>
-                    <li>new-comer</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          )): null}
+              ))
+            : null}
         </div>
       </div>
       <div className="display-window" ref={ref1}>
