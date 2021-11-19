@@ -200,15 +200,7 @@ const Inbox = () => {
             response !== "An Error has occured!"
           ) {
             if (response === "none") {
-              return updMes([
-                {
-                  message: "You're Messages will appear here!",
-                  recievedat: "",
-                  additional: { title: "Message Title", rtype: -1 },
-                  byuser: "",
-                  messageid: "",
-                },
-              ]);
+              throw response;
             }
             response.map((item) => {
               item.additional = JSON.parse(item.additional);
@@ -216,17 +208,27 @@ const Inbox = () => {
             });
             updMes(response);
             change_this(false);
-            Auth.toggleLoader(false);
           }
         })
         .catch((err) => {
-          console.log(err);
+          updMes([
+            {
+              message: "You're Messages will appear here!",
+              recievedat: "",
+              additional: { title: "Message Title", rtype: -1 },
+              byuser: "",
+              messageid: "",
+            },
+          ]);
           try {
             if (err.response.status === 401) {
               Auth.refresh();
             }
           } catch (e) {}
           change_this(true);
+        })
+        .finally((e) => {
+          Auth.toggleLoader(false);
         });
     }
   }, [Auth, messages]);
