@@ -427,13 +427,9 @@ const DebatePage = (props) => {
                           Main.getAuthHeader()
                         )
                         .then((response) => {
-                          console.log(response.data);
                           if (!response.data[0].debatepage) {
                             return;
                           }
-                        })
-                        .catch((err) => {})
-                        .finally((e) => {
                           Main.updateTutorialBox({
                             title: "Get started with debating...",
                             contents: [
@@ -441,13 +437,15 @@ const DebatePage = (props) => {
                               "You can like & or report any user easily.",
                               "To mention a user, just do @username and the user will be alerted.",
                               "You can reply to any user by clicking on the reply button in the comment card.",
+                              "You can also click any user's name to check their profile out."
                             ],
                             status: true,
                             tutorial_status: {
                               ...response.data[0],
                             },
                           });
-                        });
+                        })
+                        .catch((err) => {})
                     })
                     .catch((err) => {
                       throw err;

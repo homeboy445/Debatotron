@@ -38,7 +38,15 @@ const Participants = ({
               return (
                 <div key={item.name} className="nm_lne1">
                   {(participants[true] || []).length !== 0 ? (
-                    <img src={image} alt="" />
+                    <img
+                      src={image}
+                      alt=""
+                      style={{
+                        background: "blue",
+                        margin: "1%",
+                        borderRadius: "10px",
+                      }}
+                    />
                   ) : null}
                   <h2
                     style={{
@@ -63,9 +71,15 @@ const Participants = ({
               return (
                 <div key={index} className="nm_lne2">
                   {(participants[false] || []).length !== 0 ? (
-                    <img src={image} alt="" style={{
-                      background: "red"
-                    }}/>
+                    <img
+                      src={image}
+                      alt=""
+                      style={{
+                        background: "red",
+                        margin: "1%",
+                        borderRadius: "10px",
+                      }}
+                    />
                   ) : null}
                   <h2
                     style={{
@@ -73,8 +87,8 @@ const Participants = ({
                       textShadow:
                         name === item ? "1px 1px 1px #e62e36" : "none",
                     }}
-                    onClick={()=>{
-                      window.location.href=`/Profile/${item.byuser}`;
+                    onClick={() => {
+                      window.location.href = `/Profile/${item.byuser}`;
                     }}
                   >
                     {item.name}
@@ -90,11 +104,15 @@ const Participants = ({
           disabled={owner}
           onClick={() => {
             axios
-              .post(`${Main.uri}/changeSide`, {
-                debid: debateId,
-                id: userId,
-                status: !status,
-              }, Main.getAuthHeader())
+              .post(
+                `${Main.uri}/changeSide`,
+                {
+                  debid: debateId,
+                  id: userId,
+                  status: !status,
+                },
+                Main.getAuthHeader()
+              )
               .then((response) => {
                 window.location.href = `/DebPage/${debateId}`;
               })
