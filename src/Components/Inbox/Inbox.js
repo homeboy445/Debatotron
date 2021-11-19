@@ -13,7 +13,7 @@ const Inbox = () => {
     {
       message: "You're Messages will appear here!",
       recievedat: "",
-      additional: { title: "Message Title", rtype: -1 },
+      additional: { title: "Message Title", rtype: -1e9 },
       byuser: "",
       messageid: "",
     },
@@ -215,7 +215,7 @@ const Inbox = () => {
             {
               message: "You're Messages will appear here!",
               recievedat: "",
-              additional: { title: "Message Title", rtype: -1 },
+              additional: { title: "Message Title", rtype: -1e9 },
               byuser: "",
               messageid: "",
             },
@@ -365,10 +365,12 @@ const Inbox = () => {
             </button>
           </div>
         ) : null}
-        <div className="display-btns">
-          <img src={Arrow} onClick={() => updateList(-1)} alt="" />
-          <img src={Arrow} onClick={() => updateList(1)} alt="" />
-        </div>
+        {messages.length > 0 && messages[0].additional.rtype !== -1e9 ? (
+          <div className="display-btns">
+            <img src={Arrow} onClick={() => updateList(-1)} alt="" />
+            <img src={Arrow} onClick={() => updateList(1)} alt="" />
+          </div>
+        ) : null}
       </div>
     </div>
   );

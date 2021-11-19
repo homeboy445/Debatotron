@@ -14,7 +14,7 @@ const Register = ({ HandleAuth, Change_Display }) => {
   const [state, set] = useState("Enter your Credentials!");
   const recovery_1 = useRef(null);
 
-  setTimeout(()=>  Main.toggleLoader(false), 2000);
+  setTimeout(() => Main.toggleLoader(false), 2000);
 
   const HandleChange_1 = (event) => {
     if (event.target.value.trim()) {
@@ -57,6 +57,7 @@ const Register = ({ HandleAuth, Change_Display }) => {
         answer: answer_1,
       })
       .then((response) => {
+        console.log(response.data);
         if (response.data[0].name) {
           window.location.href = "/signin";
         } else {
