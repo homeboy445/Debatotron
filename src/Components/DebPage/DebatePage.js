@@ -427,9 +427,13 @@ const DebatePage = (props) => {
                           Main.getAuthHeader()
                         )
                         .then((response) => {
+                          console.log(response.data);
                           if (!response.data[0].debatepage) {
                             return;
                           }
+                        })
+                        .catch((err) => {})
+                        .finally((e) => {
                           Main.updateTutorialBox({
                             title: "Get started with debating...",
                             contents: [
