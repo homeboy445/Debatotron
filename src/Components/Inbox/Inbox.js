@@ -365,7 +365,7 @@ const Inbox = () => {
             </button>
           </div>
         ) : null}
-        {messages.length > 0 && messages[0].additional.rtype !== -1e9 ? (
+        {messages.length > 1 ? (
           <div className="display-btns">
             <img src={Arrow} onClick={() => updateList(-1)} alt="" />
             <img src={Arrow} onClick={() => updateList(1)} alt="" />
