@@ -62,11 +62,7 @@ const Register = ({ HandleAuth, Change_Display }) => {
           throw response;
         }
       })
-      .catch((err) => {
-        setTimeout(() => {
-          set("Enter your Credentials!");
-        }, 3000);
-      });
+      .catch((err) => {});
     ChangeAns("");
     ChangeEmail("");
     ChangeName("");
