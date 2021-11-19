@@ -163,7 +163,6 @@ const DebatePage = (props) => {
             <div className="card_main_1">
               <div style={{ display: "flex" }}>
                 {getDateAndTime(new Date(item.madeon))}
-                {isReplied(item.parent)}
               </div>
               <div className="card_lst">
                 <div
