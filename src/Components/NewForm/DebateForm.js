@@ -31,7 +31,7 @@ const DebateForm = ({ ToggleDisplay }) => {
         uniqid: Main.uuid,
         title: title,
         overview: Description,
-        publishedat: new Date().toLocaleDateString(),
+        publishedat: new Date().toISOString(),
         publisher: Main.userInfo[0].name,
         flag: true,
         link: "",

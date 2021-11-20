@@ -94,6 +94,7 @@ const ProfilePage = (props) => {
         Main.getAuthHeader()
       )
       .then((response) => {
+        update_friend_status("Pending");
         Main.userInfo[0].friends.push({
           friend_name: name,
           status: false,

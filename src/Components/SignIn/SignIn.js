@@ -11,24 +11,19 @@ const SignIn = ({ HandleAuth, Change_Display }) => {
   const [password, setPassword] = useState("");
   const [stat, set] = useState("");
 
-  setTimeout(()=>  Main.toggleLoader(false), 2000);
+  setTimeout(() => Main.toggleLoader(false), 2000);
 
   const HandleName = (e) => {
-    if (e.target.value.trim()) {
-      setName(e.target.value);
-    } else {
-      setName("");
-    }
+    setName(e.target.value.trim());
   };
   const HandlePassword = (e) => {
-    if (e.target.value.trim()) {
-      setPassword(e.target.value);
-    } else {
-      setPassword("");
-    }
+    setPassword(e.target.value.trim());
   };
   const HandleSubmit = (event) => {
     event.preventDefault();
+    if (!(name.trim() && password.trim())) {
+      return;
+    }
     Main.toggleLoader(true);
     axios
       .post(`${Main.uri}/signin`, {
