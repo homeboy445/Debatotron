@@ -125,8 +125,8 @@ const Inbox = () => {
           .post(
             Auth.uri + "/AddFriend",
             {
-              user1: Auth.userInfo[0].name,
-              user2: data.user,
+              user1: data.user,
+              user2: Auth.userInfo[0].name,
             },
             Auth.getAuthHeader()
           )

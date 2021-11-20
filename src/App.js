@@ -41,7 +41,11 @@ const App = () => {
         refreshStatus(refreshed + 1);
       })
       .catch((err) => {
-        sessionStorage.clear();
+        try {
+          if (err.response.status === 401) {
+            window.location.href = "/signout";
+          }
+        } catch (e) {}
       });
   };
 

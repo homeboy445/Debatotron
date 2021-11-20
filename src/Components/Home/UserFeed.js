@@ -128,9 +128,11 @@ const UserFeed = () => {
               }.svg`;
               return (
                 <div key={index} className="usr_card">
-                  <img src={image} alt="" />
+                  <div className="pf_image1">
+                    <img src={image} alt="" />
+                  </div>
                   <h3
-                    style={{ cursor: "pointer" }}
+                    className="pf_hover"
                     onClick={() =>
                       (window.location.href = `/Profile/${item.name}`)
                     }
@@ -152,9 +154,11 @@ const UserFeed = () => {
                 <div key={index} className="feed_card">
                   <div className="feed_x1">
                     <div className="usr_card1">
-                      <img src={image} alt="" />
+                      <div className="pf_image_fd">
+                        <img src={image} alt="" />
+                      </div>
                       <h3
-                        style={{ cursor: "pointer" }}
+                        className="pf_hover"
                         onClick={() =>
                           (window.location.href = `/Profile/${item.user}`)
                         }
@@ -217,9 +221,11 @@ const UserFeed = () => {
               return (
                 <div key={index} className="usr_card2">
                   <h1>{index + 1}.</h1>
-                  <img src={image} alt="" />
+                  <div className="pf_image">
+                    <img src={image} alt="" />
+                  </div>
                   <h3
-                    style={{ cursor: "pointer" }}
+                    className="pf_hover"
                     onClick={() =>
                       (window.location.href = `/Profile/${item.name}`)
                     }
