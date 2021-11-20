@@ -128,7 +128,7 @@ const DebatePage = (props) => {
       return null;
     }
     const image = `https://avatars.dicebear.com/api/micah/${
-      userImageObj[item.userid] || Math.random()
+      userImageObj[item.userid]
     }.svg`;
     let body = (
       <div
