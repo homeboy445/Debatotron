@@ -28,7 +28,10 @@ const App = () => {
     },
   });
   const [currentPage, updatePage] = useState("Home");
-  const [DisplayBox, ToggleDisplayBox] = useState({ text: "This is a test message.", status: false });
+  const [DisplayBox, ToggleDisplayBox] = useState({
+    text: "This is a test message.",
+    status: false,
+  });
   const uri = "https://debatotron.herokuapp.com";
 
   const refreshAccessToken = () => {
@@ -92,6 +95,12 @@ const App = () => {
           } catch (e) {}
           toAuth(false);
           sessionStorage.clear();
+          setTimeout(() => {
+            ToggleDisplayBox({ status: true, text: "session expired!" });
+            setTimeout(() => {
+              ToggleDisplayBox({ status: false, text: "" });
+            }, 3000);
+          }, 3000);
         });
     } else {
       toAuth(false);

@@ -57,16 +57,27 @@ const UserFeed = () => {
       >
         Debatotron
       </h1>
-      <button
-        className="feed_post_btn"
-        style={{
-          opacity: postBox ? 0.5 : 1,
-          pointerEvents: postBox ? "none" : "all",
-        }}
-        onClick={() => togglepostBox(true)}
-      >
-        New Post +
-      </button>
+      <div className="feed_btns">
+        <button
+          className="feed_post_btn"
+          style={{
+            opacity: postBox ? 0.5 : 1,
+            pointerEvents: postBox ? "none" : "all",
+          }}
+          onClick={() => togglepostBox(true)}
+        >
+          New Post +
+        </button>
+        <button
+          className="feed_post_btn1"
+          onClick={() => {
+            Main.update_uuid();
+            window.location.href = "/new";
+          }}
+        >
+          New Debate ✔
+        </button>
+      </div>
       <div
         className="feed_post"
         style={{
