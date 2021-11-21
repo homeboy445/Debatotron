@@ -28,6 +28,7 @@ const App = () => {
     },
   });
   const [currentPage, updatePage] = useState("Home");
+  const [DisplayBox, ToggleDisplayBox] = useState({ text: "This is a test message.", status: false });
   const uri = "https://debatotron.herokuapp.com";
 
   const refreshAccessToken = () => {
@@ -84,9 +85,11 @@ const App = () => {
             });
         })
         .catch((err) => {
-          if (err.response.status === 401) {
-            return refreshAccessToken();
-          }
+          try {
+            if (err.response.status === 401) {
+              return refreshAccessToken();
+            }
+          } catch (e) {}
           toAuth(false);
           sessionStorage.clear();
         });
@@ -125,6 +128,13 @@ const App = () => {
         },
         currentPage,
         updatePage: (page) => updatePage(page),
+        DisplayBox,
+        toggleDisplayBox: (data) => {
+          ToggleDisplayBox({ text: data, status: true });
+          setTimeout(() => {
+            ToggleDisplayBox({ text: "", status: false });
+          }, 4000);
+        },
       }}
     >
       <div style={{ background: !Auth ? PolkaDotsBg : "white" }}>

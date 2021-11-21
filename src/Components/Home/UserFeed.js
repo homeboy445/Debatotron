@@ -35,10 +35,16 @@ const UserFeed = () => {
             });
         })
         .catch((err) => {
-          return;
+          Main.toggleDisplayBox("Failed connecting...");
+          try {
+            if (err.response.status === 401) {
+              Main.refresh();
+              updateStatus(false);
+            }
+          } catch (e) {}
         });
     }
-  }, [Main]);
+  }, [feed, popularUsers, topContributors, Main]);
 
   return (
     <div className="feed">

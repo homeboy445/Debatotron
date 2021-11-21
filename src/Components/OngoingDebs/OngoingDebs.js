@@ -45,8 +45,10 @@ const OngoingDebs = () => {
           try {
             if (err.response.status === 401) {
               Main.refresh();
+              updateStatus(false);
             }
           } catch(e) {}
+          Main.toggleDisplayBox("Failed to fetch resources!");
           return Main.toggleLoader(true);
         });
     }

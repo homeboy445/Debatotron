@@ -27,17 +27,21 @@ const DebateForm = ({ ToggleDisplay }) => {
     }
     event.preventDefault();
     axios
-      .post(Main.uri + "/save", {
-        uniqid: Main.uuid,
-        title: title,
-        overview: Description,
-        publishedat: new Date().toISOString(),
-        publisher: Main.userInfo[0].name,
-        flag: true,
-        link: "",
-        category: category,
-        access: "public",
-      }, Main.getAuthHeader())
+      .post(
+        Main.uri + "/save",
+        {
+          uniqid: Main.uuid,
+          title: title,
+          overview: Description,
+          publishedat: new Date().toISOString(),
+          publisher: Main.userInfo[0].name,
+          flag: true,
+          link: "",
+          category: category,
+          access: "public",
+        },
+        Main.getAuthHeader()
+      )
       .then((response) => {
         window.location.href = `DebPage/${response.data}`;
       })
@@ -45,10 +49,7 @@ const DebateForm = ({ ToggleDisplay }) => {
         if (err.response.status === 401) {
           Main.refresh();
         }
-        ToggleDisplay({
-          text: "Some Error has occured please try again...",
-          status: true,
-        });
+        Main.toggleDisplayBox("Debate creation failed, please try again!");
       });
   };
 
@@ -57,18 +58,24 @@ const DebateForm = ({ ToggleDisplay }) => {
       Main.toggleLoader(false);
     }
     axios
-      .post(Main.uri + "/isdebatevalid" ,{
-        id: Main.uuid,
-      },Main.getAuthHeader())
+      .post(
+        Main.uri + "/isdebatevalid",
+        {
+          id: Main.uuid,
+        },
+        Main.getAuthHeader()
+      )
       .then((response) => {
         if (response.data) {
           window.location.href = "/";
         }
-      }).catch(err=>{
+      })
+      .catch((err) => {
         if (err.response.status === 401) {
           Main.refresh();
         }
-      })
+        Main.toggleDisplayBox("Error! please reload the page!");
+      });
   }, [Main]);
 
   return (

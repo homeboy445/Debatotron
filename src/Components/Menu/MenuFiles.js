@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Loader from "react-loader-spinner";
 import Home from "../Home/HomePage";
@@ -20,7 +20,6 @@ import ProfilePage from "../Profile/ProfilePage";
 import TutorialBox from "../Sub_Components/InputBox/TutorialBox";
 
 const MenuFiles = () => {
-  const [DisplayText, ToggleDisplay] = useState({ text: "", status: false });
   const Auth = useContext(AuthContext);
   const HandleAuth = (data_object) => {
     if (data_object.data != null) {
@@ -37,19 +36,10 @@ const MenuFiles = () => {
         refreshToken: sessionStorage.getItem("refreshToken"),
       })
       .then((response) => {})
-      .catch(err=>{});
+      .catch((err) => {});
     window.location.href = "/";
     sessionStorage.clear();
   };
-
-  useEffect(() => {
-    if (!DisplayText.status) {
-      return;
-    }
-    setTimeout(() => {
-      ToggleDisplay(false);
-    }, 5000);
-  }, [DisplayText]);
 
   return (
     <div>
@@ -66,6 +56,17 @@ const MenuFiles = () => {
       ) : null}
       {Auth.Auth ? <Navigation /> : null}
       {Auth.TutorialBox.status ? <TutorialBox /> : null}
+      <div
+        className="dsp_bx"
+        style={{
+          top: Auth.DisplayBox.status
+            ? `${85 - Math.sqrt(Auth.DisplayBox.text.length)}%`
+            : "90%",
+          opacity: Auth.DisplayBox.status ? 1 : 0,
+        }}
+      >
+        <h1>{Auth.DisplayBox.text || "This is a test message."}</h1>
+      </div>
       <main
         className="App"
         style={{

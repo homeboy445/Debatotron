@@ -86,6 +86,7 @@ const DebatePage = (props) => {
         if (err.response.status === 401) {
           Main.refresh();
         }
+        Main.toggleDisplayBox("Failed to record the like!");
       });
   };
 
@@ -245,6 +246,7 @@ const DebatePage = (props) => {
         if (err.response.status === 401) {
           Main.refresh();
         }
+        Main.toggleDisplayBox("Failed to make comment!");
       });
   };
 
@@ -463,9 +465,11 @@ const DebatePage = (props) => {
           try {
             if (err.response.status === 401) {
               Main.refresh();
+              updateStatus(false);
             }
           } catch (e) {}
           updateParticipation(null);
+          Main.toggleDisplayBox("Error! failed to fetch resources!");
         });
     }
   }, [comments, IsReply, liked, Main, debateInfo]);
