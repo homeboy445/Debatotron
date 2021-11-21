@@ -1,4 +1,4 @@
-<h1>The Debatotron</h1>
+<h1 style="text-align:center;">The Debatotron</h1>
 
 <h3>The one & only platform you need to create & participate in a professional debates. Creating & participating in debates has never been this fun. Go along and have heated discussion with your friends and strangers and have a lot of fun in the process. Join now!</h3>
 
