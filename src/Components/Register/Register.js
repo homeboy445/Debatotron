@@ -62,7 +62,9 @@ const Register = ({ HandleAuth, Change_Display }) => {
           throw response;
         }
       })
-      .catch((err) => {});
+      .catch((err) => {
+        Main.toggleDisplayBox("Registration Failed!");
+      });
     ChangeAns("");
     ChangeEmail("");
     ChangeName("");

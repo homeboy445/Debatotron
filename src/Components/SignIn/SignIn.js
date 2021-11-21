@@ -38,10 +38,12 @@ const SignIn = ({ HandleAuth, Change_Display }) => {
         window.location.href = "/";
       })
       .catch((err) => {
-        set("Something's Wrong!");
-        setInterval(() => {
-          set("");
-        }, 3000);
+        try {
+          if (err.response.status === 401) {
+            return Main.toggleDisplayBox("Wrong credentials!");
+          }
+        } catch (e) {}
+        Main.toggleDisplayBox("Error! please try again.");
       });
     setName("");
     setPassword("");

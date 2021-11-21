@@ -201,6 +201,7 @@ const ProfilePage = (props) => {
                     .catch((err) => {
                       if (err.response.status === 401) {
                         Main.refresh();
+                        update_Status(false);
                       }
                     });
                 });
@@ -209,7 +210,9 @@ const ProfilePage = (props) => {
         .catch((err) => {
           if (err.response.status === 401) {
             Main.refresh();
+            update_Status(false);
           }
+          Main.toggleDisplayBox("Failed to fetch some resources!");
         });
       if (Main.friends.length > 0 && Friends === {}) {
         let obj = {};

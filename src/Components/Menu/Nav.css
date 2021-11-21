@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@600&family=Poppins&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@200&display=swap');
 .Ham-menu {
   display: inline-block;
   cursor: pointer;
@@ -104,6 +105,22 @@
   left: 40%;
   z-index: 100000;
 }
-
+.dsp_bx {
+  position: fixed;
+  background: rgba(20, 15, 15, 0.931);
+  width: 40%;
+  color: white;
+  right: 3%;
+  padding: 0.6%;
+  border-radius: 5px;
+  border: 4px solid rgb(238, 54, 54);
+}
+.dsp_bx > h1 {
+  font-size: 1.2rem;
+  text-align: left;
+  font-family: 'M PLUS 1', sans-serif;
+  text-shadow: 0.2px 0.2px 0.2px white;
+  font-weight: 400;
+}
 
 

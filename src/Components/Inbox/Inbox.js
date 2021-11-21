@@ -222,9 +222,11 @@ const Inbox = () => {
           try {
             if (err.response.status === 401) {
               Auth.refresh();
+              updateStatus(false);
             }
           } catch (e) {}
           change_this(true);
+          Auth.toggleDisplayBox("Failed to fetch some resources!");
         })
         .finally((e) => {
           Auth.toggleLoader(false);
