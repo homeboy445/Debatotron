@@ -1,70 +1,51 @@
-# Getting Started with Create React App
+<h1>The Debatotron</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h3>The one & only platform you need to create & participate in a professional debates. Creating & participating in debates has never been this fun. Go along and have heated discussion with your friends and strangers and have a lot of fun in the process. Join now!</h3>
 
-## Available Scripts
+<h2>Features</h2>
+<h4>✔ Whether it's the world or it's your friends, never miss any update on what's going on with the main feed. The world's your stage and you're the performer, let everyone know what you're upto and befriend the world. Make post or just read someone else's, and never miss out on the fun! (pro-tip: if you want to be the top debater make more and more debates.) </h4>
 
-In the project directory, you can run:
+![deb_1](https://user-images.githubusercontent.com/61937872/142755255-7c5721ba-419a-44d2-a742-3c889941c6ee.PNG)
 
-### `npm start`
+<br/>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<h4> ✔ Start your own debate! Now, you don't have to worry about putting your opinion upfront to the world. </h4>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+![deb_2](https://user-images.githubusercontent.com/61937872/142755263-123b2449-51b0-491f-9349-8aa8f383ae2f.PNG)
 
-### `npm test`
+<br/>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<h4> ✔ Never miss out on any debate. Checkout any debate from the catalogue. </h4>
 
-### `npm run build`
+![deb_3](https://user-images.githubusercontent.com/61937872/142755268-9ed2bd39-533c-4028-8b8a-1d507f6d8ae6.PNG)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<br/>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<h4> ✔ PICK YOUR SIDE! </h4>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![deb_7](https://user-images.githubusercontent.com/61937872/142755321-f139b4d0-98c2-4076-ae25-682181f39bb4.PNG)
 
-### `npm run eject`
+<br/>
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+<h4> ✔ Talk your heart out. Have a heated argument and ENJOY! </h4>
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![deb_4](https://user-images.githubusercontent.com/61937872/142755331-55355fd0-875a-4c9a-a4f1-16280bb25e04.PNG)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+<br/>
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+<h4> ✔ Never miss out on any update be it a friend request or a mention or a message... the list goes on. Inbox is here to your rescue. </h4>
 
-## Learn More
+![deb_5](https://user-images.githubusercontent.com/61937872/142755335-110607ad-bd38-407e-a53b-cb120e8dd4d0.PNG)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<br/>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<h4> ✔ PROFILE PAGE. Well, it needs no Intro...😎 </h4>
 
-### Code Splitting
+![deb_6](https://user-images.githubusercontent.com/61937872/142755340-6abc993a-3d1d-438c-8944-3ddf84c47caf.PNG)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+<br />
 
-### Analyzing the Bundle Size
+<h3> ✔ Bonus Feature: Make friends by sending users friend requests & also message them whenever you want </h3>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<h2>Join In & Experience the Ultimate Debating experience...</h2>
+<h3>umm... & please provide feedback also😁, Thanks!
