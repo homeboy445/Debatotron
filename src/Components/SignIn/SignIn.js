@@ -40,10 +40,16 @@ const SignIn = ({ HandleAuth, Change_Display }) => {
       .catch((err) => {
         try {
           if (err.response.status === 401) {
-            return Main.toggleDisplayBox("Wrong credentials!");
+            return setTimeout(
+              () => Main.toggleDisplayBox("Wrong credentials!"),
+              2000
+            );
           }
         } catch (e) {}
-        Main.toggleDisplayBox("Error! please try again.");
+        setTimeout(
+          () => Main.toggleDisplayBox("Error! please try again."),
+          2000
+        );
       });
     setName("");
     setPassword("");
