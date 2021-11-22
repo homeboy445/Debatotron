@@ -5,7 +5,7 @@
 <h2>Features</h2>
 <h4>✔ Whether it's the world or it's your friends, never miss any update on what's going on with the main feed. The world's your stage and you're the performer, let everyone know what you're upto and befriend the world. Make post or just read someone else's, and never miss out on the fun! (pro-tip: if you want to be the top debater make more and more debates.) </h4>
 
-![deb_1](https://user-images.githubusercontent.com/61937872/142755255-7c5721ba-419a-44d2-a742-3c889941c6ee.PNG)
+![deb5](https://user-images.githubusercontent.com/61937872/142869198-90cad289-3b3e-4b4b-935e-c47106222e4d.PNG)
 
 <br/>
 
