@@ -3,6 +3,7 @@ import "./UserFeed.css";
 import axios from "axios";
 import Empty from "../../Images/empty.jpg";
 import Tick from "../../Images/tick.svg";
+import AddEmoji from "../../Images/plus.png";
 import AuthContext from "../../Contexts/AuthContext";
 
 const UserFeed = () => {
@@ -11,8 +12,49 @@ const UserFeed = () => {
   const [textArea, updateTextArea] = useState("");
   const [popularUsers, updatePopularUsers] = useState([]);
   const [feed, updateFeed] = useState([]);
+  const [lastLiked, updateLastLiked] = useState([]);
   const [topContributors, updateContributors] = useState([]);
   const [fetchStatus, updateStatus] = useState(false);
+  const [ActiveEmojiIndex, updateActiveEIndex] = useState(-1);
+
+  const LikePost = (index, typeoflike) => {
+    let fd = feed,
+      tmp = feed,
+      lsL = lastLiked;
+    if (lastLiked[index] !== null) {
+      fd[index].likes[lastLiked[index]]--;
+    } else if (lastLiked[index] === typeoflike) {
+      return;
+    }
+    fd[index].likes[typeoflike]++;
+    lsL[index] = typeoflike;
+    updateLastLiked(lsL);
+    updateFeed(fd);
+    updateActiveEIndex(-1);
+    axios
+      .post(
+        Main.uri + "/likepost",
+        {
+          id:
+            feed[index].type === 0 ? feed[index].debate.id : fd[index].post.id,
+          userid: Main.userInfo[0].id,
+          type: feed[index].type === 0 ? "debate" : "post",
+          typeoflike: typeoflike,
+          data: fd[index].likes,
+        },
+        Main.getAuthHeader()
+      )
+      .then((response) => {})
+      .catch((err) => {
+        try {
+          if (err.response.status === 401) {
+            Main.refresh();
+          }
+        } catch (e) {}
+        Main.toggleDisplayBox("Failed to record the like!");
+        updateFeed(tmp);
+      });
+  };
 
   useEffect(() => {
     if (!fetchStatus && Main.userInfo[0].id !== -1) {
@@ -20,8 +62,17 @@ const UserFeed = () => {
       Main.toggleLoader(true);
       axios
         .get(`${Main.uri}/feed/${Main.userInfo[0].id}`, Main.getAuthHeader())
-        .then((response) => {
-          updateFeed(response.data);
+        .then((response1) => {
+          let lstLiked = [];
+          let data = response1.data.map((item) => {
+            try {
+              item.likes = JSON.parse(item.likes);
+            } catch (e) {}
+            lastLiked.push(null);
+            return item;
+          });
+          updateLastLiked(lstLiked);
+          updateFeed(data);
           axios
             .get(Main.uri + "/popularUsers", Main.getAuthHeader())
             .then((response) => {
@@ -31,11 +82,38 @@ const UserFeed = () => {
                 .then((response) => {
                   updateContributors(response.data);
                   Main.toggleLoader(false);
+                  axios
+                    .get(
+                      `${Main.uri}/getfeedlikes/${Main.userInfo[0].id}`,
+                      Main.getAuthHeader()
+                    )
+                    .then((response) => {
+                      response = response.data;
+                      let obj = {};
+                      response.map((item) => {
+                        return (obj[item.id] = item.typeoflike);
+                      });
+                      let arr = lastLiked;
+                      response1.data.map((item, index) => {
+                        if (item.type === 0) {
+                          if (obj[item.debate.id]) {
+                            return (arr[index] = obj[item.debate.id]);
+                          }
+                        }
+                        if (item.type === 1) {
+                          if (obj[item.post.id]) {
+                            return (arr[index] = obj[item.post.id]);
+                          }
+                        }
+                        return null;
+                      });
+                      updateLastLiked(arr);
+                    });
                 });
             });
         })
         .catch((err) => {
-          Main.toggleDisplayBox("Failed connecting...");
+          Main.toggleDisplayBox("Some error has occured!");
           try {
             if (err.response.status === 401) {
               Main.refresh();
@@ -44,7 +122,7 @@ const UserFeed = () => {
           } catch (e) {}
         });
     }
-  }, [feed, popularUsers, topContributors, Main]);
+  }, [feed, popularUsers, topContributors, Main, ActiveEmojiIndex]);
 
   return (
     <div className="feed">
@@ -200,6 +278,102 @@ const UserFeed = () => {
                   ) : (
                     <h2>{item.post.text}</h2>
                   )}
+                  <div className="emoji">
+                    <ul>
+                      <li
+                        style={{
+                          border:
+                            lastLiked[index] === "handsup"
+                              ? "2px solid red"
+                              : "1px solid black",
+                        }}
+                      >
+                        🙌: {item.likes.handsup || 0}
+                      </li>
+                      <li
+                        style={{
+                          border:
+                            lastLiked[index] === "love"
+                              ? "2px solid red"
+                              : "1px solid black",
+                        }}
+                      >
+                        😍: {item.likes.love || 0}
+                      </li>
+                      <li
+                        style={{
+                          border:
+                            lastLiked[index] === "laugh"
+                              ? "2px solid red"
+                              : "1px solid black",
+                        }}
+                      >
+                        😂: {item.likes.laugh || 0}
+                      </li>
+                      <li
+                        style={{
+                          border:
+                            lastLiked[index] === "sleepy"
+                              ? "2px solid red"
+                              : "1px solid black",
+                        }}
+                      >
+                        🥱: {item.likes.sleepy || 0}
+                      </li>
+                      <li
+                        style={{
+                          border:
+                            lastLiked[index] === "like"
+                              ? "2px solid red"
+                              : "1px solid black",
+                        }}
+                      >
+                        👍: {item.likes.like || 0}
+                      </li>
+                    </ul>
+                    <div className="emoji_1">
+                      <img
+                        src={AddEmoji}
+                        alt="+"
+                        style={{
+                          transform:
+                            ActiveEmojiIndex === index
+                              ? "rotate(45deg)"
+                              : "rotate(0deg)",
+                        }}
+                        onClick={() => {
+                          if (ActiveEmojiIndex === index) {
+                            return updateActiveEIndex(-1);
+                          }
+                          updateActiveEIndex(index);
+                        }}
+                      />
+                      <div
+                        className="emj_catg"
+                        style={{
+                          pointerEvents:
+                            ActiveEmojiIndex === index ? "all" : "none",
+                        }}
+                      >
+                        <ul
+                          style={{
+                            marginTop:
+                              ActiveEmojiIndex === index ? "15%" : "5%",
+                            transform:
+                              ActiveEmojiIndex === index
+                                ? "scale(1)"
+                                : "scale(0)",
+                          }}
+                        >
+                          <li onClick={() => LikePost(index, "handsup")}>🙌</li>
+                          <li onClick={() => LikePost(index, "love")}>😍</li>
+                          <li onClick={() => LikePost(index, "laugh")}>😂</li>
+                          <li onClick={() => LikePost(index, "sleepy")}>🥱</li>
+                          <li onClick={() => LikePost(index, "like")}>👍</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               );
             })

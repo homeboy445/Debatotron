@@ -458,3 +458,91 @@ font-family: 'Open Sans', sans-serif; */
 .pf_hover:hover {
   color: rgb(108, 108, 233);
 }
+.emoji {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  width: 100%;
+}
+.emoji > ul {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  width: 60%;
+  margin-left: -5%;
+}
+.emoji > ul > li {
+  text-align: center;
+  font-size: 1.4rem;
+  list-style: none;
+  width: 20%;
+  margin-left: 1%;
+  padding: 0.5%;
+  margin-right: 1%;
+  border: 0.2px solid black;
+  border-radius: 2px;
+  background: #8e2de2; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #4a00e0,
+    #8e2de2
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #4a00e0,
+    #8e2de2
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: white;
+  cursor: none;
+}
+.emoji_1 {
+  display: flex;
+  justify-content: right;
+  align-items: right;
+  width: 40%;
+}
+.emoji_1 > img {
+  width: 30px;
+  height: 30px;
+  margin-top: 6%;
+  margin-right: 2%;
+  cursor: pointer;
+  z-index: 10001;
+}
+.emj_catg {
+  position: absolute;
+  width: 30%;
+  right: 3%;
+  z-index: 10000;
+}
+.emj_catg > ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  padding: 2%;
+  margin-top: 15%;
+  border: 2px solid black;
+  background: #00c9ff;
+  background: -webkit-linear-gradient(
+    to right,
+    #92fe9d,
+    #00c9ff
+  );
+  background: linear-gradient(
+    to right,
+    #92fe9d,
+    #00c9ff
+  ); 
+  border-radius: 10px;
+  transition: 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.emj_catg > ul > li {
+  cursor: pointer;
+  list-style: none;
+  font-size: 1.5rem;
+  transition: 0.2s ease;
+}
+.emj_catg > ul > li:hover {
+  transform: scale(1.4);
+}

@@ -105,7 +105,7 @@ const App = () => {
     } else {
       toAuth(false);
     }
-  }, []);
+  }, [refreshed]);
 
   return (
     <AuthContext.Provider
