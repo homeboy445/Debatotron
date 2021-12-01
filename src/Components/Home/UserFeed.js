@@ -122,7 +122,7 @@ const UserFeed = () => {
           } catch (e) {}
         });
     }
-  }, [feed, popularUsers, topContributors, Main, ActiveEmojiIndex]);
+  }, [feed, popularUsers, topContributors, Main, ActiveEmojiIndex, lastLiked]);
 
   return (
     <div className="feed">
@@ -281,6 +281,7 @@ const UserFeed = () => {
                   <div className="emoji">
                     <ul>
                       <li
+                        onClick={() => LikePost(index, "handsup")}
                         style={{
                           border:
                             lastLiked[index] === "handsup"
@@ -291,6 +292,7 @@ const UserFeed = () => {
                         🙌: {item.likes.handsup || 0}
                       </li>
                       <li
+                        onClick={() => LikePost(index, "love")}
                         style={{
                           border:
                             lastLiked[index] === "love"
@@ -301,6 +303,7 @@ const UserFeed = () => {
                         😍: {item.likes.love || 0}
                       </li>
                       <li
+                        onClick={() => LikePost(index, "laugh")}
                         style={{
                           border:
                             lastLiked[index] === "laugh"
@@ -311,6 +314,7 @@ const UserFeed = () => {
                         😂: {item.likes.laugh || 0}
                       </li>
                       <li
+                        onClick={() => LikePost(index, "sleepy")}
                         style={{
                           border:
                             lastLiked[index] === "sleepy"
@@ -321,6 +325,7 @@ const UserFeed = () => {
                         🥱: {item.likes.sleepy || 0}
                       </li>
                       <li
+                        onClick={() => LikePost(index, "like")}
                         style={{
                           border:
                             lastLiked[index] === "like"
@@ -336,6 +341,8 @@ const UserFeed = () => {
                         src={AddEmoji}
                         alt="+"
                         style={{
+                          visibility: "hidden",
+                          pointerEvents: "none",
                           transform:
                             ActiveEmojiIndex === index
                               ? "rotate(45deg)"
@@ -355,7 +362,7 @@ const UserFeed = () => {
                             ActiveEmojiIndex === index ? "all" : "none",
                         }}
                       >
-                        <ul
+                        {/* <ul
                           style={{
                             marginTop:
                               ActiveEmojiIndex === index ? "15%" : "5%",
@@ -370,7 +377,7 @@ const UserFeed = () => {
                           <li onClick={() => LikePost(index, "laugh")}>😂</li>
                           <li onClick={() => LikePost(index, "sleepy")}>🥱</li>
                           <li onClick={() => LikePost(index, "like")}>👍</li>
-                        </ul>
+                        </ul> */}
                       </div>
                     </div>
                   </div>

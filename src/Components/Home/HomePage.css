@@ -232,17 +232,17 @@ font-family: 'Rock Salt', cursive; */
 .hp5 > h2:nth-child(1) {
   font-family: "Libre Baskerville", serif;
   font-size: 2.9rem;
-  color: blue;
+  color: yellow;
   text-shadow: 2px 2px 2px black;
-  background: red;
+  background: rgba(0, 0, 0, 0.582);
   margin-bottom: 6%;
 }
 .hp5 > h2:nth-child(3) {
   font-family: "Libre Baskerville", serif;
   font-size: 2.9rem;
-  color: blue;
+  color: yellow;
   text-shadow: 2px 2px 2px black;
-  background: red;
+  background: rgba(0, 0, 0, 0.582);
   margin-top: 6%;
 }
 .hp5 > .hp5-type {
