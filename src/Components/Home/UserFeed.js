@@ -16,6 +16,7 @@ const UserFeed = () => {
   const [topContributors, updateContributors] = useState([]);
   const [fetchStatus, updateStatus] = useState(false);
   const [ActiveEmojiIndex, updateActiveEIndex] = useState(-1);
+  const [counter, updateCounter] = useState(0);
 
   const LikePost = (index, typeoflike) => {
     let fd = feed,
@@ -31,6 +32,7 @@ const UserFeed = () => {
     updateLastLiked(lsL);
     updateFeed(fd);
     updateActiveEIndex(-1);
+    updateCounter((counter+1)%2);
     axios
       .post(
         Main.uri + "/likepost",
@@ -122,7 +124,7 @@ const UserFeed = () => {
           } catch (e) {}
         });
     }
-  }, [feed, popularUsers, topContributors, Main, ActiveEmojiIndex, lastLiked]);
+  }, [feed, popularUsers, topContributors, Main, ActiveEmojiIndex, lastLiked, counter]);
 
   return (
     <div className="feed">
@@ -286,7 +288,8 @@ const UserFeed = () => {
                           border:
                             lastLiked[index] === "handsup"
                               ? "2px solid red"
-                              : "1px solid black",
+                              : "2px solid black",
+                          transition: "0.4s ease"
                         }}
                       >
                         🙌: {item.likes.handsup || 0}
@@ -297,7 +300,8 @@ const UserFeed = () => {
                           border:
                             lastLiked[index] === "love"
                               ? "2px solid red"
-                              : "1px solid black",
+                              : "2px solid black",
+                              transition: "0.4s ease"
                         }}
                       >
                         😍: {item.likes.love || 0}
@@ -308,7 +312,8 @@ const UserFeed = () => {
                           border:
                             lastLiked[index] === "laugh"
                               ? "2px solid red"
-                              : "1px solid black",
+                              : "2px solid black",
+                              transition: "0.4s ease"
                         }}
                       >
                         😂: {item.likes.laugh || 0}
@@ -319,7 +324,8 @@ const UserFeed = () => {
                           border:
                             lastLiked[index] === "sleepy"
                               ? "2px solid red"
-                              : "1px solid black",
+                              : "2px solid black",
+                              transition: "0.4s ease"
                         }}
                       >
                         🥱: {item.likes.sleepy || 0}
@@ -330,7 +336,8 @@ const UserFeed = () => {
                           border:
                             lastLiked[index] === "like"
                               ? "2px solid red"
-                              : "1px solid black",
+                              : "2px solid black",
+                              transition: "0.4s ease"
                         }}
                       >
                         👍: {item.likes.like || 0}

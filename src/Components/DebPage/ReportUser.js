@@ -37,18 +37,24 @@ const ReportUser = ({ debateId, owner, userList, user, toggleBox }) => {
             }
             let Id = parseInt(selectedUser);
             axios
-              .post(`${Main.uri}/reportUser`,{
-                debateId: debateId,
-                userId: Id,
-                reporterId: user.id,
-              }, Main.getAuthHeader())
+              .post(
+                `${Main.uri}/reportUser`,
+                {
+                  debateId: debateId,
+                  userId: Id,
+                  reporterId: user.id,
+                },
+                Main.getAuthHeader()
+              )
               .then((response) => {
                 throw response;
               })
               .catch((err) => {
-                if (err.response.status === 401) {
-                  Main.refresh();
-                }
+                try {
+                  if (err.response.status === 401) {
+                    Main.refresh();
+                  }
+                } catch (e) {}
                 toggleBox();
               });
           }}
