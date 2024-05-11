@@ -1,10 +1,13 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import "./UserFeed.css";
 import axios from "axios";
 import Empty from "../../Images/empty.jpg";
 import Tick from "../../Images/tick.svg";
 import AddEmoji from "../../Images/plus.png";
 import AuthContext from "../../Contexts/AuthContext";
+import Robot from "../../Assets/Robot.png";
+import { CONTENT_TYPE } from "../enums/enums";
+import { throttle } from "../../Utility/utils";
 
 const UserFeed = () => {
   const Main = useContext(AuthContext);
@@ -17,113 +20,171 @@ const UserFeed = () => {
   const [fetchStatus, updateStatus] = useState(false);
   const [ActiveEmojiIndex, updateActiveEIndex] = useState(-1);
   const [counter, updateCounter] = useState(0);
+  const scrollRef = useRef(null);
 
   const LikePost = (index, typeoflike) => {
-    let fd = feed,
-      tmp = feed,
-      lsL = lastLiked;
-    if (lastLiked[index] !== null) {
-      fd[index].likes[lastLiked[index]]--;
-    } else if (lastLiked[index] === typeoflike) {
+    let currentFeed = [...feed]; // Destructing the feed array, so as trigger the re-render!
+    let currentLastLiked = [...lastLiked]; // Destructing the lastLiked array
+
+    if (currentLastLiked[index] === typeoflike) {
+      // Exit here since this is a duplicate like!
       return;
     }
-    fd[index].likes[typeoflike]++;
-    lsL[index] = typeoflike;
-    updateLastLiked(lsL);
-    updateFeed(fd);
+
+    if (currentLastLiked[index] !== null) {
+      // Removing the previous like!
+      currentFeed[index].likes[currentLastLiked[index]]--;
+    }
+
+    currentFeed[index].likes = currentFeed[index].likes || {};
+    currentFeed[index].likes[typeoflike] = 1;
+    currentLastLiked[index] = typeoflike;
+
+    updateLastLiked(currentLastLiked);
+    updateFeed(currentFeed);
     updateActiveEIndex(-1);
-    updateCounter((counter+1)%2);
-    axios
-      .post(
-        Main.uri + "/likepost",
-        {
-          id:
-            feed[index].type === 0 ? feed[index].debate.id : fd[index].post.id,
-          userid: Main.userInfo[0].id,
-          type: feed[index].type === 0 ? "debate" : "post",
-          typeoflike: typeoflike,
-          data: fd[index].likes,
-        },
-        Main.getAuthHeader()
-      )
-      .then((response) => {})
-      .catch((err) => {
-        try {
-          if (err.response.status === 401) {
-            Main.refresh();
-          }
-        } catch (e) {}
-        Main.toggleDisplayBox("Failed to record the like!");
-        updateFeed(tmp);
-      });
+    updateCounter((prevCounter) => (prevCounter + 1) % 2);
+
+    const postOrDebateId = currentFeed[index].type === CONTENT_TYPE.DEBATE ? currentFeed[index].debate.id : currentFeed[index].post.id;
+    const postOrDebateType = currentFeed[index].type === CONTENT_TYPE.DEBATE ? "debate" : "post";
+
+    axios.post(
+      `${Main.uri}/likepost`,
+      {
+        id: postOrDebateId,
+        userid: Main.userInfo[0].id,
+        type: postOrDebateType,
+        typeoflike: typeoflike,
+        data: currentFeed[index].likes,
+      },
+      Main.getAuthHeader()
+    ).then((response) => {
+      // Handle success if needed
+    }).catch((err) => {
+      if (err.response && err.response.status === 401) {
+        Main.refresh();
+      }
+      Main.toggleDisplayBox("Failed to record the like!");
+      updateFeed(feed); // Revert to original feed state
+    });
   };
 
-  useEffect(() => {
-    if (!fetchStatus && Main.userInfo[0].id !== -1) {
-      updateStatus(true);
-      Main.toggleLoader(true);
-      axios
-        .get(`${Main.uri}/feed/${Main.userInfo[0].id}`, Main.getAuthHeader())
-        .then((response1) => {
-          let lstLiked = [];
-          let data = response1.data.map((item) => {
-            try {
-              item.likes = JSON.parse(item.likes);
-            } catch (e) {}
-            lastLiked.push(null);
-            return item;
-          });
-          updateLastLiked(lstLiked);
-          updateFeed(data);
-          axios
-            .get(Main.uri + "/popularUsers", Main.getAuthHeader())
-            .then((response) => {
-              updatePopularUsers(response.data);
-              axios
-                .get(Main.uri + "/topContributors", Main.getAuthHeader())
-                .then((response) => {
-                  updateContributors(response.data);
-                  Main.toggleLoader(false);
-                  axios
-                    .get(
-                      `${Main.uri}/getfeedlikes/${Main.userInfo[0].id}`,
-                      Main.getAuthHeader()
-                    )
-                    .then((response) => {
-                      response = response.data;
-                      let obj = {};
-                      response.map((item) => {
-                        return (obj[item.id] = item.typeoflike);
-                      });
-                      let arr = lastLiked;
-                      response1.data.map((item, index) => {
-                        if (item.type === 0) {
-                          if (obj[item.debate.id]) {
-                            return (arr[index] = obj[item.debate.id]);
-                          }
-                        }
-                        if (item.type === 1) {
-                          if (obj[item.post.id]) {
-                            return (arr[index] = obj[item.post.id]);
-                          }
-                        }
-                        return null;
-                      });
-                      updateLastLiked(arr);
-                    });
-                });
-            });
-        })
-        .catch((err) => {
-          Main.toggleDisplayBox("Some error has occured!");
-          try {
-            if (err.response.status === 401) {
-              Main.refresh();
-              updateStatus(false);
-            }
-          } catch (e) {}
-        });
+  const isScrollAtBottom = () => {
+    const scrollTop = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const fullHeight = document.body.offsetHeight - 100;
+  
+    return scrollTop + windowHeight >= fullHeight;
+  };
+
+  let scrolledToBottom = false;
+  const handleScroll = () => {
+    console.log("scrolled!");
+    if (isScrollAtBottom() && scrollRef.current && !scrolledToBottom) {
+      console.log("# scrolled to bottom!");
+      scrollToElementCenter(scrollRef.current);
+      scrolledToBottom = true;
     }
+  };
+
+  const scrollListener = (() => {
+    const throttledScrollHandler = (() => {}) || throttle(handleScroll, 100);
+    return {
+      add: () => window.addEventListener("scroll", throttledScrollHandler),
+      remove: () => window.removeEventListener("scroll", throttledScrollHandler),
+    };
+  })();
+
+  function scrollToElementCenter(element) {
+
+    if (!element) {
+      console.error("Element not found");
+      return;
+    }
+  
+    const elementRect = element.getBoundingClientRect();
+    const elementTop = elementRect.top + window.pageYOffset;
+    const elementLeft = elementRect.left + window.pageXOffset;
+  
+    const centerX = elementLeft - (window.innerWidth / 2) + (elementRect.width / 2);
+    const centerY = elementTop - (window.innerHeight / 2) + (elementRect.height / 2);
+
+    scrollListener.remove();
+  
+    window.scrollTo({
+      top: centerY,
+      left: centerX,
+      behavior: 'smooth'
+    });
+
+    scrollListener.add();
+  }
+
+
+  useEffect(() => {
+    scrollListener.add();
+    return () => {
+      scrollListener.remove();
+    };
+  }, []);
+
+  useEffect(() => {
+      if (!fetchStatus && Main.userInfo[0].id !== -1) {
+        updateStatus(true);
+        Main.toggleLoader(true);
+
+        const fetchUserFeed = async () => {
+          try {
+            const feedResponse = await axios.get(`${Main.uri}/feed/${Main.userInfo[0].id}`, Main.getAuthHeader());
+            const initialLastLiked = [];
+            const feedData = feedResponse.data.map((item) => {
+              try {
+                item.likes = JSON.parse(item.likes);
+              } catch (e) {
+                // Handle potential errors in parsing
+              }
+              initialLastLiked.push(null);
+              return item;
+            });
+            console.log(">> ", feedData);
+            updateLastLiked(initialLastLiked);
+            updateFeed(feedData);
+
+            const popularUsersResponse = await axios.get(`${Main.uri}/popularUsers`, Main.getAuthHeader());
+            updatePopularUsers(popularUsersResponse.data);
+
+            const topContributorsResponse = await axios.get(`${Main.uri}/topContributors`, Main.getAuthHeader());
+            updateContributors(topContributorsResponse.data);
+
+            const feedLikesResponse = await axios.get(`${Main.uri}/getfeedlikes/${Main.userInfo[0].id}`, Main.getAuthHeader());
+            const feedLikes = feedLikesResponse.data;
+            const likesMap = {};
+            feedLikes.forEach((item) => {
+              likesMap[item.id] = item.typeoflike;
+            });
+
+            const updatedLastLiked = initialLastLiked;
+            feedResponse.data.forEach((item, index) => {
+              if (item.type === 0 && likesMap[item.debate.id]) {
+                updatedLastLiked[index] = likesMap[item.debate.id];
+              } else if (item.type === 1 && likesMap[item.post.id]) {
+                updatedLastLiked[index] = likesMap[item.post.id];
+              }
+            });
+            updateLastLiked(updatedLastLiked);
+          } catch (err) {
+            Main.toggleDisplayBox("Some error has occurred!");
+            if (err.response && err.response.status === 401) {
+              Main.refresh();
+            }
+            updateStatus(false);
+          } finally {
+            Main.toggleLoader(false);
+          }
+        };
+
+        fetchUserFeed();
+      }
   }, [feed, popularUsers, topContributors, Main, ActiveEmojiIndex, lastLiked, counter]);
 
   return (
@@ -193,7 +254,10 @@ const UserFeed = () => {
                 )
                 .then((response) => {
                   window.location.href = "/";
-                });
+                })
+                .catch((err) => {
+                  Main.refresh();
+                })
             }}
           >
             Make Post
@@ -220,9 +284,7 @@ const UserFeed = () => {
           <div className="feed_1">
             <h2>Most Popular users</h2>
             {popularUsers.map((item, index) => {
-              const image = `https://avatars.dicebear.com/api/micah/${
-                item.image || Math.random()
-              }.svg`;
+              const image = Robot;
               return (
                 <div key={index} className="usr_card">
                   <div className="pf_image1">
@@ -244,9 +306,7 @@ const UserFeed = () => {
         <div className="feed_main">
           {feed.length > 0 ? (
             (feed || []).map((item, index) => {
-              const image = `https://avatars.dicebear.com/api/micah/${
-                item.image || Math.random()
-              }.svg`;
+              const image = Robot;
               return (
                 <div key={index} className="feed_card">
                   <div className="feed_x1">
@@ -292,7 +352,7 @@ const UserFeed = () => {
                           transition: "0.4s ease"
                         }}
                       >
-                        🙌: {item.likes.handsup || 0}
+                        🙌: {item?.likes?.handsup || 0}
                       </li>
                       <li
                         onClick={() => LikePost(index, "love")}
@@ -304,7 +364,7 @@ const UserFeed = () => {
                               transition: "0.4s ease"
                         }}
                       >
-                        😍: {item.likes.love || 0}
+                        😍: {item?.likes?.love || 0}
                       </li>
                       <li
                         onClick={() => LikePost(index, "laugh")}
@@ -316,7 +376,7 @@ const UserFeed = () => {
                               transition: "0.4s ease"
                         }}
                       >
-                        😂: {item.likes.laugh || 0}
+                        😂: {item?.likes?.laugh || 0}
                       </li>
                       <li
                         onClick={() => LikePost(index, "sleepy")}
@@ -328,7 +388,7 @@ const UserFeed = () => {
                               transition: "0.4s ease"
                         }}
                       >
-                        🥱: {item.likes.sleepy || 0}
+                        🥱: {item?.likes?.sleepy || 0}
                       </li>
                       <li
                         onClick={() => LikePost(index, "like")}
@@ -340,7 +400,7 @@ const UserFeed = () => {
                               transition: "0.4s ease"
                         }}
                       >
-                        👍: {item.likes.like || 0}
+                        👍: {item?.likes?.like || 0}
                       </li>
                     </ul>
                     <div className="emoji_1">
@@ -406,6 +466,7 @@ const UserFeed = () => {
               )})`,
               opacity: feed.length === 0 ? 0 : 1,
             }}
+            ref={scrollRef}
           >
             <div>
               <div className="feed_bar1"></div>

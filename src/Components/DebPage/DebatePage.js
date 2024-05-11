@@ -15,6 +15,7 @@ import JoinDebate from "./JoinDebate";
 import DebDescription from "./DebDescription";
 import Participants from "./Participants";
 import ReportUser from "./ReportUser";
+import Robot from "../../Assets/Robot.png";
 
 const DebatePage = (props) => {
   const debateId = props.match.params.id;
@@ -25,7 +26,7 @@ const DebatePage = (props) => {
     index: 0,
     user: "xyz",
     likes: 0,
-    commentId: "sicnsvc",
+    commentid: "sicnsvc",
   });
   const [debateInfo, updateDebInfo] = useState({
     topic: "How to be awesome?",
@@ -59,29 +60,22 @@ const DebatePage = (props) => {
     return <h2 className="card_time">{d_str}</h2>;
   };
 
-  const isLiked = (commentId) => {
-    let flag = false;
-    liked.map((item) => {
-      return (flag |= commentId === item);
-    });
-    return flag;
+  const isLiked = (commentid) => {
+    return liked.some(item => item === commentid);
   };
 
-  const updateLike = (commentId, value) => {
+  const updateLike = (commentid, value) => {
     axios
       .post(
         `${Main.uri}/UpdateLike`,
         {
           debId: debateId,
           userId: Main.userInfo[0].id,
-          commentId: commentId,
+          commentId: commentid,
           value: value,
         },
         Main.getAuthHeader()
       )
-      .then((response) => {
-        return;
-      })
       .catch((err) => {
         if (err.response.status === 401) {
           Main.refresh();
@@ -90,26 +84,21 @@ const DebatePage = (props) => {
       });
   };
 
-  const likeComment = (commentid, val = 1) => {
-    const recursivelyLikeComment = (comAr, comId) => {
-      if (comAr.commentid === comId) {
-        comAr.likes += val;
-        setTimeout(() => {
-          updateLike(comAr.commentid, comAr.likes);
-        }, 2000);
-        return comAr;
-      }
-      comAr.replies = comAr.replies.map((item) => {
-        return recursivelyLikeComment(item, comId);
+  const likeComment = (commentid, increment = 1) => {
+    const updateCommentLikes = (commentArray, targetCommentId) => {
+      return commentArray.map(comment => {
+        if (comment.commentid === targetCommentId) {
+          comment.likes = Math.max(0, comment.likes + increment);
+          setTimeout(() => updateLike(comment.commentid, comment.likes), 500);
+        } else if (comment.replies) {
+          comment.replies = updateCommentLikes(comment.replies, targetCommentId);
+        }
+        return comment;
       });
-      return comAr;
     };
 
-    let comm = comments;
-    comm = comm.map((item) => {
-      return recursivelyLikeComment(item, commentid);
-    });
-    return set_comments(comm);
+    const updatedComments = updateCommentLikes(comments, commentid);
+    set_comments(updatedComments);
   };
 
   const isReplied = (id) => {
@@ -128,10 +117,8 @@ const DebatePage = (props) => {
     if (typeof item === undefined) {
       return null;
     }
-    const image = `https://avatars.dicebear.com/api/micah/${
-      userImageObj[item.userid]
-    }.svg`;
-    let body = (
+    const image = Robot;
+    const body = (
       <div
         className="Dp_comments"
         style={{
@@ -176,21 +163,20 @@ const DebatePage = (props) => {
                 <div
                   className="lks"
                   onClick={() => {
+                    let arr = [...liked]; // Create a copy of liked array for immutability
                     if (isLiked(item.commentid)) {
-                      let arr = liked;
-                      arr.map((item1, index) => {
-                        if (item1 === item.commentid) {
-                          arr.splice(index, 1);
-                        }
-                        return null;
-                      });
+                      // Remove the commentid if it's already liked
+                      const indexToRemove = arr.indexOf(item.commentid);
+                      if (indexToRemove !== -1) {
+                        arr.splice(indexToRemove, 1);
+                      }
                       likeComment(item.commentid, -1);
-                      return;
+                    } else {
+                      // Add the commentid if it's not liked yet
+                      arr.push(item.commentid);
+                      likeComment(item.commentid, 1);
                     }
-                    let arr = liked;
-                    arr.push(item.commentid);
-                    set_likedQs(arr);
-                    likeComment(item.commentid);
+                    set_likedQs(arr); // Update the state with the new array
                   }}
                 >
                   {isLiked(item.commentid) ? (
@@ -206,7 +192,7 @@ const DebatePage = (props) => {
                       is: true,
                       index: index,
                       user: item.byuser,
-                      commentId: item.commentid,
+                      commentid: item.commentid,
                     });
                   }}
                 >
@@ -230,7 +216,7 @@ const DebatePage = (props) => {
         `${Main.uri}/makeComment`,
         {
           comment: obj.comment,
-          commentId: obj.commentId,
+          commentId: obj.commentid,
           user: obj.byuser,
           userId: obj.userId,
           debateId: debateId,
@@ -253,12 +239,12 @@ const DebatePage = (props) => {
   const findParentComment = (comments_, parent) => {
     //Recursively traverse the comments and find out the parent comment
     // And append the results there...
-    if (comments_.commentid === IsReply.commentId) {
+    if (comments_.commentid === IsReply.commentid) {
       comments_.replies.push({
         byuser: Main.userInfo[0].name,
         likes: 0,
         comment: replyText.trim(),
-        commentId: uuidv4(),
+        commentid: uuidv4(),
         replies: [],
         madeon: new Date().toISOString(),
         userId: Main.userInfo[0].id,
@@ -294,38 +280,31 @@ const DebatePage = (props) => {
     if (IsReply.index === -1) {
       return makeComment();
     }
-    let found = { is: false };
-    comments.map((item) => {
-      if (found.is) {
-        return null;
-      }
-      let comment_ = findParentComment(item, item.commentid);
-      if (comment_.is) {
-        found = comment_;
-      }
-      return null;
-    });
+    const found = comments.reduce((acc, item) => {
+      if (acc.is) return acc;
+      const result = findParentComment(item, item.commentid);
+      return result.is ? result : acc;
+    }, { is: false });
+
     if (!found.is) {
       return;
     }
-    let res = comments;
-    res[IsReply.index] = found.data;
-    set_comments(res);
+    const updatedComments = [...comments];
+    updatedComments[IsReply.index] = found.data;
+    set_comments(updatedComments);
     set_ReplText("");
     return toggleIsReply({
       is: false,
       byuser: "xyz",
-      commentId: "mcwinc",
+      commentid: "mcwinc",
       index: 0,
     });
   };
 
   const makeComment = () => {
-    let comm = comments,
-      arr;
-    arr = {
+    const newComment = {
       comment: replyText.trim(),
-      commentId: uuidv4(),
+      commentid: uuidv4(),
       madeon: new Date().toISOString(),
       likes: 0,
       byuser: Main.userInfo[0].name,
@@ -333,16 +312,16 @@ const DebatePage = (props) => {
       userId: Main.userInfo[0].id,
       parent: "none",
     };
-    comm.push(arr);
-    set_comments(comm);
+    const updatedComments = [...comments, newComment];
+    set_comments(updatedComments);
     set_ReplText("");
     toggleIsReply({
       is: false,
       user: "xyz",
-      commentId: "mcwinc",
+      commentid: "mcwinc",
       index: 0,
     });
-    return storeComment(arr);
+    return storeComment(newComment);
   };
 
   const hashUserStatus = (data) => {
@@ -382,96 +361,69 @@ const DebatePage = (props) => {
   };
 
   useEffect(() => {
-    if (!fetchStatus && Main.userInfo[0].id !== -1) {
-      Main.toggleLoader(true);
-      updateStatus(true);
-      axios
-        .get(`${Main.uri}/getdebdata/${debateId}`, Main.getAuthHeader())
-        .then((response) => {
-          if (!response.data) {
-            return (window.location.href = "/");
+    const fetchData = async () => {
+      if (!fetchStatus && Main.userInfo[0].id !== -1) {
+        try {
+          Main.toggleLoader(true);
+          updateStatus(true);
+
+          const debDataResponse = await axios.get(`${Main.uri}/getdebdata/${debateId}`, Main.getAuthHeader());
+          if (!debDataResponse.data) {
+            window.location.href = "/";
+            return;
           }
-          updateDebInfo(response.data[0]);
-          axios
-            .get(
-              `${Main.uri}/getParticipation/${debateId}`,
-              Main.getAuthHeader()
-            )
-            .then((response) => {
-              response.data.map((item) => {
-                if (item.username === Main.userInfo[0].name) {
-                  updateParticipation(true);
-                }
-                return null;
-              });
-              hashUserStatus(response.data);
-              axios
-                .get(
-                  `${Main.uri}/getComments/${debateId}`,
-                  Main.getAuthHeader()
-                )
-                .then((response) => {
-                  set_comments(response.data);
-                  refreshComments();
-                  updateStatus(true);
-                  axios
-                    .get(
-                      `${Main.uri}/getLikes/${debateId}/${Main.userInfo[0].id}`,
-                      Main.getAuthHeader()
-                    )
-                    .then((response) => {
-                      let s = response.data.map((item) => item.commentid);
-                      set_likedQs(s);
-                      Main.toggleLoader(false);
-                      if (!isParticipant) {
-                        return;
-                      }
-                      axios
-                        .get(
-                          `${Main.uri}/tutorial/${Main.userInfo[0].name}`,
-                          Main.getAuthHeader()
-                        )
-                        .then((response) => {
-                          if (!response.data[0].debatepage) {
-                            return;
-                          }
-                          Main.updateTutorialBox({
-                            title: "Get started with debating...",
-                            contents: [
-                              "Make a comment & start the conversation by clicking on the reply icon on the bottom right.",
-                              "You can like any comment and can also report any user easily if they misbehave.",
-                              "To mention a user, just do @username and the user will be alerted.",
-                              "You can reply to any user by clicking on the reply button in the comment card.",
-                              "You can also click any user's name to check their profile out.",
-                            ],
-                            status: true,
-                            tutorial_status: {
-                              ...response.data[0],
-                            },
-                          });
-                        })
-                        .catch((err) => {});
-                    })
-                    .catch((err) => {
-                      throw err;
-                    });
-                })
-                .catch((err) => {
-                  throw err;
-                });
-            });
-        })
-        .catch((err) => {
-          try {
-            if (err.response.status === 401) {
-              Main.refresh();
-              updateStatus(false);
+          updateDebInfo(debDataResponse.data[0]);
+
+          const participationResponse = await axios.get(`${Main.uri}/getParticipation/${debateId}`, Main.getAuthHeader());
+          participationResponse.data.forEach(item => {
+            if (item.username === Main.userInfo[0].name) {
+              updateParticipation(true);
             }
-          } catch (e) {}
+          });
+          hashUserStatus(participationResponse.data);
+
+          const commentsResponse = await axios.get(`${Main.uri}/getComments/${debateId}`, Main.getAuthHeader());
+          set_comments(commentsResponse.data);
+          refreshComments();
+          updateStatus(true);
+
+          const likesResponse = await axios.get(`${Main.uri}/getLikes/${debateId}/${Main.userInfo[0].id}`, Main.getAuthHeader());
+          const likedComments = likesResponse.data.map(item => item.commentid);
+          console.log("##$$ ", likesResponse);
+          set_likedQs(likedComments);
+
+          if (isParticipant) {
+            const tutorialResponse = await axios.get(`${Main.uri}/tutorial/${Main.userInfo[0].name}`, Main.getAuthHeader());
+            if (tutorialResponse.data[0].debatepage) {
+              Main.updateTutorialBox({
+                title: "Get started with debating...",
+                contents: [
+                  "Make a comment & start the conversation by clicking on the reply icon on the bottom right.",
+                  "You can like any comment and can also report any user easily if they misbehave.",
+                  "To mention a user, just do @username and the user will be alerted.",
+                                   "You can reply to any user by clicking on the reply button in the comment card.",
+                  "You can also click any user's name to check their profile out.",
+                ],
+                status: true,
+                tutorial_status: {
+                  ...tutorialResponse.data[0],
+                },
+              });
+            }
+          }
+          Main.toggleLoader(false);
+        } catch (err) {
+          if (err.response && err.response.status === 401) {
+            Main.refresh();
+            updateStatus(false);
+          }
           updateParticipation(null);
           Main.toggleDisplayBox("Error! failed to fetch resources!");
-        });
-    }
+        }
+      }
+    };
+
+    fetchData();
   }, [comments, IsReply, liked, Main, debateInfo]);
 
   return isParticipant === false ? (
@@ -611,7 +563,7 @@ const DebatePage = (props) => {
                 index: 0,
                 user: "XYZ",
                 likes: 0,
-                commentId: "sicms",
+                commentid: "sicms",
               })
             }
           >

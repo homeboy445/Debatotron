@@ -32,9 +32,10 @@ const App = () => {
     text: "This is a test message.",
     status: false,
   });
-  const uri = "https://debatotron.herokuapp.com";
+  const uri = "http://localhost:3005";
 
   const refreshAccessToken = () => {
+    console.log("Refreshing token!");
     axios
       .post(`${uri}/refresh`, {
         refreshToken: sessionStorage.getItem("refreshToken"),
@@ -144,6 +145,9 @@ const App = () => {
             ToggleDisplayBox({ text: "", status: false });
           }, 4000);
         },
+        getAvatarAPI: (number) => {
+          return `https://api.dicebear.com/8.x/micah/svg?seed=${number}`;
+        }
       }}
     >
       <div style={{ background: !Auth ? PolkaDotsBg : "white" }}>

@@ -147,35 +147,18 @@ const Inbox = () => {
     }
   };
 
-  const isRenderButton = (type) => {
-    let k = true;
-    switch (type) {
-      case -1:
-        k &= false;
-        break;
-      case 2:
-        k &= false;
-        break;
-      case 3:
-        k &= false;
-        break;
-      case 4:
-        k &= false;
-        break;
-      case 5:
-        k &= false;
-        break;
-      case 6:
-        k &= false;
-        break;
-      case 7:
-        k &= false;
-        break;
-      default:
-        k &= true;
-        break;
-    }
-    return k;
+  /**
+   * Determines if a button should be rendered based on the message type.
+   * 
+   * @param {number} type - The type of the message.
+   * @returns {boolean} - Returns true if the button should be rendered, false otherwise.
+   */
+  const shouldRenderFunctionalButtons = (type) => {
+    // Define message types that should not render a button
+    const typesWithoutButton = [-1, 2, 3, 4, 5, 6, 7, -1e9];
+    
+    // Check if the current type is in the list of types that should not render a button
+    return !typesWithoutButton.includes(type);
   };
 
   const isMailOpened = (index) => {
@@ -187,51 +170,56 @@ const Inbox = () => {
   };
 
   useEffect(() => {
-    if (Auth.userInfo[0].id !== -1 && !fetchStatus) {
+    const fetchInboxMessages = async () => {
+      if (Auth.userInfo[0].id === -1 || fetchStatus) {
+        return;
+      }
+      
       updateStatus(true);
       Auth.toggleLoader(true);
-      axios
-        .get(Auth.uri + `/Inbox/${Auth.userInfo[0].name}`, Auth.getAuthHeader())
-        .then((response) => {
-          response = response.data;
-          if (
-            typeof response !== undefined ||
-            response !== "An Error has occured!"
-          ) {
-            if (response === "none") {
-              throw response;
-            }
-            response.map((item) => {
-              item.additional = JSON.parse(item.additional);
-              return null;
-            });
-            updMes(response);
-            change_this(false);
-          }
-        })
-        .catch((err) => {
-          updMes([
-            {
-              message: "You're Messages will appear here!",
-              recievedat: "",
-              additional: { title: "Message Title", rtype: -1e9 },
-              byuser: "",
-              messageid: "",
-            },
-          ]);
-          try {
-            if (err.response.status === 401) {
-              Auth.refresh();
-              updateStatus(false);
-            }
-          } catch (e) {}
-          change_this(true);
-          Auth.toggleDisplayBox("Failed to fetch some resources!");
-        })
-        .finally((e) => {
-          Auth.toggleLoader(false);
+
+      try {
+        const response = await axios.get(`${Auth.uri}/Inbox/${Auth.userInfo[0].name}`, Auth.getAuthHeader());
+        const messages = response.data;
+
+        if (messages === "none") {
+          throw new Error("No messages found");
+        }
+
+        const parsedMessages = messages.map(item => {
+          item.additional = JSON.parse(item.additional);
+          return item;
         });
-    }
+
+        updMes(parsedMessages);
+        change_this(false);
+      } catch (err) {
+
+        console.log("err: ", err);
+
+        const defaultMessages = [{
+          message: "You're Messages will appear here!",
+          recievedat: "",
+          additional: { title: "Message Title", rtype: -1e9 },
+          byuser: "",
+          messageid: "",
+        }];
+
+        updMes(defaultMessages);
+
+        if (err.response && err.response.status === 401) {
+          Auth.refresh();
+          updateStatus(false);
+        }
+
+        change_this(true);
+        Auth.toggleDisplayBox("Failed to fetch some resources!");
+      } finally {
+        Auth.toggleLoader(false);
+      }
+    };
+
+    fetchInboxMessages();
   }, [Auth, messages]);
 
   return (
@@ -338,7 +326,7 @@ const Inbox = () => {
             }}
           ></div>
         </div>
-        {isRenderButton(messages[ActiveIndex].additional.rtype) ? (
+        {shouldRenderFunctionalButtons(messages[ActiveIndex].additional.rtype) ? (
           <div className="respond">
             <button
               onClick={() => {

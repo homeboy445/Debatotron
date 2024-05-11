@@ -214,7 +214,7 @@ const ProfilePage = (props) => {
           }
           Main.toggleDisplayBox("Failed to fetch some resources!");
         });
-      if (Main.friends.length > 0 && Friends === {}) {
+      if (Main.friends.length > 0 && Object.keys(Friends).length === 0) {
         let obj = {};
         Main.friends.map((item) => {
           return (obj[item.friend_name] = item);
@@ -224,7 +224,7 @@ const ProfilePage = (props) => {
     }
   }, [debates, profile, friends, activity, Main]);
 
-  const image = `https://avatars.dicebear.com/api/micah/${profile.image}.svg`;
+  const image = Main.getAvatarAPI(profile.image || Math.random())
   return (
     <div className="pf_page_main">
       <div
@@ -310,7 +310,7 @@ const ProfilePage = (props) => {
             onClick={() => {
               if (name === Main.userInfo[0].name) {
                 toggleEditMode(true);
-                update_profile({ ...profile, image: Math.random() });
+                update_profile({ ...profile, image: Math.round(Math.random() * 1000) });
               }
             }}
           />
@@ -435,9 +435,8 @@ const ProfilePage = (props) => {
             ) : (
               <div className="pf_frds">
                 {friends.map((item) => {
-                  const image = `https://avatars.dicebear.com/api/micah/${
-                    item.profile_image || Math.random()
-                  }.svg`;
+                  const image = Main.getAvatarAPI(item.profile_image || Math.random());
+                  console.log("image API link: ", image);
                   return (
                     <div
                       className="pf_fr_card"
