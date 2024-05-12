@@ -49,7 +49,7 @@ const UserFeed = () => {
     const postOrDebateType = currentFeed[index].type === CONTENT_TYPE.DEBATE ? "debate" : "post";
 
     axios.post(
-      `${Main.uri}/likepost`,
+      `${Main.serverURL}/likepost`,
       {
         id: postOrDebateId,
         userid: Main.userInfo[0].id,
@@ -135,7 +135,7 @@ const UserFeed = () => {
 
         const fetchUserFeed = async () => {
           try {
-            const feedResponse = await axios.get(`${Main.uri}/feed/${Main.userInfo[0].id}`, Main.getAuthHeader());
+            const feedResponse = await axios.get(`${Main.serverURL}/feed/${Main.userInfo[0].id}`, Main.getAuthHeader());
             const initialLastLiked = [];
             const feedData = feedResponse.data.map((item) => {
               try {
@@ -150,13 +150,13 @@ const UserFeed = () => {
             updateLastLiked(initialLastLiked);
             updateFeed(feedData);
 
-            const popularUsersResponse = await axios.get(`${Main.uri}/popularUsers`, Main.getAuthHeader());
+            const popularUsersResponse = await axios.get(`${Main.serverURL}/popularUsers`, Main.getAuthHeader());
             updatePopularUsers(popularUsersResponse.data);
 
-            const topContributorsResponse = await axios.get(`${Main.uri}/topContributors`, Main.getAuthHeader());
+            const topContributorsResponse = await axios.get(`${Main.serverURL}/topContributors`, Main.getAuthHeader());
             updateContributors(topContributorsResponse.data);
 
-            const feedLikesResponse = await axios.get(`${Main.uri}/getfeedlikes/${Main.userInfo[0].id}`, Main.getAuthHeader());
+            const feedLikesResponse = await axios.get(`${Main.serverURL}/getfeedlikes/${Main.userInfo[0].id}`, Main.getAuthHeader());
             const feedLikes = feedLikesResponse.data;
             const likesMap = {};
             feedLikes.forEach((item) => {
@@ -243,7 +243,7 @@ const UserFeed = () => {
               }
               axios
                 .post(
-                  Main.uri + "/makePost",
+                  Main.serverURL + "/makePost",
                   {
                     user: Main.userInfo[0].name,
                     userId: Main.userInfo[0].id,

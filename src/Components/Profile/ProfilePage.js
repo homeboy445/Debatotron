@@ -38,7 +38,7 @@ const ProfilePage = (props) => {
   const SaveProfileCredentials = () => {
     axios
       .post(
-        Main.uri + "/UpdateProfile",
+        Main.serverURL + "/UpdateProfile",
         {
           user: name,
           about: ref1.current.textContent,
@@ -63,7 +63,7 @@ const ProfilePage = (props) => {
     ) {
       return axios
         .post(
-          Main.uri + "/AddFriend",
+          Main.serverURL + "/AddFriend",
           {
             user1: name,
             user2: Main.userInfo[0].name,
@@ -85,7 +85,7 @@ const ProfilePage = (props) => {
     }
     axios
       .post(
-        Main.uri + "/MakeFriendReq",
+        Main.serverURL + "/MakeFriendReq",
         {
           user: Main.userInfo[0].name,
           fuser: name,
@@ -136,7 +136,7 @@ const ProfilePage = (props) => {
     if (!fetchStatus && Main.userInfo[0].id !== -1) {
       Main.toggleLoader(true);
       axios
-        .get(Main.uri + `/profile_Data/${name}`, Main.getAuthHeader())
+        .get(Main.serverURL + `/profile_Data/${name}`, Main.getAuthHeader())
         .then((response) => {
           update_profile({
             name: response.data[0].name,
@@ -147,21 +147,21 @@ const ProfilePage = (props) => {
           update_Status(true);
           axios
             .get(
-              Main.uri + `/getDebates/${response.data[0].name}`,
+              Main.serverURL + `/getDebates/${response.data[0].name}`,
               Main.getAuthHeader()
             )
             .then((response1) => {
               update_debates(response1.data);
               axios
                 .get(
-                  Main.uri + `/getActivity/${response.data[0].name}`,
+                  Main.serverURL + `/getActivity/${response.data[0].name}`,
                   Main.getAuthHeader()
                 )
                 .then((response2) => {
                   update_activity(response2.data);
                   axios
                     .get(
-                      Main.uri + `/friendslist/${name}`,
+                      Main.serverURL + `/friendslist/${name}`,
                       Main.getAuthHeader()
                     )
                     .then((response) => {
@@ -174,7 +174,7 @@ const ProfilePage = (props) => {
                       });
                       axios
                         .get(
-                          `${Main.uri}/tutorial/${Main.userInfo[0].name}`,
+                          `${Main.serverURL}/tutorial/${Main.userInfo[0].name}`,
                           Main.getAuthHeader()
                         )
                         .then((response) => {
@@ -249,7 +249,7 @@ const ProfilePage = (props) => {
             onClick={() => {
               axios
                 .post(
-                  Main.uri + "/sendMessage",
+                  Main.serverURL + "/sendMessage",
                   {
                     sender: Main.userInfo[0].name,
                     recipient: name,

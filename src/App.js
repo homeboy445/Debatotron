@@ -32,12 +32,12 @@ const App = () => {
     text: "This is a test message.",
     status: false,
   });
-  const uri = "http://localhost:3005";
+  const serverURL = process.env.NODE_ENV === "production" ? process.env.SERVER_URL : "http://localhost:3005";
 
   const refreshAccessToken = () => {
     console.log("Refreshing token!");
     axios
-      .post(`${uri}/refresh`, {
+      .post(`${serverURL}/refresh`, {
         refreshToken: sessionStorage.getItem("refreshToken"),
       })
       .then((response) => {
@@ -62,7 +62,7 @@ const App = () => {
     if (sessionStorage.getItem("id")) {
       toAuth(true);
       axios
-        .get(`${uri}/profile/${sessionStorage.getItem("id")}`, {
+        .get(`${serverURL}/profile/${sessionStorage.getItem("id")}`, {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
           },
@@ -72,7 +72,7 @@ const App = () => {
           Change_Info(response);
           sessionStorage.setItem("username", response[0].name);
           axios
-            .get(`${uri}/friendslist/${response[0].name}`, {
+            .get(`${serverURL}/friendslist/${response[0].name}`, {
               headers: {
                 Authorization: `Bearer ${sessionStorage.getItem(
                   "accessToken"
@@ -122,7 +122,7 @@ const App = () => {
         },
         userInfo,
         friends: FriendsList,
-        uri,
+        serverURL,
         uuid: uuid,
         refresh: refreshAccessToken,
         update_uuid: () => {

@@ -105,7 +105,7 @@ const Participants = ({
           onClick={() => {
             axios
               .post(
-                `${Main.uri}/changeSide`,
+                `${Main.serverURL}/changeSide`,
                 {
                   debid: debateId,
                   id: userId,

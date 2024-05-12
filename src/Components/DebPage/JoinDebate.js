@@ -14,7 +14,7 @@ const JoinDebate = ({
   const Main = useContext(AuthContext);
   const UpdateParticipation = (val) => {
     axios
-      .post(`${Main.uri}/updateParticipation`,{
+      .post(`${Main.serverURL}/updateParticipation`,{
         debId: debateId,
         user: userInfo.name,
         userId: userInfo.id,

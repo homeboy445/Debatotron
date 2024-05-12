@@ -38,7 +38,7 @@ const ReportUser = ({ debateId, owner, userList, user, toggleBox }) => {
             let Id = parseInt(selectedUser);
             axios
               .post(
-                `${Main.uri}/reportUser`,
+                `${Main.serverURL}/reportUser`,
                 {
                   debateId: debateId,
                   userId: Id,

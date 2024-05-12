@@ -67,7 +67,7 @@ const DebatePage = (props) => {
   const updateLike = (commentid, value) => {
     axios
       .post(
-        `${Main.uri}/UpdateLike`,
+        `${Main.serverURL}/UpdateLike`,
         {
           debId: debateId,
           userId: Main.userInfo[0].id,
@@ -213,7 +213,7 @@ const DebatePage = (props) => {
   const storeComment = (obj) => {
     axios
       .post(
-        `${Main.uri}/makeComment`,
+        `${Main.serverURL}/makeComment`,
         {
           comment: obj.comment,
           commentId: obj.commentid,
@@ -347,7 +347,7 @@ const DebatePage = (props) => {
   const refreshComments = () => {
     setTimeout(() => {
       axios
-        .get(`${Main.uri}/getComments/${debateId}`, Main.getAuthHeader())
+        .get(`${Main.serverURL}/getComments/${debateId}`, Main.getAuthHeader())
         .then((response) => {
           set_comments(response.data);
           refreshComments();
@@ -367,14 +367,14 @@ const DebatePage = (props) => {
           Main.toggleLoader(true);
           updateStatus(true);
 
-          const debDataResponse = await axios.get(`${Main.uri}/getdebdata/${debateId}`, Main.getAuthHeader());
+          const debDataResponse = await axios.get(`${Main.serverURL}/getdebdata/${debateId}`, Main.getAuthHeader());
           if (!debDataResponse.data) {
             window.location.href = "/";
             return;
           }
           updateDebInfo(debDataResponse.data[0]);
 
-          const participationResponse = await axios.get(`${Main.uri}/getParticipation/${debateId}`, Main.getAuthHeader());
+          const participationResponse = await axios.get(`${Main.serverURL}/getParticipation/${debateId}`, Main.getAuthHeader());
           participationResponse.data.forEach(item => {
             if (item.username === Main.userInfo[0].name) {
               updateParticipation(true);
@@ -382,18 +382,18 @@ const DebatePage = (props) => {
           });
           hashUserStatus(participationResponse.data);
 
-          const commentsResponse = await axios.get(`${Main.uri}/getComments/${debateId}`, Main.getAuthHeader());
+          const commentsResponse = await axios.get(`${Main.serverURL}/getComments/${debateId}`, Main.getAuthHeader());
           set_comments(commentsResponse.data);
           refreshComments();
           updateStatus(true);
 
-          const likesResponse = await axios.get(`${Main.uri}/getLikes/${debateId}/${Main.userInfo[0].id}`, Main.getAuthHeader());
+          const likesResponse = await axios.get(`${Main.serverURL}/getLikes/${debateId}/${Main.userInfo[0].id}`, Main.getAuthHeader());
           const likedComments = likesResponse.data.map(item => item.commentid);
           console.log("##$$ ", likesResponse);
           set_likedQs(likedComments);
 
           if (isParticipant) {
-            const tutorialResponse = await axios.get(`${Main.uri}/tutorial/${Main.userInfo[0].name}`, Main.getAuthHeader());
+            const tutorialResponse = await axios.get(`${Main.serverURL}/tutorial/${Main.userInfo[0].name}`, Main.getAuthHeader());
             if (tutorialResponse.data[0].debatepage) {
               Main.updateTutorialBox({
                 title: "Get started with debating...",

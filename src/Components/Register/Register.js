@@ -48,7 +48,7 @@ const Register = ({ HandleAuth, Change_Display }) => {
     event.preventDefault();
     Main.toggleLoader(true);
     axios
-      .post(`${Main.uri}/register`, {
+      .post(`${Main.serverURL}/register`, {
         user: name,
         password: password_1,
         email: email_1,

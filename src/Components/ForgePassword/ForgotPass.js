@@ -46,7 +46,7 @@ const ForgotPass = () => {
   const HandleSubmit_1 = (e) => {
     e.preventDefault();
     axios
-      .post(Main.uri + "/ForgotPassword", {
+      .post(Main.serverURL + "/ForgotPassword", {
         email: email,
       }, Main.getAuthHeader())
       .then((response) => {
@@ -82,7 +82,7 @@ const ForgotPass = () => {
     e.preventDefault();
     console.log("Called!");
     axios
-      .post(Main.uri + "/CheckRecovery", {
+      .post(Main.serverURL + "/CheckRecovery", {
         email: email,
         answer: answer,
       }, Main.getAuthHeader())
@@ -112,7 +112,7 @@ const ForgotPass = () => {
     e.preventDefault();
     if (password_1 === password_2) {
       axios
-        .post(Main.uri + "/ChangePassword",{
+        .post(Main.serverURL + "/ChangePassword",{
           email: email,
           password: password_1,
         }, Main.getAuthHeader())

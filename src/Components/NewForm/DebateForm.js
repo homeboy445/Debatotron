@@ -28,7 +28,7 @@ const DebateForm = ({ ToggleDisplay }) => {
     event.preventDefault();
     axios
       .post(
-        Main.uri + "/save",
+        Main.serverURL + "/save",
         {
           uniqid: Main.uuid,
           title: title,
@@ -59,7 +59,7 @@ const DebateForm = ({ ToggleDisplay }) => {
     }
     axios
       .post(
-        Main.uri + "/isdebatevalid",
+        Main.serverURL + "/isdebatevalid",
         {
           id: Main.uuid,
         },

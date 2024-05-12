@@ -26,7 +26,7 @@ const SignIn = ({ HandleAuth, Change_Display }) => {
     }
     Main.toggleLoader(true);
     axios
-      .post(`${Main.uri}/signin`, {
+      .post(`${Main.serverURL}/signin`, {
         email: name,
         password: password,
       })

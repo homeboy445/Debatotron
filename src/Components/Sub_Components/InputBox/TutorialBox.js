@@ -29,7 +29,7 @@ const TutorialBox = () => {
           if (checked) {
             axios
               .patch(
-                Main.uri + "/tutorial",
+                Main.serverURL + "/tutorial",
                 {
                   user: Main.userInfo[0].name,
                   debateStatus:

@@ -22,11 +22,11 @@ const OngoingDebs = () => {
     if (!fetchStatus) {
       Main.toggleLoader(true);
       axios
-        .get(Main.uri + "/GetDebs/public", Main.getAuthHeader())
+        .get(Main.serverURL + "/GetDebs/public", Main.getAuthHeader())
         .then(async (response) => {
           let arr = response.data;
           await axios
-            .get(Main.uri + "/GetDebs/private", Main.getAuthHeader())
+            .get(Main.serverURL + "/GetDebs/private", Main.getAuthHeader())
             .then((response) => {
               arr.concat(response.data);
             });

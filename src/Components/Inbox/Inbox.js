@@ -34,7 +34,7 @@ const Inbox = () => {
     HandleToggle();
     axios
       .get(
-        `${Auth.uri}/WipeInbox/${Auth.userInfo[0].name}`,
+        `${Auth.serverURL}/WipeInbox/${Auth.userInfo[0].name}`,
         Auth.getAuthHeader()
       )
       .then((response) => {
@@ -79,7 +79,7 @@ const Inbox = () => {
       //For deleting any message via its uuid.
       axios
         .post(
-          Auth.uri + "/removeMessage",
+          Auth.serverURL + "/removeMessage",
           {
             mId: messageid,
           },
@@ -101,7 +101,7 @@ const Inbox = () => {
       case 0: {
         axios
           .post(
-            Auth.uri + "/AddParticipant",
+            Auth.serverURL + "/AddParticipant",
             {
               debid: data.debid,
               participant: data.user,
@@ -123,7 +123,7 @@ const Inbox = () => {
       case 1: {
         axios
           .post(
-            Auth.uri + "/AddFriend",
+            Auth.serverURL + "/AddFriend",
             {
               user1: data.user,
               user2: Auth.userInfo[0].name,
@@ -179,7 +179,7 @@ const Inbox = () => {
       Auth.toggleLoader(true);
 
       try {
-        const response = await axios.get(`${Auth.uri}/Inbox/${Auth.userInfo[0].name}`, Auth.getAuthHeader());
+        const response = await axios.get(`${Auth.serverURL}/Inbox/${Auth.userInfo[0].name}`, Auth.getAuthHeader());
         const messages = response.data;
 
         if (messages === "none") {

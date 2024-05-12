@@ -32,7 +32,7 @@ const MenuFiles = () => {
 
   const SignOut = async () => {
     await axios
-      .delete(`${Auth.uri}/signout`, {
+      .delete(`${Auth.serverURL}/signout`, {
         refreshToken: sessionStorage.getItem("refreshToken"),
       })
       .then((response) => {})
