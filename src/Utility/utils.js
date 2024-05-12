@@ -12,3 +12,7 @@ export const throttle = (callback, timeout) => {
         }, timeout);
     };
 }
+
+export function getLastPathSegment(url) {
+    return url.split("/").pop();
+}

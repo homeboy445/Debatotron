@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, animateScroll as scroll } from "react-scroll";
-import Typist from "react-typist";
 import group_debate from "../../Images/group_debate.jpg";
 import discuss from "../../Images/discuss.jpg";
 import group from "../../Images/group.jpg";
@@ -15,6 +14,8 @@ const LandingPage = ({ auth }) => {
   const Main = useContext(AuthContext);
   const [loop, varUpdate] = useState(1);
   const [scrollToTop, toggle] = useState(false);
+
+  console.log("toggled loader to be false!");
 
   useEffect(() => {
     setTimeout(() => Main.toggleLoader(false), 1000);
@@ -70,21 +71,7 @@ const LandingPage = ({ auth }) => {
       <div className="hp5">
         <h2>Search for people throughout the community.</h2>
         {loop ? (
-          <Typist
-            avgTypingDelay={50}
-            onTypingDone={() => varUpdate(0)}
-            className="hp5-type"
-          >
-            <span>William</span>
-            <Typist.Backspace count={30} delay={1000} />
-            <span>Charlie</span>
-            <Typist.Backspace count={30} delay={1000} />
-            <span>Arvind</span>
-            <Typist.Backspace count={30} delay={1000} />
-            <span>Raghav</span>
-            <Typist.Backspace count={30} delay={1000} />
-            <span>Alice</span>
-          </Typist>
+          "Any user you want!"
         ) : (
           ""
         )}

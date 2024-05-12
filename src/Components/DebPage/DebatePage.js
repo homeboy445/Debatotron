@@ -16,9 +16,12 @@ import DebDescription from "./DebDescription";
 import Participants from "./Participants";
 import ReportUser from "./ReportUser";
 import Robot from "../../Assets/Robot.png";
+import { getLastPathSegment } from "../../Utility/utils";
+import { useLocation } from "react-router-dom";
 
 const DebatePage = (props) => {
-  const debateId = props.match.params.id;
+  const location = useLocation();
+  const debateId = props.match?.params?.id || getLastPathSegment(location.pathname);
   const Main = useContext(AuthContext);
   const [comments, set_comments] = useState([]);
   const [IsReply, toggleIsReply] = useState({

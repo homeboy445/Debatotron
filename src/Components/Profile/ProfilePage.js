@@ -3,11 +3,15 @@ import axios from "axios";
 import Save_Icon from "../../Images/save.svg";
 import "./ProfilePage.css";
 import AuthContext from "./../../Contexts/AuthContext";
+import { useLocation } from "react-router-dom";
+import { getLastPathSegment } from "../../Utility/utils";
 
 const ProfilePage = (props) => {
   const ref1 = useRef();
   const Main = useContext(AuthContext);
-  const name = props.match.params.user;
+  const location = useLocation();
+  console.log("## ", props);
+  const name = props.match?.params?.user || getLastPathSegment(location.pathname);
   const [profile, update_profile] = useState({
     name: "Tom Cruise",
     joinedAt: new Date().toDateString(),

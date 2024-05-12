@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Loader from "react-loader-spinner";
 import Home from "../Home/HomePage";
 import "./Nav.css";
@@ -18,32 +18,22 @@ import Inbox from "../Inbox/Inbox";
 import UserFeed from "./../Home/UserFeed";
 import ProfilePage from "../Profile/ProfilePage";
 import TutorialBox from "../Sub_Components/InputBox/TutorialBox";
+import SignOut from "../SignOut";
 
 const MenuFiles = () => {
-  const Auth = useContext(AuthContext);
+  const globalContext = useContext(AuthContext);
   const HandleAuth = (data_object) => {
     if (data_object.data != null) {
       sessionStorage.setItem("name", data_object.data);
-      Auth.toAuth(true);
+      globalContext.toAuth(true);
       return (window.location.href = "/");
     }
-    Auth.toAuth(false);
-  };
-
-  const SignOut = async () => {
-    await axios
-      .delete(`${Auth.serverURL}/signout`, {
-        refreshToken: sessionStorage.getItem("refreshToken"),
-      })
-      .then((response) => {})
-      .catch((err) => {});
-    window.location.href = "/";
-    sessionStorage.clear();
+    globalContext.toAuth(false);
   };
 
   return (
     <div>
-      {Auth.loading ? (
+      {globalContext.loading ? (
         <div className="loader">
           <Loader
             type="TailSpin"
@@ -54,92 +44,126 @@ const MenuFiles = () => {
           />
         </div>
       ) : null}
-      {Auth.Auth ? <Navigation /> : null}
-      {Auth.TutorialBox.status ? <TutorialBox /> : null}
+      {globalContext.Auth ? <Navigation /> : null}
+      {globalContext.TutorialBox.status ? <TutorialBox /> : null}
       <div
         className="dsp_bx"
         style={{
-          top: Auth.DisplayBox.status
-            ? `${85 - Math.sqrt(Auth.DisplayBox.text.length)}%`
+          top: globalContext.DisplayBox.status
+            ? `${85 - Math.sqrt(globalContext.DisplayBox.text.length)}%`
             : "90%",
-          opacity: Auth.DisplayBox.status ? 1 : 0,
+          opacity: globalContext.DisplayBox.status ? 1 : 0,
         }}
       >
-        <h1>{Auth.DisplayBox.text || "This is a test message."}</h1>
+        <h1>{globalContext.DisplayBox.text || "This is a test message."}</h1>
       </div>
       <main
         className="App"
         style={{
           opacity:
-            Auth.loading || Auth.TutorialBox.status
-              ? Auth.TutorialBox.status
+            globalContext.loading || globalContext.TutorialBox.status
+              ? globalContext.TutorialBox.status
                 ? 0.4
                 : 0
               : 1,
           pointerEvents:
-            Auth.loading || Auth.TutorialBox.status ? "none" : "all",
+            globalContext.loading || globalContext.TutorialBox.status ? "none" : "all",
         }}
       >
-        <Switch>
+        <Routes>
           <Route
             path="/"
             exact
-            render={() =>
-              !Auth.Auth ? <Home auth={Auth.Auth} /> : <UserFeed />
+            element={!globalContext.Auth ? <Home auth={globalContext.Auth} /> : <UserFeed />}
+          />
+          <Route path="/signout" element={<SignOut />} />
+          <Route 
+            path="/new" 
+            element={
+              <ProtectedRoute
+                pageName="debateform"
+                auth={globalContext.Auth}
+                userInfo={globalContext.userInfo}
+                component={DebateForm}
+              />
+            } 
+          />
+          <Route 
+            path="/DebPage/:id" 
+            element={
+              <ProtectedRoute
+                pageName="debatepage"
+                auth={globalContext.Auth}
+                userInfo={globalContext.userInfo}
+                component={DebatePage}
+              />
+            } 
+          />
+          <Route 
+            path="/OngoingDebs" 
+            element={
+              <ProtectedRoute
+                pageName="ongoingdeb"
+                auth={globalContext.Auth}
+                userInfo={globalContext.userInfo}
+                component={OngoingDebs}
+              />
+            } 
+          />
+          <Route 
+            path="/Inbox" 
+            element={
+              <ProtectedRoute
+                pageName="inbox"
+                auth={globalContext.Auth}
+                userInfo={globalContext.userInfo}
+                component={Inbox}
+              />
+            } 
+          />
+          <Route 
+            path="/Profile/:user" 
+            element={
+              <ProtectedRoute
+                pageName="profile"
+                auth={globalContext.Auth}
+                userInfo={globalContext.userInfo}
+                FriendsList={globalContext.FriendsList}
+                component={ProfilePage}
+              />
+            } 
+          />
+          <Route
+            path="/signin"
+            element={
+              <LoginRoute
+                auth={globalContext.Auth}
+                HandleAuth={HandleAuth}
+                component={SignIn}
+              />
             }
           />
-          <Route path="/signout" render={() => SignOut()} />
-          <ProtectedRoute
-            path="/new"
-            pageName="debateform"
-            auth={Auth.Auth}
-            userInfo={Auth.userInfo}
-            component={DebateForm}
-          />
-          <ProtectedRoute
-            path="/DebPage/:id"
-            pageName="debatepage"
-            auth={Auth.Auth}
-            userInfo={Auth.userInfo}
-            component={DebatePage}
-          />
-          <ProtectedRoute
-            path="/OngoingDebs"
-            pageName="ongoingdeb"
-            auth={Auth.Auth}
-            userInfo={Auth.userInfo}
-            component={OngoingDebs}
-          />
-          <ProtectedRoute
-            path="/Inbox"
-            pageName="inbox"
-            auth={Auth.Auth}
-            userInfo={Auth.userInfo}
-            component={Inbox}
-          />
-          <ProtectedRoute
-            path="/Profile/:user"
-            pageName="profile"
-            auth={Auth.Auth}
-            userInfo={Auth.userInfo}
-            FriendsList={Auth.FriendsList}
-            component={ProfilePage}
-          />
-          <LoginRoute
-            path="/signIn"
-            auth={Auth.Auth}
-            HandleAuth={HandleAuth}
-            component={SignIn}
-          />
-          <LoginRoute
+          <Route
             path="/register"
-            auth={Auth.Auth}
-            HandleAuth={HandleAuth}
-            component={Register}
+            element={
+              <LoginRoute
+              auth={globalContext.Auth}
+              HandleAuth={HandleAuth}
+              component={Register}
+            />
+            }
           />
-          <LoginRoute path="/fp" auth={Auth.Auth} component={ForgotPassword} />
-          <Redirect to="/" from="*" />
-        </Switch>
+          <Route
+            path="/fp"
+            element={
+              <LoginRoute
+                auth={globalContext.Auth}
+                component={ForgotPassword}
+              />
+            }
+          />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
       </main>
     </div>
   );
