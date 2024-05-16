@@ -71,6 +71,8 @@ const Register = ({ HandleAuth, Change_Display }) => {
     ChangePassword("");
   };
 
+  window.deb = { Main };
+
   return (
     <div className="rg-wrapper">
       <div className="register">
