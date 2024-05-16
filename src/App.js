@@ -32,7 +32,7 @@ const App = () => {
     text: "This is a test message.",
     status: false,
   });
-  const serverURL = process.env.NODE_ENV === "production" ? process.env.SERVER_URL : "http://localhost:3005";
+  const serverURL = process.env.NODE_ENV === "production" ? process.env.DEB_SERVER_URL : "http://localhost:3005";
 
   const refreshAccessToken = () => {
     console.log("Refreshing token!");
