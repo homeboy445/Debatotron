@@ -32,7 +32,7 @@ const App = () => {
     text: "This is a test message.",
     status: false,
   });
-  const serverURL = process.env.DEB_SERVER_URL ?? "http://localhost:3005";
+  const serverURL = process.env.REACT_APP_SERVER_URL ?? "http://localhost:3005";
   console.log(">> ", process?.env);
 
   const refreshAccessToken = () => {
