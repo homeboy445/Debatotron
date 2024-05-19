@@ -86,7 +86,7 @@ const Register = ({ HandleAuth, Change_Display }) => {
               Already have an account? <a href="/signin">Log In.</a>
             </h3>
           </div>
-          <form onSubmit={HandleSubmit}>
+          <form className="registerForm" onSubmit={HandleSubmit}>
             <InputBox
               type="text"
               placeholder="username"

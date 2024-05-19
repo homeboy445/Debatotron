@@ -64,7 +64,7 @@ const SignIn = ({ HandleAuth, Change_Display }) => {
               New here? <a href="/register">Register.</a>
             </h3>
           </div>
-          <form onSubmit={HandleSubmit}>
+          <form className="signInForm" onSubmit={HandleSubmit}>
             <InputBox
               type="email"
               placeholder="email"
