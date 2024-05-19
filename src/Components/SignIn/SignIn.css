@@ -7,7 +7,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: white;
+  min-height: 100vh;
 }
 .signin {
   display: flex;
@@ -15,15 +15,18 @@
   align-items: center;
   font-family: "Roboto", sans-serif;
   width: 100%;
+  height: 100vh;
 }
 #sg_img_div {
   display: flex;
   justify-content: right;
   align-items: right;
   width: 100%;
+  height: 100%;
 }
 .sg_img {
   width: 100%;
+  height: 100%;
 }
 .sg-mainer {
   display: flex;
@@ -113,4 +116,51 @@
 }
 .sg-flx > a:hover {
   text-decoration: underline;
+}
+
+@media (max-width: 950px) {
+
+  #sg_img_div {
+    display: none;
+  }
+
+}
+
+@media (max-width: 800px) {
+
+  .sg-mainer > div > h1 {
+    font-size: 2.4rem;
+  }
+
+  .sg-mainer > div > h3 {
+    font-size: 1.2rem;
+  }
+
+  .signInForm {
+    transform: scale(0.9);
+  }
+}
+
+@media (max-width: 500px) {
+
+  .sg-mainer > div > h1 {
+    font-size: 2rem;
+  }
+
+  .sg-mainer > div > h3 {
+    text-align: center;
+  }
+
+  .signInForm {
+    margin-top: 25%;
+    transform: scale(1);
+  }
+
+  .sg-btn {
+    margin-top: 10%;
+  }
+
+  .sg-flx > a {
+    margin-right: 0%;
+  }
 }

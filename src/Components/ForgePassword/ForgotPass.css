@@ -1,30 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Luckiest+Guy&family=Roboto+Mono:wght@700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@800&display=swap');
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap");
 .wrp-forp
 {
-    width:80%;
-    margin-left:15%;
+    width: 80%;
+    margin: 0 auto; /* Centers the div horizontally */
+    display: flex; /* Enables flexbox layout */
+    justify-content: center; /* Centers content horizontally in the flex container */
+    align-items: center; /* Centers content vertically in the flex container */
 }
 .wrapper_2
 {
-    width:50%;
+    width: 100%;
     background:white;
     color:black;
     padding:4%;
     transform: translate(0%,15%);
     border-radius:3%;
-    margin-left:14%;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 }
-.wrapper_2 h2
+.wrapper_2 > h2
 {
     font-size:1rem;
     margin-bottom: 10%;
     text-align:center;
     font-size:2rem;
-    font-family: 'Sora', sans-serif;
-    letter-spacing:4px;
+    font-family: "Roboto", serif;
     color:black;
 }
 .btn4 {
@@ -69,4 +68,25 @@
     margin-top:3%;
     font-weight: Light;
     font-family: "Roboto", sans-serif;
+}
+
+@media (max-width: 700px) {
+
+  .wrapper_2 > h2 {
+    font-size: 1.6rem;
+  }
+
+}
+
+@media (max-width: 500px) {
+
+
+  .wrapper_2 {
+    margin-top: 25%;
+  }
+
+  .AuthS {
+    font-size: 0.8rem;
+  }
+
 }
