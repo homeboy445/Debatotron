@@ -33,10 +33,8 @@ const App = () => {
     status: false,
   });
   const serverURL = process.env.REACT_APP_SERVER_URL ?? "http://localhost:3005";
-  console.log(">> ", process?.env);
 
   const refreshAccessToken = () => {
-    console.log("Refreshing token!");
     axios
       .post(`${serverURL}/refresh`, {
         refreshToken: sessionStorage.getItem("refreshToken"),

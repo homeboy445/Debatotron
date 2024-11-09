@@ -9,6 +9,7 @@ import gradient3 from "../../Images/gradient2.jpg";
 import up_arrow from "../../Images/right-arrow.png";
 import "./HomePage.css";
 import AuthContext from "../../Contexts/AuthContext";
+import Typist from "../Typist/Typist";
 
 const LandingPage = ({ auth }) => {
   const Main = useContext(AuthContext);
@@ -63,25 +64,24 @@ const LandingPage = ({ auth }) => {
       <div className="hp4">
         <h2>
           Start your own debate or join someone else’s, and become a long term
-          “All-hail-Debatotron” member.
+          Debatotron member.
         </h2>
-        <img src={group} className="hp-debating-1" alt="debating..." />
+        <img src={group} className="hp-debating-1" alt="$" />
         <img src={gradient3} className="grad3" alt="" />
       </div>
       <div className="hp5">
         <h2>Search for people throughout the community.</h2>
         {loop ? (
-          "Any user you want!"
+          "Some person!"
         ) : (
           ""
         )}
         <h2>And find your comrades.</h2>
       </div>
       <div className="hp6">
-        <img src={group_debate} className="hp-debating-1" alt="group debate" />
+        <img src={group_debate} className="hp-debating-2" alt="group debate" />
         <h2>
-          Introducing private debates. Now it's only you vs your friends. Invite
-          as many friends as you want cause its time for a debate party.
+          Indulge in a private debate session with your friends and have a good time!
         </h2>
         <img src={gradient1} className="grad4" alt="" />
       </div>

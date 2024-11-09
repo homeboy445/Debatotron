@@ -55,7 +55,7 @@
 }
 .nav-menu > ul li {
   list-style: none;
-  font-size: 2.5rem;
+  font-size: 2rem;
   text-align: center;
   width: 100%;
   margin-bottom: 5%;
@@ -93,7 +93,7 @@
   position: absolute;
   top: 85%;
   z-index: 10000000;
-  left: 75%;
+  left: 65%;
   border: 10px solid white;
   border-radius: 100%;
   width: 70px;
@@ -124,4 +124,55 @@
   font-weight: 400;
 }
 
+@media (max-width: 900px) {
 
+  .nav-menu > ul {
+    top: 15%;
+    left: -15%;
+  }
+
+  .nav-menu > ul li {
+    font-size: 1.8rem;
+  }
+
+  .circle1 {
+    width: 90px;
+    height: 90px;
+  }
+
+  .circle2 {
+    width: 25px;
+    height: 25px;
+  }
+
+  .circle3 {
+    width: 65px;
+    height: 65px;
+  }
+}
+
+@media (max-width: 700px) {
+
+  .nav-menu > ul {
+    left: -24%;
+  }
+
+  .nav-menu > ul li {
+    font-size: 1.4rem;
+  }
+
+  .circle1 {
+    width: 60px;
+    height: 60px;
+  }
+
+  .circle2 {
+    width: 10px;
+    height: 10px;
+  }
+
+  .circle3 {
+    width: 40px;
+    height: 40px;
+  }
+}

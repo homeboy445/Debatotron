@@ -68,13 +68,13 @@ font-family: 'Open Sans', sans-serif; */
   align-items: center;
   overflow: hidden;
   margin-right: 3%;
-  border-radius: 50px;
-  width: 60px;
-  height: 60px;
+  border-radius: 50%;
+  width: 25%;
+  height: 70%;
 }
 .pf_image1 > img {
-  width: 60px;
-  height: 60px;
+  width: 70%;
+  height: 70%;
 }
 .feed_main {
   display: flex;
@@ -83,8 +83,6 @@ font-family: 'Open Sans', sans-serif; */
   align-items: center;
   width: 45%;
   margin-top: 6%;
-  margin-left: 25%;
-  margin-right: 25%;
 }
 .feed_card {
   background: white;
@@ -95,7 +93,7 @@ font-family: 'Open Sans', sans-serif; */
   margin: 1%;
   margin-top: 2%;
   margin-bottom: 2%;
-  min-width: 680px;
+  width: 500px;
   border-radius: 5px;
   padding: 2%;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
@@ -229,13 +227,13 @@ font-family: 'Open Sans', sans-serif; */
   align-items: center;
   overflow: hidden;
   margin-right: 5%;
-  border-radius: 50px;
-  width: 75px;
-  height: 70px;
+  border-radius: 50%;
+  width: 20%;
+  height: 70%;
 }
 .pf_image_fd > img {
-  width: 70px;
-  height: 70px;
+  width: 50%;
+  height: 50%;
 }
 .home_title {
   position: absolute;
@@ -451,13 +449,17 @@ font-family: 'Open Sans', sans-serif; */
     rgba(93, 50, 50, 0.2) 0 6px 15px 0, rgba(0, 0, 0, 0.1) 0 2px 2px 0,
     rgba(211, 50, 50, 0.3) 0 0 0 4px;
 }
+
 .pf_hover {
   transition: 0.3s ease;
   cursor: pointer;
+  font-size: 1.4rem;
 }
+
 .pf_hover:hover {
   color: rgb(108, 108, 233);
 }
+
 .emoji {
   display: flex;
   justify-content: left;
@@ -468,7 +470,7 @@ font-family: 'Open Sans', sans-serif; */
   display: flex;
   justify-content: left;
   align-items: left;
-  width: 60%;
+  width: 100%;
   margin-left: -5%;
 }
 .emoji > ul > li {
@@ -546,3 +548,42 @@ font-family: 'Open Sans', sans-serif; */
 .emj_catg > ul > li:hover {
   transform: scale(1.4);
 }
+
+@media (max-width: 1000px) {
+
+  .feed_card {
+    width: 400px;
+  }
+
+  .feed_x1 > h2 {
+    font-size: 1rem;
+  }
+
+  h3.pf_hover {
+    font-size: 1rem;
+  }
+
+  .emoji > ul > li {
+    font-size: 0.9rem;
+  }
+
+  .feed_card > h2 {
+    font-size: 1.2rem;
+  }
+
+  .feed_1 > h2, .feed_2 > h2 {
+    font-size: 1.2rem;
+  }
+
+  .feed_post_btn1, .feed_post_btn {
+    font-size: 75%;
+  }
+}
+
+@media (max-width: 800px) {
+  .feed_card {
+    width: 350px;
+  }
+}
+
+

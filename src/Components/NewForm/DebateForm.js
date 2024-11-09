@@ -79,7 +79,7 @@ const DebateForm = ({ ToggleDisplay }) => {
   }, [Main]);
 
   return (
-    <div className="deb_form">
+    <form className="deb_form" onSubmit={(e) => e.preventDefault()}>
       <h1>Start A New Debate</h1>
       <div className="deb_form_1">
         <input
@@ -87,11 +87,13 @@ const DebateForm = ({ ToggleDisplay }) => {
           placeholder="Your Debate Topic?"
           value={title}
           onChange={HandleTitle}
+          required={true}
         />
         <textarea
           placeholder="Provide description to your topic..."
           onChange={HandleDescription}
           value={Description}
+          required={true}
         ></textarea>
         <select
           value={category}
@@ -121,9 +123,9 @@ const DebateForm = ({ ToggleDisplay }) => {
         </select>
       </div>
       <div className="deb_fm_btn">
-        <button onClick={SendData}>Publish</button>
+        <button onClick={SendData} type="submit">Publish</button>
       </div>
-    </div>
+    </form>
   );
 };
 

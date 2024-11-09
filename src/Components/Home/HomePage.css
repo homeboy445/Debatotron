@@ -3,6 +3,7 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 /* font-family: 'Satisfy', cursive;
 font-family:'IBM Plex Mono', monospace;
 font-family: 'Kalam', cursive;
@@ -12,20 +13,28 @@ font-family: 'Rock Salt', cursive; */
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-position: center center;
+  background-repeat: no-repeat;
+  scroll-behavior: smooth;
 }
+
 .hp2-sub {
   display: flex;
   width: 100%;
+  justify-content: center;
+  align-items: center;
 }
+
 .hp_btn {
   display: flex;
   justify-content: right;
   align-items: right;
-  margin-top: 4%;
+  /* margin-top: 4%; */
   margin-right: 1%;
   max-height: 100px;
   width: 100%;
 }
+
 #register_btn {
   appearance: button;
   backface-visibility: hidden;
@@ -37,9 +46,9 @@ font-family: 'Rock Salt', cursive; */
   color: #fff;
   cursor: pointer;
   font-family: -apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif;
-  font-size: 1.9rem;
-  height: 40px;
-  line-height: 1.15;
+  font-size: 1.5rem;
+  height: 38px;
+  /* line-height: 1.15; */
   margin: 12px 0 0;
   outline: none;
   overflow: hidden;
@@ -52,15 +61,18 @@ font-family: 'Rock Salt', cursive; */
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  width: 20%;
+  /* width: 20%; */
   margin-right: 2%;
 }
+
 #register_btn:disabled {
   cursor: default;
 }
+
 #register_btn:focus {
   box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(50, 151, 211, .3) 0 0 0 4px;
 }
+
 #signin_btn {
   appearance: button;
   backface-visibility: hidden;
@@ -74,9 +86,9 @@ font-family: 'Rock Salt', cursive; */
   cursor: pointer;
   font-family: -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue",
     Ubuntu, sans-serif;
-  font-size: 1.9rem;
-  height: 40px;
-  line-height: 1.15;
+  font-size: 1.5rem;
+  height: 38px;
+  /* line-height: 1.15; */
   margin: 12px 0 0;
   outline: none;
   overflow: hidden;
@@ -89,40 +101,76 @@ font-family: 'Rock Salt', cursive; */
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  width: 20%;
+  /* width: 20%; */
 }
+
 #signin_btn:disabled {
   cursor: default;
 }
+
 #signin_btn:focus {
   box-shadow: rgba(59, 93, 50, 0.1) 0 0 0 1px inset,
     rgba(50, 93, 59, 0.2) 0 6px 15px 0, rgba(0, 0, 0, 0.1) 0 2px 2px 0,
     rgba(82, 211, 50, 0.3) 0 0 0 4px;
 }
+
 .hp2 {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: left;
+  flex-direction: column;
+  align-items: left;
+  z-index: 1; /* Ensures the content stays above the background image */
+}
+
+.hp2::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/src/Images/table.jpg"); /* Replace with your image URL */
+  /* background-size: 100vh 100%;
+  background-repeat: no-repeat;
+  background-position: right; */
+  opacity: 0.8; /* Adjust opacity (0.0 to 1.0) */
+  filter: blur(4px); /* Adjust blur (in pixels) */
+  z-index: -1; /* Ensures the background image stays behind the content */
+}
+
+
+/* .hp2 {
   display: flex;
   justify-content: left;
   flex-direction: column;
   align-items: left;
   width: 100%;
   min-height: 100vh;
-  background: url("/src/Images/table.jpg");
-}
+} */
+
 #title {
-  background: linear-gradient(
+  /* background: linear-gradient(
     to top,
     #fdeff9,
     #ec38bc,
     #7303c0,
     #03001e
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  background-repeat: repeat;
+  ); 
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  /* background-repeat: repeat;
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-size: 3rem;
+  -webkit-text-fill-color: transparent; */
+  font-size: 2rem;
   margin-left: 5%;
-  font-family: "Rock Salt", cursive;
+  font-family: "Montserrat", sans-serif;
+  color: yellow;
+  text-shadow: 2px 2px 2px green;
 }
+
 .hp2-1 {
   margin-top: 5%;
   display: flex;
@@ -131,38 +179,49 @@ font-family: 'Rock Salt', cursive; */
   align-items: left;
   margin-left: 10%;
 }
+
 .hp2 > .hp2-1 > h2 {
-  font-size: 4rem;
-  width: 60%;
-  color: white;
-  text-shadow: 3px 3px 3px black;
+  font-size: 2.5rem;
+  width: 45%;
   font-weight: bold;
-  font-family: "Libre Baskerville", serif;
+  font-family: "Roboto", sans-serif;
+  margin-left: -5%;
+  color: yellow;
+  text-shadow: 2px 2px 2px black;
 }
+
 .hp2 > .hp2-1 > h3 {
   font-size: 1.3rem;
   width: 60%;
-  color: white;
-  text-shadow: 2px 2px 2px black;
   font-weight: bold;
-  font-family: "Libre Baskerville", serif;
+  font-family: "Roboto", sans-serif;
+  margin-left: -5%;
+  color: yellow;
+  text-shadow: 1px 1px 1px black;
 }
+
 .hp-debating {
-  width: 50%;
+  width: 35%;
   height: 50%;
+  border-radius: 5px;
 }
+
 .hp3 {
   margin-top: 5%;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 }
+
 .hp3 > h2 {
-  width: 30%;
+  width: 45%;
   margin-left: 4%;
-  font-family: "Libre Baskerville", serif;
-  font-size: 2.5rem;
+  font-family: "Roboto", serif;
+  line-height: 45px;
+  font-size: 2rem;
 }
+
 .grad1 {
   position: absolute;
   width: 7%;
@@ -173,6 +232,7 @@ font-family: 'Rock Salt', cursive; */
   border-radius: 20px;
   opacity: 0.8;
 }
+
 .grad2 {
   position: absolute;
   width: 7%;
@@ -183,6 +243,7 @@ font-family: 'Rock Salt', cursive; */
   transform: rotate(10deg);
   border-radius: 20px;
 }
+
 .grad3 {
   position: absolute;
   width: 7%;
@@ -193,6 +254,7 @@ font-family: 'Rock Salt', cursive; */
   transform: rotate(10deg);
   border-radius: 20px;
 }
+
 .grad4 {
   position: absolute;
   width: 7%;
@@ -203,40 +265,56 @@ font-family: 'Rock Salt', cursive; */
   border-radius: 20px;
   opacity: 0.8;
 }
+
 .hp4 {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 6%;
+  height: 100vh;
 }
+
 .hp4 > h2 {
-  width: 30%;
+  width: 45%;
   margin-right: 6%;
-  font-family: "Libre Baskerville", serif;
-  font-size: 2.5rem;
+  font-family: "Roboto", serif;
+  line-height: 45px;
+  font-size: 2rem;
 }
+
 .hp-debating-1 {
-  width: 35%;
-  height: 35%;
+  width: 30%;
+  height: 60%;
+  border-radius: 5px;
 }
+
+.hp-debating-2 {
+  width: 35%;
+  height: 60%;
+  border-radius: 5px;
+}
+
 .hp5 {
   margin-top: 10%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  height: 100vh;
   width: 100%;
   background: url("/src/Images/people.jpg");
 }
+
 .hp5 > h2:nth-child(1) {
-  font-family: "Libre Baskerville", serif;
+  font-family: "Roboto", serif;
   font-size: 2.9rem;
   color: yellow;
   text-shadow: 2px 2px 2px black;
   background: rgba(0, 0, 0, 0.582);
   margin-bottom: 6%;
+  text-align: center;
 }
+
 .hp5 > h2:nth-child(3) {
   font-family: "Libre Baskerville", serif;
   font-size: 2.9rem;
@@ -254,18 +332,23 @@ font-family: 'Rock Salt', cursive; */
   color: white;
   border-radius: 4px;
 }
+
 .hp6 {
   margin-top: 5%;
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100vh;
 }
+
 .hp6 > h2 {
-  width: 30%;
+  width: 45%;
   margin-left: 10%;
-  font-family: "Libre Baskerville", serif;
-  font-size: 2.3rem;
+  font-family: "Roboto", serif;
+  line-height: 45px;
+  font-size: 2rem;
 }
+
 .hp7 {
   margin-top: 5%;
   display: flex;
@@ -295,3 +378,29 @@ font-family: 'Rock Salt', cursive; */
   transform: rotate(-90deg);
   position: fixed;
 }
+
+@media (max-width: 750px) {
+
+  #title {
+    font-size: 1.6rem;
+  }
+
+  #register_btn, #signin_btn {
+    font-size: 1.2rem;
+    height: 30px;
+    width: 20%;
+    box-sizing: content-box;
+  }
+
+  .hp2 > .hp2-1 > h2 {
+    font-size: 2.0rem;
+    width: 55%;
+  }
+
+  .hp2 > .hp2-1 > h3 {
+    font-size: 1.2rem;
+    width: 60%;
+  }
+
+}
+
