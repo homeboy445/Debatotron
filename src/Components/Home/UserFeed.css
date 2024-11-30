@@ -107,12 +107,14 @@ font-family: 'Open Sans', sans-serif; */
 .feed_x1 {
   display: flex;
   justify-content: space-between;
-  align-items: space-between;
+  align-items: center;
 }
 .feed_x1 > h2 {
   font-size: 1.5rem;
   font-weight: 300;
   margin-right: 1%;
+  font-size: 1.2rem;
+  width: 45%;
 }
 .usr_card1 {
   display: flex;
@@ -585,5 +587,3 @@ font-family: 'Open Sans', sans-serif; */
     width: 350px;
   }
 }
-
-

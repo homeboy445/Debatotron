@@ -127,7 +127,7 @@ const DebatePage = (props) => {
     const userType =
       debateInfo.publisher === item.byuser
         ? "Publisher"
-        : userStatus[item.byuser] === true
+        : userStatus[item.byuser] === 'true'
         ? "Supporter"
         : "Opponent";
     const body = (
@@ -139,9 +139,10 @@ const DebatePage = (props) => {
           borderLeft: "0.5px solid",
           marginLeft: `${level / 2}%`,
         }}
+        key={uuidv4()}
       >
-        <div key={index}>
-          <div className="card" key={index}>
+        <div>
+          <div className="card">
             <div className="card_usrInfo">
               <div className="card_pf">
                 <div className="profile-pic">
@@ -197,7 +198,7 @@ const DebatePage = (props) => {
                   ) : (
                     <img src={Heart} alt="Likes" />
                   )}
-                  <p>{item.likes}</p>
+                  <p>{item.likes || 0}</p>
                 </div>
                 <span id="bar-separators">|</span>
                 <p
@@ -216,14 +217,15 @@ const DebatePage = (props) => {
                 {getDateAndTime(new Date(item.madeon))}
                 <span id="bar-separators">|</span>
                 <div className="debate-supporter-state">
+                  {console.log("user status >> ", userStatus)}
                   <h2
                     style={{
                       color:
-                        debateInfo.publisher === item.byuser
+                      userType === "Publisher"
                           ? "#FFD700"
-                          : userStatus[item.byuser] === true
-                          ? "#405cf5"
-                          : "#e62e36",
+                          : userType === "Opponent"
+                          ? "#ff3d29"
+                          : "cyan",
                     }}
                   >
                     {userType}
@@ -462,6 +464,7 @@ const DebatePage = (props) => {
               });
             }
           }
+
           Main.toggleLoader(false);
         } catch (err) {
           if (err.response && err.response.status === 401) {
@@ -529,7 +532,7 @@ const DebatePage = (props) => {
         <div className="debate-info-section">
           <div className="debate-info-section_container-1">
             <div className="profile-pic publisher-dp">
-              <img src={Robot} />
+              <img src={Main.getAvatarImage(Main.userInfo[0].image)} />
             </div>
             <h2 className="publisher-title">{debateInfo.publisher}</h2>
             <span id="bar-separators">|</span>
@@ -553,27 +556,6 @@ const DebatePage = (props) => {
           <h2>User comments</h2>
           <div></div>
         </div>
-        {activeWindow !== null ? (
-          activeWindow === 2 ? (
-            <Participants
-              owner={debateInfo.publisher === Main.userInfo[0].name}
-              status={userStatus[Main.userInfo[0].name]}
-              participants={participants}
-              debateId={debateId}
-              name={Main.userInfo[0].name}
-              userId={Main.userInfo[0].id}
-              toggleBox={() => updateActiveWindow(null)}
-            />
-          ) : activeWindow === 3 ? (
-            <ReportUser
-              debateId={debateId}
-              owner={debateInfo.publisher}
-              userList={participantsData}
-              user={Main.userInfo[0]}
-              toggleBox={() => updateActiveWindow(null)}
-            />
-          ) : null
-        ) : null}
         {comments.length !== 0 ? (
           <div className="comment_store">
             {comments.map((item, index) => {
@@ -643,6 +625,28 @@ const DebatePage = (props) => {
           </button>
         </div>
       </div>
+      {activeWindow !== null ? (
+          activeWindow === 2 ? (
+            <Participants
+              owner={debateInfo.publisher === Main.userInfo[0].name}
+              status={userStatus[Main.userInfo[0].name]}
+              participants={participants}
+              debateId={debateId}
+              name={Main.userInfo[0].name}
+              userId={Main.userInfo[0].id}
+              toggleBox={() => updateActiveWindow(null)}
+              userInfo={Main.userInfo[0]}
+            />
+          ) : activeWindow === 3 ? (
+            <ReportUser
+              debateId={debateId}
+              owner={debateInfo.publisher}
+              userList={participantsData}
+              user={Main.userInfo[0]}
+              toggleBox={() => updateActiveWindow(null)}
+            />
+          ) : null
+        ) : null}
     </>
   );
 };

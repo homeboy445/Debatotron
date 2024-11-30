@@ -144,8 +144,8 @@ const App = () => {
             ToggleDisplayBox({ text: "", status: false });
           }, 4000);
         },
-        getAvatarAPI: (number) => {
-          return `https://api.dicebear.com/8.x/micah/svg?seed=${number}`;
+        getAvatarImage: (number) => {
+          return `https://api.dicebear.com/8.x/micah/svg?seed=${number || userInfo[0].image}`;
         }
       }}
     >

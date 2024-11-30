@@ -9,6 +9,7 @@
     "axios": "^0.21.1",
     "framer-motion": "^4.1.17",
     "js-cookie": "^2.2.1",
+    "moment": "^2.30.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-loader-spinner": "^4.0.0",

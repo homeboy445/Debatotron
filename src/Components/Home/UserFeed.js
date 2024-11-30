@@ -8,6 +8,7 @@ import AuthContext from "../../Contexts/AuthContext";
 import Robot from "../../Assets/Robot.png";
 import { CONTENT_TYPE } from "../enums/enums";
 import { throttle } from "../../Utility/utils";
+import moment from "moment";
 
 const UserFeed = () => {
   const Main = useContext(AuthContext);
@@ -312,7 +313,7 @@ const UserFeed = () => {
                   <div className="feed_x1">
                     <div className="usr_card1">
                       <div className="pf_image_fd">
-                        <img src={image} alt="" />
+                        <img src={Main.getAvatarImage(Math.random())} alt="" />
                       </div>
                       <h3
                         className="pf_hover"
@@ -323,10 +324,10 @@ const UserFeed = () => {
                         {item.user}
                       </h3>
                     </div>
-                    <h2>
+                    <h2 className="feed_time">
                       {new Date(item.publishedAt).toTimeString().slice(0, 5) +
                         " | " +
-                        new Date(item.publishedAt).toDateString()}
+                        moment(new Date(item.publishedAt), "YYYYMMDD").fromNow()}
                     </h2>
                   </div>
                   {item.type === 0 ? (

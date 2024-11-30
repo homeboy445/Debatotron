@@ -36,13 +36,13 @@ const JoinDebate = ({
     }
   }, [name, userInfo]);
 
-  const image = `https://avatars.dicebear.com/api/micah/${Math.random()}.svg`;
-
   return (
     <div className="JoinDeb">
       <div className="J_deb_inf">
         <div>
-          <img src={image} alt="" />
+          <div className="profile-pic">
+            <img src={Main.getAvatarImage(Main.userInfo[0].image)} alt="" />
+          </div>
           <h2>{name || "xyz"}</h2>
         </div>
         <h2>
@@ -51,6 +51,12 @@ const JoinDebate = ({
             new Date(publishedAt).toDateString() || "today"}
         </h2>
       </div>
+      <div style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-evenly",
+        width: "100%"
+      }}>
       <div className="J_deb_1">
         <div>
           <h1>{title || "How to be awesome?"}</h1>
@@ -64,6 +70,7 @@ const JoinDebate = ({
         <button onClick={() => UpdateParticipation(false)}>
           I'm against it
         </button>
+      </div>
       </div>
     </div>
   );

@@ -22,7 +22,7 @@
   background-size: cover;
 }
 .pf_img {
-  width: 35%;
+  width: 25%;
   border: 2px solid black;
   border-radius: 200px;
   overflow: hidden;
@@ -32,8 +32,8 @@
   flex-direction: column;
   justify-items: center;
   align-items: center;
-  margin-top: -30%;
-  margin-left: 20%;
+  /* margin-top: -30%; */
+  margin-left: 11%;
 }
 .pf_page_info {
   display: flex;
