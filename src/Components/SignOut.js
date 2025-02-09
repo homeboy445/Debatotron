@@ -26,7 +26,7 @@ const SignOut = () => {
     signOutUser();
   }, [navigate, serverURL]);
 
-  return null; // This component does not render anything
+  return <h2>Logging you out...</h2>; // This component does not render anything
 };
 
 export default SignOut;

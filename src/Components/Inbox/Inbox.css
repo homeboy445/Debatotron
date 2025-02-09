@@ -18,7 +18,6 @@ font-family: 'Urbanist', sans-serif; */
   width: 50%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   box-shadow: 1px 1px 1px black;
 }
@@ -62,7 +61,7 @@ font-family: 'Urbanist', sans-serif; */
   align-items: center;
 }
 .ibx-hdr1 > h1 {
-  font-size: 3.2rem;
+  font-size: 4rem;
   color: #1f4185;
 }
 .ibx-hdr1 > img {
