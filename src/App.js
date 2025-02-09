@@ -33,10 +33,8 @@ const App = () => {
     status: false,
   });
   const serverURL = process.env.REACT_APP_SERVER_URL ?? "http://localhost:3005";
-  console.log(">> ", process?.env);
 
   const refreshAccessToken = () => {
-    console.log("Refreshing token!");
     axios
       .post(`${serverURL}/refresh`, {
         refreshToken: sessionStorage.getItem("refreshToken"),
@@ -146,8 +144,8 @@ const App = () => {
             ToggleDisplayBox({ text: "", status: false });
           }, 4000);
         },
-        getAvatarAPI: (number) => {
-          return `https://api.dicebear.com/8.x/micah/svg?seed=${number}`;
+        getAvatarImage: (number) => {
+          return `https://api.dicebear.com/8.x/micah/svg?seed=${number || userInfo[0].image}`;
         }
       }}
     >

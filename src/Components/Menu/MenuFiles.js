@@ -68,6 +68,7 @@ const MenuFiles = () => {
               : 1,
           pointerEvents:
             globalContext.loading || globalContext.TutorialBox.status ? "none" : "all",
+          minHeight: "100vh"
         }}
       >
         <Routes>

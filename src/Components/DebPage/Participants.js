@@ -12,8 +12,6 @@ const Participants = ({
   toggleBox,
 }) => {
   const Main = useContext(AuthContext);
-  useEffect(() => {}, [name, participants]);
-
   return (
     <div className="partpnts">
       <h1>Participants</h1>
@@ -30,23 +28,25 @@ const Participants = ({
       )}
       <div className="pnt_1">
         <div>
-          {(participants[true] || ["No user's with this debate!"]).map(
+          {Array.isArray(participants[true]) && participants[true].length > 0 ? participants[true].map(
             (item) => {
-              const image = `https://avatars.dicebear.com/api/micah/${
-                item.image || Math.random()
-              }.svg`;
+              const image = Main.getAvatarImage(item.image);
               return (
                 <div key={item.name} className="nm_lne1">
                   {(participants[true] || []).length !== 0 ? (
-                    <img
-                      src={image}
-                      alt=""
-                      style={{
-                        background: "blue",
-                        margin: "1%",
-                        borderRadius: "10px",
-                      }}
-                    />
+                    <div
+                      className="profile-pic"
+                      style={{ background: "#405cf5" }}
+                    >
+                      <img
+                        src={image}
+                        alt=""
+                        style={{
+                          margin: "1%",
+                          borderRadius: "10px",
+                        }}
+                      />
+                    </div>
                   ) : null}
                   <h2
                     style={{
@@ -60,26 +60,28 @@ const Participants = ({
                 </div>
               );
             }
-          )}
+          ) : <h2 className="no_participants">No user's with this debate!</h2>}
         </div>
         <div>
-          {(participants[false] || ["No user's against this debate!"]).map(
+          {Array.isArray(participants[false]) && participants[false].length > 0 ? participants[false].map(
             (item, index) => {
-              const image = `https://avatars.dicebear.com/api/micah/${
-                item.image || Math.random()
-              }.svg`;
+              const image = Main.getAvatarImage(item.image);
               return (
                 <div key={index} className="nm_lne2">
                   {(participants[false] || []).length !== 0 ? (
-                    <img
-                      src={image}
-                      alt=""
-                      style={{
-                        background: "red",
-                        margin: "1%",
-                        borderRadius: "10px",
-                      }}
-                    />
+                    <div
+                      className="profile-pic"
+                      style={{ background: "#e62e36" }}
+                    >
+                      <img
+                        src={image}
+                        alt=""
+                        style={{
+                          margin: "1%",
+                          borderRadius: "10px",
+                        }}
+                      />
+                    </div>
                   ) : null}
                   <h2
                     style={{
@@ -96,7 +98,7 @@ const Participants = ({
                 </div>
               );
             }
-          )}
+          ) : <h2 className="no_participants">No user's against this debate!</h2>}
         </div>
       </div>
       <div className="ptp_btns">
@@ -109,7 +111,7 @@ const Participants = ({
                 {
                   debid: debateId,
                   id: userId,
-                  status: !status,
+                  status: status === "false" ? true : false,
                 },
                 Main.getAuthHeader()
               )

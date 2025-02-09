@@ -228,7 +228,7 @@ const ProfilePage = (props) => {
     }
   }, [debates, profile, friends, activity, Main]);
 
-  const image = Main.getAvatarAPI(profile.image || Math.random())
+  const image = Main.getAvatarImage(profile.image || Math.random())
   return (
     <div className="pf_page_main">
       <div
@@ -439,7 +439,7 @@ const ProfilePage = (props) => {
             ) : (
               <div className="pf_frds">
                 {friends.map((item) => {
-                  const image = Main.getAvatarAPI(item.profile_image || Math.random());
+                  const image = Main.getAvatarImage(item.profile_image || Math.random());
                   console.log("image API link: ", image);
                   return (
                     <div

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import "./Debpage.css";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
@@ -12,7 +12,6 @@ import HeartFill from "../../Images/filled_heart.svg";
 import Conversation from "../../Images/conversation.jpg";
 import Comment from "../../Images/comment.svg";
 import JoinDebate from "./JoinDebate";
-import DebDescription from "./DebDescription";
 import Participants from "./Participants";
 import ReportUser from "./ReportUser";
 import Robot from "../../Assets/Robot.png";
@@ -21,7 +20,8 @@ import { useLocation } from "react-router-dom";
 
 const DebatePage = (props) => {
   const location = useLocation();
-  const debateId = props.match?.params?.id || getLastPathSegment(location.pathname);
+  const debateId =
+    props.match?.params?.id || getLastPathSegment(location.pathname);
   const Main = useContext(AuthContext);
   const [comments, set_comments] = useState([]);
   const [IsReply, toggleIsReply] = useState({
@@ -64,7 +64,7 @@ const DebatePage = (props) => {
   };
 
   const isLiked = (commentid) => {
-    return liked.some(item => item === commentid);
+    return liked.some((item) => item === commentid);
   };
 
   const updateLike = (commentid, value) => {
@@ -89,12 +89,15 @@ const DebatePage = (props) => {
 
   const likeComment = (commentid, increment = 1) => {
     const updateCommentLikes = (commentArray, targetCommentId) => {
-      return commentArray.map(comment => {
+      return commentArray.map((comment) => {
         if (comment.commentid === targetCommentId) {
           comment.likes = Math.max(0, comment.likes + increment);
           setTimeout(() => updateLike(comment.commentid, comment.likes), 500);
         } else if (comment.replies) {
-          comment.replies = updateCommentLikes(comment.replies, targetCommentId);
+          comment.replies = updateCommentLikes(
+            comment.replies,
+            targetCommentId
+          );
         }
         return comment;
       });
@@ -121,19 +124,30 @@ const DebatePage = (props) => {
       return null;
     }
     const image = Robot;
+    const userType =
+      debateInfo.publisher === item.byuser
+        ? "Publisher"
+        : userStatus[item.byuser] === 'true'
+        ? "Supporter"
+        : "Opponent";
     const body = (
       <div
         className="Dp_comments"
         style={{
           opacity: activeWindow === null ? 1 : 0.6,
           pointerEvents: activeWindow === null ? "all" : "none",
+          borderLeft: "0.5px solid",
+          marginLeft: `${level / 2}%`,
         }}
+        key={uuidv4()}
       >
-        <div key={index}>
-          <div className="card" key={index} style={{ marginLeft: `${level}%` }}>
+        <div>
+          <div className="card">
             <div className="card_usrInfo">
               <div className="card_pf">
-                <img src={image} alt="" />
+                <div className="profile-pic">
+                  <img src={image} alt="" />
+                </div>
                 <h1
                   style={{ cursor: "pointer" }}
                   onClick={() =>
@@ -143,7 +157,7 @@ const DebatePage = (props) => {
                   {item.byuser || "User13345"}
                 </h1>
               </div>
-              <p
+              {/* <p
                 style={{
                   width: "20px",
                   height: "20px",
@@ -155,13 +169,10 @@ const DebatePage = (props) => {
                       : "#e62e36",
                   borderRadius: "100px",
                 }}
-              ></p>
+              ></p> */}
             </div>
             <div className="card_main">{item.comment}</div>
             <div className="card_main_1">
-              <div style={{ display: "flex" }}>
-                {getDateAndTime(new Date(item.madeon))}
-              </div>
               <div className="card_lst">
                 <div
                   className="lks"
@@ -187,8 +198,9 @@ const DebatePage = (props) => {
                   ) : (
                     <img src={Heart} alt="Likes" />
                   )}
-                  <p>{item.likes}</p>
+                  <p>{item.likes || 0}</p>
                 </div>
+                <span id="bar-separators">|</span>
                 <p
                   onClick={() => {
                     toggleIsReply({
@@ -201,6 +213,24 @@ const DebatePage = (props) => {
                 >
                   Reply
                 </p>
+                <span id="bar-separators">|</span>
+                {getDateAndTime(new Date(item.madeon))}
+                <span id="bar-separators">|</span>
+                <div className="debate-supporter-state">
+                  {console.log("user status >> ", userStatus)}
+                  <h2
+                    style={{
+                      color:
+                      userType === "Publisher"
+                          ? "#FFD700"
+                          : userType === "Opponent"
+                          ? "#ff3d29"
+                          : "cyan",
+                    }}
+                  >
+                    {userType}
+                  </h2>
+                </div>
               </div>
             </div>
           </div>
@@ -283,11 +313,14 @@ const DebatePage = (props) => {
     if (IsReply.index === -1) {
       return makeComment();
     }
-    const found = comments.reduce((acc, item) => {
-      if (acc.is) return acc;
-      const result = findParentComment(item, item.commentid);
-      return result.is ? result : acc;
-    }, { is: false });
+    const found = comments.reduce(
+      (acc, item) => {
+        if (acc.is) return acc;
+        const result = findParentComment(item, item.commentid);
+        return result.is ? result : acc;
+      },
+      { is: false }
+    );
 
     if (!found.is) {
       return;
@@ -370,33 +403,50 @@ const DebatePage = (props) => {
           Main.toggleLoader(true);
           updateStatus(true);
 
-          const debDataResponse = await axios.get(`${Main.serverURL}/getdebdata/${debateId}`, Main.getAuthHeader());
+          const debDataResponse = await axios.get(
+            `${Main.serverURL}/getdebdata/${debateId}`,
+            Main.getAuthHeader()
+          );
           if (!debDataResponse.data) {
             window.location.href = "/";
             return;
           }
           updateDebInfo(debDataResponse.data[0]);
 
-          const participationResponse = await axios.get(`${Main.serverURL}/getParticipation/${debateId}`, Main.getAuthHeader());
-          participationResponse.data.forEach(item => {
+          const participationResponse = await axios.get(
+            `${Main.serverURL}/getParticipation/${debateId}`,
+            Main.getAuthHeader()
+          );
+          participationResponse.data.forEach((item) => {
             if (item.username === Main.userInfo[0].name) {
               updateParticipation(true);
             }
           });
           hashUserStatus(participationResponse.data);
 
-          const commentsResponse = await axios.get(`${Main.serverURL}/getComments/${debateId}`, Main.getAuthHeader());
+          const commentsResponse = await axios.get(
+            `${Main.serverURL}/getComments/${debateId}`,
+            Main.getAuthHeader()
+          );
           set_comments(commentsResponse.data);
           refreshComments();
           updateStatus(true);
 
-          const likesResponse = await axios.get(`${Main.serverURL}/getLikes/${debateId}/${Main.userInfo[0].id}`, Main.getAuthHeader());
-          const likedComments = likesResponse.data.map(item => item.commentid);
+          const likesResponse = await axios.get(
+            `${Main.serverURL}/getLikes/${debateId}/${Main.userInfo[0].id}`,
+            Main.getAuthHeader()
+          );
+          const likedComments = likesResponse.data.map(
+            (item) => item.commentid
+          );
           console.log("##$$ ", likesResponse);
           set_likedQs(likedComments);
 
           if (isParticipant) {
-            const tutorialResponse = await axios.get(`${Main.serverURL}/tutorial/${Main.userInfo[0].name}`, Main.getAuthHeader());
+            const tutorialResponse = await axios.get(
+              `${Main.serverURL}/tutorial/${Main.userInfo[0].name}`,
+              Main.getAuthHeader()
+            );
             if (tutorialResponse.data[0].debatepage) {
               Main.updateTutorialBox({
                 title: "Get started with debating...",
@@ -404,7 +454,7 @@ const DebatePage = (props) => {
                   "Make a comment & start the conversation by clicking on the reply icon on the bottom right.",
                   "You can like any comment and can also report any user easily if they misbehave.",
                   "To mention a user, just do @username and the user will be alerted.",
-                                   "You can reply to any user by clicking on the reply button in the comment card.",
+                  "You can reply to any user by clicking on the reply button in the comment card.",
                   "You can also click any user's name to check their profile out.",
                 ],
                 status: true,
@@ -414,6 +464,7 @@ const DebatePage = (props) => {
               });
             }
           }
+
           Main.toggleLoader(false);
         } catch (err) {
           if (err.response && err.response.status === 401) {
@@ -440,110 +491,110 @@ const DebatePage = (props) => {
       updateParticipation={(v) => updateParticipation(v)}
     />
   ) : (
-    <div className="DebPage">
+    <>
       <div
-        className="Dp_catlg"
-        style={{
-          opacity: activeWindow === null ? 1 : 0.6,
-          pointerEvents: activeWindow === null ? "all" : "none",
-        }}
+        className={`DebPage ${
+          IsReply.is || activeWindow !== null ? "opacque" : ""
+        }`}
       >
-        <div className="Dp_ctg_stm">
-          <img
-            src={Statement}
-            alt="statement"
-            onClick={() => {
-              updateActiveWindow(1);
-            }}
-          />
-        </div>
-        <div className="Dp_ctg_usr">
-          <img
-            src={Users}
-            alt="Participants"
-            onClick={() => {
-              updateActiveWindow(2);
-            }}
-          />
-        </div>
         <div
-          className="Dp_ctg_alt"
-          onClick={() => {
-            updateActiveWindow(3);
-          }}
-        >
-          <img src={Alert} alt="Report" />
-        </div>
-        <div className="Dp_ctg_arw">
-          <img
-            src={Arrow}
-            alt="Homepage"
-            onClick={() => (window.location.href = "/OngoingDebs")}
-          />
-        </div>
-      </div>
-      {activeWindow !== null ? (
-        activeWindow === 1 ? (
-          <DebDescription
-            title={debateInfo.topic}
-            description={debateInfo.overview}
-            toggleBox={() => updateActiveWindow(null)}
-          />
-        ) : activeWindow === 2 ? (
-          <Participants
-            owner={debateInfo.publisher === Main.userInfo[0].name}
-            status={userStatus[Main.userInfo[0].name]}
-            participants={participants}
-            debateId={debateId}
-            name={Main.userInfo[0].name}
-            userId={Main.userInfo[0].id}
-            toggleBox={() => updateActiveWindow(null)}
-          />
-        ) : activeWindow === 3 ? (
-          <ReportUser
-            debateId={debateId}
-            owner={debateInfo.publisher}
-            userList={participantsData}
-            user={Main.userInfo[0]}
-            toggleBox={() => updateActiveWindow(null)}
-          />
-        ) : null
-      ) : null}
-      {comments.length !== 0 ? (
-        comments.map((item, index) => {
-          return <Comments item={item} index={index} level={3} />;
-        })
-      ) : (
-        <div
-          className="emp_conv"
+          className="Dp_catlg"
           style={{
             opacity: activeWindow === null ? 1 : 0.6,
             pointerEvents: activeWindow === null ? "all" : "none",
           }}
         >
-          <img src={Conversation} alt="" />
-          <h2>
-            Be the first to start the{" "}
-            <span
+          <div className="Dp_ctg_usr">
+            <img
+              src={Users}
+              alt="Participants"
               onClick={() => {
-                toggleIsReply({
-                  is: true,
-                  index: -1,
-                });
+                updateActiveWindow(2);
               }}
-            >
-              conversation
-            </span>
-            .
-          </h2>
+            />
+          </div>
+          <div
+            className="Dp_ctg_alt"
+            onClick={() => {
+              updateActiveWindow(3);
+            }}
+          >
+            <img src={Alert} alt="Report" />
+          </div>
+          <div className="Dp_ctg_arw">
+            <img
+              src={Arrow}
+              alt="Homepage"
+              onClick={() => (window.location.href = "/OngoingDebs")}
+            />
+          </div>
         </div>
-      )}
+        <div className="debate-info-section">
+          <div className="debate-info-section_container-1">
+            <div className="profile-pic publisher-dp">
+              <img src={Main.getAvatarImage(Main.userInfo[0].image)} />
+            </div>
+            <h2 className="publisher-title">{debateInfo.publisher}</h2>
+            <span id="bar-separators">|</span>
+            {getDateAndTime(new Date(debateInfo.publishedat))}
+          </div>
+          <h2>{debateInfo.topic}</h2>
+          <h3>{debateInfo.overview}</h3>
+          <button
+            className="add_comment_btn"
+            onClick={() => {
+              toggleIsReply({
+                is: true,
+                index: -1,
+              });
+            }}
+          >
+            Add Comment +
+          </button>
+        </div>
+        <div className="debate-section-comment-intro">
+          <h2>User comments</h2>
+          <div></div>
+        </div>
+        {comments.length !== 0 ? (
+          <div className="comment_store">
+            {comments.map((item, index) => {
+              return <Comments item={item} index={index} level={3} />;
+            })}
+          </div>
+        ) : (
+          <div
+            className="emp_conv"
+            style={{
+              opacity: activeWindow === null ? 1 : 0.6,
+              pointerEvents: activeWindow === null ? "all" : "none",
+            }}
+          >
+            <img src={Conversation} alt="" />
+            <h2>
+              Be the first to start the{" "}
+              <span
+                onClick={() => {
+                  toggleIsReply({
+                    is: true,
+                    index: -1,
+                  });
+                }}
+              >
+                conversation
+              </span>
+              .
+            </h2>
+          </div>
+        )}
+      </div>
       <div
         className="Dp_textBx"
         style={{
           position: "fixed",
           top: "35%",
           left: IsReply.is === true ? "40%" : "110%",
+          pointerEvents: "all !important",
         }}
       >
         <textarea
@@ -574,25 +625,29 @@ const DebatePage = (props) => {
           </button>
         </div>
       </div>
-      <div
-        className="comment"
-        style={{
-          opacity: IsReply.is === true ? 0 : 1,
-          pointerEvents: IsReply.is === true ? "none" : "all",
-        }}
-      >
-        <img
-          src={Comment}
-          alt="Comment"
-          onClick={() => {
-            toggleIsReply({
-              is: true,
-              index: -1,
-            });
-          }}
-        />
-      </div>
-    </div>
+      {activeWindow !== null ? (
+          activeWindow === 2 ? (
+            <Participants
+              owner={debateInfo.publisher === Main.userInfo[0].name}
+              status={userStatus[Main.userInfo[0].name]}
+              participants={participants}
+              debateId={debateId}
+              name={Main.userInfo[0].name}
+              userId={Main.userInfo[0].id}
+              toggleBox={() => updateActiveWindow(null)}
+              userInfo={Main.userInfo[0]}
+            />
+          ) : activeWindow === 3 ? (
+            <ReportUser
+              debateId={debateId}
+              owner={debateInfo.publisher}
+              userList={participantsData}
+              user={Main.userInfo[0]}
+              toggleBox={() => updateActiveWindow(null)}
+            />
+          ) : null
+        ) : null}
+    </>
   );
 };
 

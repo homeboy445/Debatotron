@@ -7,12 +7,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background:white;
   z-index:100000;
 }
 .register {
   display: flex;
   font-family: "Roboto", sans-serif;
+  width: 100%;
+  height: 100vh;
 }
 #rg_img_div {
   display: flex;
@@ -28,6 +29,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 .rg-mainer > div {
   display: flex;
@@ -48,6 +51,9 @@
   color: #0e51ff;
   cursor: pointer;
   text-decoration: none;
+}
+.registerForm > input {
+  background: transparent;
 }
 .rg-sel {
   display: flex;
@@ -101,5 +107,46 @@
 }
 .rg-btn:focus {
   box-shadow: rgba(92, 50, 93, 0.1) 0 0 0 1px inset, rgba(93, 50, 77, 0.2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(50, 151, 211, .3) 0 0 0 4px;
+}
+
+@media (max-width: 800px) {
+  #rg_img_div {
+    display: none;
+  }
+
+  .rg-mainer > div > h1 {
+    font-size: 2.2rem;
+  }
+
+  .rg-mainer > div > h3 {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .registerForm {
+    transform: scale(0.9);
+  }
+}
+
+@media (max-width: 500px) {
+
+  .rg-mainer > div > h1 {
+    font-size: 2rem;
+  }
+
+  .rg-mainer > div > h3 {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-top: 3%;
+  }
+
+  .registerForm {
+    margin-top: 25%;
+    transform: scale(1.2);
+  }
+
+  .registerForm > button {
+    margin-top: 10%;
+  }
 }
 

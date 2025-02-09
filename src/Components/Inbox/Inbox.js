@@ -228,15 +228,15 @@ const Inbox = () => {
         <div className="inbx-header">
           <div className="ibx-hdr1">
             <h1>Inbox</h1>
-            <img
+            {/* <img
               src={NotifStatus ? Notif_On : Notif_Off}
               onClick={() => {
                 ToggleNotif(!NotifStatus);
               }}
               alt=""
-            />
+            /> */}
           </div>
-          <div className="ibx-hdr2">
+          <div className="ibx-hdr2 hidden">
             <img src={Filter} alt="" />
             <img
               src={Empty}

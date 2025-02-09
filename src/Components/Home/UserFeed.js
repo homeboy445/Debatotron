@@ -5,9 +5,11 @@ import Empty from "../../Images/empty.jpg";
 import Tick from "../../Images/tick.svg";
 import AddEmoji from "../../Images/plus.png";
 import AuthContext from "../../Contexts/AuthContext";
-import Robot from "../../Assets/Robot.png";
-import { CONTENT_TYPE } from "../enums/enums";
+import { CONTENT_TYPE } from "../../enums/enums";
 import { throttle } from "../../Utility/utils";
+import { v4 as uuid } from "uuid";
+import moment from "moment";
+import Image from "../Sub_Components/ImageHandler/Image";
 
 const UserFeed = () => {
   const Main = useContext(AuthContext);
@@ -129,6 +131,7 @@ const UserFeed = () => {
   }, []);
 
   useEffect(() => {
+      console.log("this is working again!");
       if (!fetchStatus && Main.userInfo[0].id !== -1) {
         updateStatus(true);
         Main.toggleLoader(true);
@@ -190,21 +193,13 @@ const UserFeed = () => {
   return (
     <div className="feed">
       <h1
-        className="home_title"
-        style={{
-          opacity: postBox ? 0.5 : 1,
-          pointerEvents: postBox ? "none" : "all",
-        }}
+        className={`home_title ${postBox ? "opacque" : ""}`}
       >
         Debatotron
       </h1>
       <div className="feed_btns">
         <button
-          className="feed_post_btn"
-          style={{
-            opacity: postBox ? 0.5 : 1,
-            pointerEvents: postBox ? "none" : "all",
-          }}
+          className={`feed_post_btn ${postBox ? "opacque" : ""}`}
           onClick={() => togglepostBox(true)}
         >
           New Post +
@@ -283,12 +278,12 @@ const UserFeed = () => {
         {popularUsers.length > 0 ? (
           <div className="feed_1">
             <h2>Most Popular users</h2>
-            {popularUsers.map((item, index) => {
-              const image = Robot;
+            {popularUsers.map((item) => {
+              const imageUrl = Main.getAvatarImage(item.image || Math.random());
               return (
-                <div key={index} className="usr_card">
-                  <div className="pf_image1">
-                    <img src={image} alt="" />
+                <div key={uuid()} className="usr_card">
+                  <div className="profile-pic">
+                    <Image src={imageUrl} />
                   </div>
                   <h3
                     className="pf_hover"
@@ -306,13 +301,14 @@ const UserFeed = () => {
         <div className="feed_main">
           {feed.length > 0 ? (
             (feed || []).map((item, index) => {
-              const image = Robot;
+              const feedTime = new Date(item.publishedAt);
+              const imageUrl = Main.getAvatarImage(item.image || Math.random())
               return (
-                <div key={index} className="feed_card">
+                <div key={uuid()} className="feed_card">
                   <div className="feed_x1">
                     <div className="usr_card1">
-                      <div className="pf_image_fd">
-                        <img src={image} alt="" />
+                      <div className="profile-pic user-feed-pic">
+                        <Image src={imageUrl} />
                       </div>
                       <h3
                         className="pf_hover"
@@ -323,10 +319,10 @@ const UserFeed = () => {
                         {item.user}
                       </h3>
                     </div>
-                    <h2>
-                      {new Date(item.publishedAt).toTimeString().slice(0, 5) +
+                    <h2 className="feed_time">
+                      {feedTime.toTimeString().slice(0, 5) +
                         " | " +
-                        new Date(item.publishedAt).toDateString()}
+                        moment(feedTime, "YYYYMMDD").fromNow()}
                     </h2>
                   </div>
                   {item.type === 0 ? (
@@ -429,22 +425,6 @@ const UserFeed = () => {
                             ActiveEmojiIndex === index ? "all" : "none",
                         }}
                       >
-                        {/* <ul
-                          style={{
-                            marginTop:
-                              ActiveEmojiIndex === index ? "15%" : "5%",
-                            transform:
-                              ActiveEmojiIndex === index
-                                ? "scale(1)"
-                                : "scale(0)",
-                          }}
-                        >
-                          <li onClick={() => LikePost(index, "handsup")}>🙌</li>
-                          <li onClick={() => LikePost(index, "love")}>😍</li>
-                          <li onClick={() => LikePost(index, "laugh")}>😂</li>
-                          <li onClick={() => LikePost(index, "sleepy")}>🥱</li>
-                          <li onClick={() => LikePost(index, "like")}>👍</li>
-                        </ul> */}
                       </div>
                     </div>
                   </div>
@@ -481,14 +461,12 @@ const UserFeed = () => {
           <div className="feed_2">
             <h2>Top Debators</h2>
             {topContributors.map((item, index) => {
-              const image = `https://avatars.dicebear.com/api/micah/${
-                item.image || Math.random()
-              }.svg`;
-              return (
-                <div key={index} className="usr_card2">
+              const imageUrl = Main.getAvatarImage(item.image || Math.random());
+               return (
+                <div key={uuid()} className="usr_card2">
                   <h1>{index + 1}.</h1>
                   <div className="pf_image">
-                    <img src={image} alt="" />
+                    <Image src={imageUrl} />
                   </div>
                   <h3
                     className="pf_hover"
