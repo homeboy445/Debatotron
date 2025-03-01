@@ -34,6 +34,10 @@ const App = () => {
   });
   const serverURL = process.env.REACT_APP_SERVER_URL ?? "http://localhost:3005";
 
+  if (process.env.REACT_APP_SERVER_URL) {
+    console.log = () => {};
+  }
+
   const refreshAccessToken = () => {
     axios
       .post(`${serverURL}/refresh`, {
@@ -70,7 +74,7 @@ const App = () => {
           response = response.data;
           Change_Info(response);
           sessionStorage.setItem("username", response[0].name);
-          axios
+          return axios
             .get(`${serverURL}/friendslist/${response[0].name}`, {
               headers: {
                 Authorization: `Bearer ${sessionStorage.getItem(
@@ -88,11 +92,9 @@ const App = () => {
             });
         })
         .catch((err) => {
-          try {
-            if (err.response.status === 401) {
-              return refreshAccessToken();
-            }
-          } catch (e) {}
+          if (err.response.status === 401) {
+            return refreshAccessToken();
+          }
           toAuth(false);
           sessionStorage.clear();
           setTimeout(() => {
@@ -101,9 +103,11 @@ const App = () => {
               ToggleDisplayBox({ status: false, text: "" });
             }, 3000);
           }, 3000);
+          toggleLoader(false);
         });
     } else {
       toAuth(false);
+      toggleLoader(false);
     }
   }, [refreshed]);
 

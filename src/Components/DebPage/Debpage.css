@@ -595,7 +595,7 @@ span#bar-separators {
   transform: translate(-50%, -50%);
 }
 .partpnts img{
-  width: 22%;
+  padding: 5%;
 }
 .partpnts > h1{
   font-size: 2rem;
