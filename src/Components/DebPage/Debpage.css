@@ -13,7 +13,7 @@
   justify-content: right;
   align-items: right;
   width: 100%;
-  margin-left: -10%;
+  margin-left: -12%;
   margin-top: 1%;
 }
 .Dp_catlg > div {
@@ -117,7 +117,7 @@
   align-items: center;
   width: 80%;
   margin-top: 5%;
-  height: 50vh;
+  height: 30vh;
 }
 .debate-section-comment-intro > h2 {
   font-size: 2.5rem;
@@ -342,6 +342,7 @@ span#bar-separators {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  margin-top: -5%;
 }
 .emp_conv > img {
   width: 45%;
@@ -349,6 +350,7 @@ span#bar-separators {
 .emp_conv > h2 {
   font-size: 2rem;
   font-weight: 400;
+  font-family: 'Roboto';
 }
 .emp_conv > h2 > span {
   cursor: pointer;

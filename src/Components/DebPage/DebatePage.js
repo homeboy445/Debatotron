@@ -49,6 +49,8 @@ const DebatePage = (props) => {
   ]);
   const [userImageObj, updateUserImageObject] = useState({});
 
+  const shouldBlurBG = () => IsReply.is || activeWindow != null;
+
   const getDateAndTime = (date) => {
     let tdy = new Date();
     let diffdys = tdy - date;
@@ -127,15 +129,13 @@ const DebatePage = (props) => {
     const userType =
       debateInfo.publisher === item.byuser
         ? "Publisher"
-        : userStatus[item.byuser] === 'true'
+        : userStatus[item.byuser] === "true"
         ? "Supporter"
         : "Opponent";
     const body = (
       <div
         className="Dp_comments"
         style={{
-          opacity: activeWindow === null ? 1 : 0.6,
-          pointerEvents: activeWindow === null ? "all" : "none",
           borderLeft: "0.5px solid",
           marginLeft: `${level / 2}%`,
         }}
@@ -221,7 +221,7 @@ const DebatePage = (props) => {
                   <h2
                     style={{
                       color:
-                      userType === "Publisher"
+                        userType === "Publisher"
                           ? "#FFD700"
                           : userType === "Opponent"
                           ? "#ff3d29"
@@ -494,14 +494,15 @@ const DebatePage = (props) => {
     <>
       <div
         className={`DebPage ${
-          IsReply.is || activeWindow !== null ? "opacque" : ""
+          shouldBlurBG() ? "opacque" : ""
         }`}
       >
         <div
           className="Dp_catlg"
           style={{
-            opacity: activeWindow === null ? 1 : 0.6,
-            pointerEvents: activeWindow === null ? "all" : "none",
+            opacity: !shouldBlurBG() ? 1 : 0.6,
+            pointerEvents:
+              !shouldBlurBG() ? "all" : "none",
           }}
         >
           <div className="Dp_ctg_usr">
@@ -556,37 +557,39 @@ const DebatePage = (props) => {
           <h2>User comments</h2>
           <div></div>
         </div>
-        {comments.length !== 0 ? (
-          <div className="comment_store">
-            {comments.map((item, index) => {
-              return <Comments item={item} index={index} level={3} />;
-            })}
-          </div>
-        ) : (
-          <div
-            className="emp_conv"
-            style={{
-              opacity: activeWindow === null ? 1 : 0.6,
-              pointerEvents: activeWindow === null ? "all" : "none",
-            }}
-          >
-            <img src={Conversation} alt="" />
-            <h2>
-              Be the first to start the{" "}
-              <span
-                onClick={() => {
-                  toggleIsReply({
-                    is: true,
-                    index: -1,
-                  });
-                }}
-              >
-                conversation
-              </span>
-              .
-            </h2>
-          </div>
-        )}
+        <div
+          style={{
+            width: "100%",
+            opacity: !shouldBlurBG() ? 1 : 0.6,
+            pointerEvents: !shouldBlurBG() ? "all" : "none",
+          }}
+        >
+          {comments.length !== 0 ? (
+            <div className="comment_store">
+              {comments.map((item, index) => {
+                return <Comments item={item} index={index} level={3} />;
+              })}
+            </div>
+          ) : (
+            <div className="emp_conv">
+              <img src={Conversation} alt="" />
+              <h2>
+                Be the first to start the{" "}
+                <span
+                  onClick={() => {
+                    toggleIsReply({
+                      is: true,
+                      index: -1,
+                    });
+                  }}
+                >
+                  conversation
+                </span>
+                .
+              </h2>
+            </div>
+          )}
+        </div>
       </div>
       <div
         className="Dp_textBx"
@@ -626,27 +629,27 @@ const DebatePage = (props) => {
         </div>
       </div>
       {activeWindow !== null ? (
-          activeWindow === 2 ? (
-            <Participants
-              owner={debateInfo.publisher === Main.userInfo[0].name}
-              status={userStatus[Main.userInfo[0].name]}
-              participants={participants}
-              debateId={debateId}
-              name={Main.userInfo[0].name}
-              userId={Main.userInfo[0].id}
-              toggleBox={() => updateActiveWindow(null)}
-              userInfo={Main.userInfo[0]}
-            />
-          ) : activeWindow === 3 ? (
-            <ReportUser
-              debateId={debateId}
-              owner={debateInfo.publisher}
-              userList={participantsData}
-              user={Main.userInfo[0]}
-              toggleBox={() => updateActiveWindow(null)}
-            />
-          ) : null
-        ) : null}
+        activeWindow === 2 ? (
+          <Participants
+            owner={debateInfo.publisher === Main.userInfo[0].name}
+            status={userStatus[Main.userInfo[0].name]}
+            participants={participants}
+            debateId={debateId}
+            name={Main.userInfo[0].name}
+            userId={Main.userInfo[0].id}
+            toggleBox={() => updateActiveWindow(null)}
+            userInfo={Main.userInfo[0]}
+          />
+        ) : activeWindow === 3 ? (
+          <ReportUser
+            debateId={debateId}
+            owner={debateInfo.publisher}
+            userList={participantsData}
+            user={Main.userInfo[0]}
+            toggleBox={() => updateActiveWindow(null)}
+          />
+        ) : null
+      ) : null}
     </>
   );
 };
