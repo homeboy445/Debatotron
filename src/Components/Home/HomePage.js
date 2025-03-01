@@ -16,10 +16,10 @@ const LandingPage = ({ auth }) => {
   const [loop, varUpdate] = useState(1);
   const [scrollToTop, toggle] = useState(false);
 
-  console.log("toggled loader to be false!");
+  console.log("Homepage.js");
 
   useEffect(() => {
-    setTimeout(() => Main.toggleLoader(false), 1000);
+    Main.toggleLoader(false);
     window.onload = () => {
       scroll.scrollToTop();
     };

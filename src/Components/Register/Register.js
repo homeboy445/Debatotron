@@ -1,4 +1,5 @@
 import React, { useState, useRef, useContext } from "react";
+import Loader from "react-loader-spinner";
 import "./Register.css";
 import axios from "axios";
 import InputBox from "../Sub_Components/InputBox/InputBox";
@@ -11,6 +12,7 @@ const Register = ({ HandleAuth, Change_Display }) => {
   const [email_1, ChangeEmail] = useState("");
   const [password_1, ChangePassword] = useState("");
   const [answer_1, ChangeAns] = useState("");
+  const [isLoading, toggleLoader] = useState(false);
   const recovery_1 = useRef(null);
 
   setTimeout(() => Main.toggleLoader(false), 2000);
@@ -46,7 +48,8 @@ const Register = ({ HandleAuth, Change_Display }) => {
 
   const HandleSubmit = (event) => {
     event.preventDefault();
-    Main.toggleLoader(true);
+    //    Main.toggleLoader(true);
+    toggleLoader(true);
     axios
       .post(`${Main.serverURL}/register`, {
         user: name,
@@ -63,15 +66,14 @@ const Register = ({ HandleAuth, Change_Display }) => {
         }
       })
       .catch((err) => {
-        setTimeout(() => Main.toggleDisplayBox("Registration Failed!"), 2000);
+        toggleLoader(false);
+        Main.toggleDisplayBox("Registration Failed!");
       });
     ChangeAns("");
     ChangeEmail("");
     ChangeName("");
     ChangePassword("");
   };
-
-  window.deb = { Main };
 
   return (
     <div className="rg-wrapper">
@@ -127,7 +129,18 @@ const Register = ({ HandleAuth, Change_Display }) => {
               />
             </div>
             <button type="submit" className="rg-btn">
-              Create Account
+              {!isLoading ? (
+                "Create Account"
+              ) : (
+                <Loader
+                  type="TailSpin"
+                  color="#cccccc"
+                  height={30}
+                  width={50}
+                  timeout={60 * 1000 * 2}
+                  // strokeWidth={5} // Add this line to increase the border size
+                />
+              )}
             </button>
           </form>
         </div>
