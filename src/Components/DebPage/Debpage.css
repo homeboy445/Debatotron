@@ -591,7 +591,7 @@ span#bar-separators {
   position: fixed;
   background: whitesmoke;
   z-index: 101010;
-  width: 50%;
+  width: 30%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -641,8 +641,8 @@ span#bar-separators {
 }
 .ptp_btns{
   display: flex;
-  flex-direction: column;
-  width: 95%;
+  /* flex-direction: column; */
+  width: 75%;
   margin-bottom: 1%;
   height: 80px;
 }
@@ -673,6 +673,7 @@ span#bar-separators {
   -webkit-user-select: none;
   touch-action: manipulation;
   width: 100%;
+  margin-right: 5%;
 }
 .ptp_btns > button:nth-child(1):disabled {
   cursor: default;
@@ -722,7 +723,7 @@ span#bar-separators {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 50%;
+  width: 30%;
   border: 2px solid black;
   border-radius: 5px;
   background: whitesmoke;
@@ -740,16 +741,18 @@ span#bar-separators {
 .alt_pp > select{
   width: 60%;
   font-size: 2rem;
+  border-radius: 5px;
+  font-family: 'Roboto';
 }
 .alt_pp > h3 {
   text-align: center;
   font-size: 1.2rem;
   font-weight: 400;
-  margin-top: 2%;
+  margin-top: 5%;
+  font-family: 'Roboto';
 }
 .alt_pp_btns{
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-top: 2%;
@@ -783,6 +786,7 @@ span#bar-separators {
   -webkit-user-select: none;
   touch-action: manipulation;
   width: 100%;
+  margin-right: 5%;
 }
 .alt_pp_btns > button:nth-child(1):disabled {
   cursor: default;

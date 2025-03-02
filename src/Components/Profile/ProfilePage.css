@@ -96,11 +96,11 @@
 .pf_debs {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
   padding: 2%;
-  min-height: 200px;
+  min-height: 400px;
 }
 .pf_card,
 .pf_card1 {
@@ -154,20 +154,22 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 200px;
+  height: 400px;
 }
 .pf_empty > img {
   width: 30%;
 }
 .pf_empty > h2 {
-  font-size: 5rem;
+  font-size: 4rem;
+  margin-top: -10%;
 }
 .pf_activity {
   min-height: 400px;
   display: flex;
-  flex-direction: column;
+  flex-direction: flex-start;
   justify-content: left;
   align-items: left;
+  overflow-y: scroll;
 }
 .pf_save {
   background: whitesmoke;

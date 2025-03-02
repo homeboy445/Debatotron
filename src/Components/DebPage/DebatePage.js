@@ -51,6 +51,14 @@ const DebatePage = (props) => {
 
   const shouldBlurBG = () => IsReply.is || activeWindow != null;
 
+  const getParentContainerStyles = () => {
+    return {
+      opacity: !shouldBlurBG() ? 1 : 0.4,
+      pointerEvents:
+        !shouldBlurBG() ? "all" : "none",
+    };
+  }
+
   const getDateAndTime = (date) => {
     let tdy = new Date();
     let diffdys = tdy - date;
@@ -449,7 +457,7 @@ const DebatePage = (props) => {
             );
             if (tutorialResponse.data[0].debatepage) {
               Main.updateTutorialBox({
-                title: "Get started with debating...",
+                title: "Get started with debating.",
                 contents: [
                   "Make a comment & start the conversation by clicking on the reply icon on the bottom right.",
                   "You can like any comment and can also report any user easily if they misbehave.",
@@ -499,11 +507,7 @@ const DebatePage = (props) => {
       >
         <div
           className="Dp_catlg"
-          style={{
-            opacity: !shouldBlurBG() ? 1 : 0.6,
-            pointerEvents:
-              !shouldBlurBG() ? "all" : "none",
-          }}
+          style={getParentContainerStyles()}
         >
           <div className="Dp_ctg_usr">
             <img
@@ -560,8 +564,7 @@ const DebatePage = (props) => {
         <div
           style={{
             width: "100%",
-            opacity: !shouldBlurBG() ? 1 : 0.6,
-            pointerEvents: !shouldBlurBG() ? "all" : "none",
+            ...getParentContainerStyles()
           }}
         >
           {comments.length !== 0 ? (

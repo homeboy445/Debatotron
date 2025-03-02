@@ -98,7 +98,7 @@ const OngoingDebs = () => {
                 pointerEvents: settings ? "all" : "none",
                 transform: settings
                   ? "translate(0%, 0%)"
-                  : "translate(20%, -20%)",
+                  : "translate(10%, -10%)",
                 transition: "0.4s ease",
               }}
             >

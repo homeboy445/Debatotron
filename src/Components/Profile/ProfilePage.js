@@ -106,7 +106,7 @@ const ProfilePage = (props) => {
         });
       })
       .catch((err) => {
-        if (err.response.status === 401) {
+        if (err?.response?.status === 401) {
           Main.refresh();
         }
       });
@@ -186,7 +186,7 @@ const ProfilePage = (props) => {
                             return;
                           }
                           Main.updateTutorialBox({
-                            title: "Some Editing tips...",
+                            title: "Some Editing tips!",
                             contents: [
                               "This is your profile page, you can check the user info here.",
                               "To edit your about, just double click on the about sentence and change it.",

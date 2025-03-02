@@ -56,6 +56,7 @@
     padding: 2%;
     z-index: 100001;
     background: whitesmoke;
+    font-family: 'Roboto';
 }
 .tut_bx > h1 {
     font-size: 2rem;
@@ -69,6 +70,7 @@
     flex-direction: column;
     justify-content: left;
     align-items: left;
+    padding: 5%;
 }
 .tut_bx > ul > li {
     margin-top: 0.5%;
@@ -78,17 +80,18 @@
 .tut_bx_tick {
     display: flex;
     justify-content: right;
-    align-items: right;
+    align-items: center;
     width: 100%;
 }
 .tut_bx_tick > input[type="checkbox"] {
     cursor: pointer;
     transform: scale(1.2);
-    margin-top: 6.5%;
-    margin-right: 2%;
+    margin-right: 1%;
 }
 .tut_bx_tick > h3 {
     font-weight: 300;
+    margin: 0;
+    font-family: 'Roboto';
 }
 .tut_bx > button {
   appearance: button;
