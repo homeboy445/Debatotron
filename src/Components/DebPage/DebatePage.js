@@ -133,13 +133,13 @@ const DebatePage = (props) => {
     if (typeof item === undefined) {
       return null;
     }
-    const image = Robot;
     const userType =
       debateInfo.publisher === item.byuser
         ? "Publisher"
         : userStatus[item.byuser] === "true"
         ? "Supporter"
         : "Opponent";
+    const image = Main.getAvatarImage(userType === "Publisher" ? Main.userInfo[0].image : userImageObj[item.userid]);
     const body = (
       <div
         className="Dp_comments"
@@ -165,19 +165,6 @@ const DebatePage = (props) => {
                   {item.byuser || "User13345"}
                 </h1>
               </div>
-              {/* <p
-                style={{
-                  width: "20px",
-                  height: "20px",
-                  background:
-                    debateInfo.publisher === item.byuser
-                      ? "#FFD700"
-                      : userStatus[item.byuser] === true
-                      ? "#405cf5"
-                      : "#e62e36",
-                  borderRadius: "100px",
-                }}
-              ></p> */}
             </div>
             <div className="card_main">{item.comment}</div>
             <div className="card_main_1">
@@ -225,7 +212,6 @@ const DebatePage = (props) => {
                 {getDateAndTime(new Date(item.madeon))}
                 <span id="bar-separators">|</span>
                 <div className="debate-supporter-state">
-                  {console.log("user status >> ", userStatus)}
                   <h2
                     style={{
                       color:
@@ -447,7 +433,6 @@ const DebatePage = (props) => {
           const likedComments = likesResponse.data.map(
             (item) => item.commentid
           );
-          console.log("##$$ ", likesResponse);
           set_likedQs(likedComments);
 
           if (isParticipant) {
