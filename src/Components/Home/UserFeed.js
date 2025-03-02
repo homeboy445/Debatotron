@@ -25,7 +25,7 @@ const UserFeed = () => {
   const scrollRef = useRef(null);
 
   const LikePost = (index, typeoflike) => {
-    let currentFeed = [...feed]; // Destructing the feed array, so as trigger the re-render!
+    let currentFeed = [...feed]; // Destructing the feed array, so as to trigger the re-render!
     let currentLastLiked = [...lastLiked]; // Destructing the lastLiked array
 
     if (currentLastLiked[index] === typeoflike) {
