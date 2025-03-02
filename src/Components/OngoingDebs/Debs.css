@@ -148,8 +148,8 @@
 .settings_1{
     border: 2px solid black;
     position: absolute;
-    top: 12%;
-    right: 19%;
+    top: 10%;
+    right: 17%;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     border-top-left-radius: 10px;
@@ -197,7 +197,6 @@
 .deb_container {
     padding: 1%;
     padding-bottom: 15%;
-    margin-bottom: 2%;
 }
 .deb_empty {
     display: flex;

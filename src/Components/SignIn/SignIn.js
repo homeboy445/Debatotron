@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import InputBox from "../Sub_Components/InputBox/InputBox";
+import Loader from "react-loader-spinner";
 import signin_Image from "../../Images/signin.jpg";
 import axios from "axios";
 import "./SignIn.css";
@@ -10,8 +11,7 @@ const SignIn = ({ HandleAuth, Change_Display }) => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [stat, set] = useState("");
-
-  setTimeout(() => Main.toggleLoader(false), 2000);
+  const [isLoading, toggleLoader] = useState(false);
 
   const HandleName = (e) => {
     setName(e.target.value.trim());
@@ -24,7 +24,8 @@ const SignIn = ({ HandleAuth, Change_Display }) => {
     if (!(name.trim() && password.trim())) {
       return;
     }
-    Main.toggleLoader(true);
+    toggleLoader(true);
+    // Main.toggleLoader(true);
     axios
       .post(`${Main.serverURL}/signin`, {
         email: name,
@@ -38,18 +39,13 @@ const SignIn = ({ HandleAuth, Change_Display }) => {
         window.location.href = "/";
       })
       .catch((err) => {
+        toggleLoader(false);
         try {
           if (err.response.status === 401) {
-            return setTimeout(
-              () => Main.toggleDisplayBox("Wrong credentials!"),
-              2000
-            );
+            return Main.toggleDisplayBox("Wrong credentials!");
           }
         } catch (e) {}
-        setTimeout(
-          () => Main.toggleDisplayBox("Error! please try again."),
-          2000
-        );
+        Main.toggleDisplayBox("Error! please try again.");
       });
     setName("");
     setPassword("");
@@ -80,7 +76,18 @@ const SignIn = ({ HandleAuth, Change_Display }) => {
             <div className="sg-flx">
               <a href="/fp">Forgot password?</a>
               <button type="submit" className="sg-btn">
-                Sign In
+                {!isLoading ? (
+                  "Sign In"
+                ) : (
+                  <Loader
+                    type="TailSpin"
+                    color="#cccccc"
+                    height={30}
+                    width={50}
+                    timeout={60 * 1000 * 2}
+                    // strokeWidth={5} // Add this line to increase the border size
+                  />
+                )}
               </button>
             </div>
           </form>
