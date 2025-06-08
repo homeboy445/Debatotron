@@ -1,51 +1,77 @@
-<h1 style="text-align:center;">The Debatotron</h1>
+# The Debatotron
 
-<h3>The one & only platform you need to create & participate in a professional debates. Creating & participating in debates has never been this fun. Go along and have heated discussion with your friends and strangers and have a lot of fun in the process. Join now!</h3>
+**The only platform you’ll ever need to create and participate in professional debates!**  
+Debating has never been this fun—host or join engaging discussions with friends or strangers and enjoy every moment. Ready to make your voice heard? **Join now and experience the ultimate debating platform!**
 
-<h2>Features</h2>
-<h4>✔ Whether it's the world or it's your friends, never miss any update on what's going on with the main feed. The world's your stage and you're the performer, let everyone know what you're upto and befriend the world. Make post or just read someone else's, and never miss out on the fun! (pro-tip: if you want to be the top debater make more and more debates.) </h4>
+---
+
+## Features
+
+### Live Main Feed
+
+Stay updated with what's happening in the world or within your friend circle. The main feed is your stage—post updates, read others’ thoughts, and never miss out on the action.  
+_Pro tip: Want to be a top debater? Create more debates!_
 
 ![deb5](https://user-images.githubusercontent.com/61937872/142869198-90cad289-3b3e-4b4b-935e-c47106222e4d.PNG)
 
-<br/>
+---
 
-<h4> ✔ Start your own debate! Now, you don't have to worry about putting your opinion upfront to the world. </h4>
+### Start Your Own Debate
+
+Don’t hesitate to put your opinion out there. Initiate a new debate and invite others to join the conversation!
 
 ![deb_2](https://user-images.githubusercontent.com/61937872/142755263-123b2449-51b0-491f-9349-8aa8f383ae2f.PNG)
 
-<br/>
+---
 
-<h4> ✔ Never miss out on any debate. Checkout any debate from the catalogue. </h4>
+### Browse & Join Debates
+
+Explore a wide catalogue of ongoing debates. Find topics that interest you and jump right in!
 
 ![deb_3](https://user-images.githubusercontent.com/61937872/142755268-9ed2bd39-533c-4028-8b8a-1d507f6d8ae6.PNG)
 
-<br/>
+---
 
-<h4> ✔ PICK YOUR SIDE! </h4>
+### Pick Your Side
+
+Every debate has two sides. Choose yours and defend it with passion!
 
 ![deb_7](https://user-images.githubusercontent.com/61937872/142755321-f139b4d0-98c2-4076-ae25-682181f39bb4.PNG)
 
-<br/>
+---
 
-<h4> ✔ Talk your heart out. Have a heated argument and ENJOY! </h4>
+### Express Yourself Freely
 
-![deb_4](https://user-images.githubusercontent.com/61937872/142755331-55355fd0-875a-4c9a-a4f1-16280bb25e04.PNG)
+Engage in lively discussions and let your arguments shine. Enjoy healthy, heated debates!
 
-<br/>
+![deb-page](https://github.com/user-attachments/assets/376d210c-cc37-456b-950d-a05e7f51b64d)
 
-<h4> ✔ Never miss out on any update be it a friend request or a mention or a message... the list goes on. Inbox is here to your rescue. </h4>
+---
+
+### Stay Notified
+
+Never miss a thing—get real-time updates for friend requests, mentions, messages, and more. Your inbox is always there for you.
 
 ![deb_5](https://user-images.githubusercontent.com/61937872/142755335-110607ad-bd38-407e-a53b-cb120e8dd4d0.PNG)
 
-<br/>
+---
 
-<h4> ✔ PROFILE PAGE. Well, it needs no Intro...😎 </h4>
+### Customizable Profile Page
 
-![deb_6](https://user-images.githubusercontent.com/61937872/142755340-6abc993a-3d1d-438c-8944-3ddf84c47caf.PNG)
+Personalize your profile to represent yourself just the way you want.
 
-<br />
+![profile-deb](https://github.com/user-attachments/assets/35a429b3-d92c-499e-a492-2a9832a673e9)
 
-<h3> ✔ Bonus Feature: Make friends by sending users friend requests & also message them whenever you want </h3>
+---
 
-<h2>Join In & Experience the Ultimate Debating experience...</h2>
-<h3>umm... & please provide feedback also😁, Thanks!
+### Bonus Feature: Make Friends & Chat Freely
+
+Send friend requests to other users and message them anytime—build your debating network!
+
+![friend](https://github.com/user-attachments/assets/8af9bb67-f1aa-4d2e-859d-3fabd63437ef)
+
+---
+
+## Join & Experience the Ultimate Debating Platform!
+
+**We’d love your feedback 😁 – Thanks for being a part of The Debatotron!**
